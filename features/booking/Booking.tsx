@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { motion } from 'framer-motion'
 import Image from 'next/image'
 import { useTranslations } from '@/features/i18n/useTranslations'
@@ -19,22 +19,54 @@ const bookedTimes = [
 ]
 
 const workingHours = Array.from({ length: 9 }, (_, i) => i + 9) // 9 to 17
+const MAX_MONTH_OFFSET = 5
 
 export function Booking() {
   const t = useTranslations()
   const [selectedDate, setSelectedDate] = useState<string>('')
   const [selectedTime, setSelectedTime] = useState<string>('')
+  const [monthOffset, setMonthOffset] = useState(0)
 
-  const getAvailableDates = () => {
-    const dates: string[] = []
-    const today = new Date()
-    for (let i = 0; i < 30; i++) {
-      const date = new Date(today)
-      date.setDate(today.getDate() + i)
-      if (date.getDay() !== 0 && date.getDay() !== 6) { // Exclude weekends
-        dates.push(date.toISOString().split('T')[0])
-      }
+  const today = useMemo(() => new Date(), [])
+  const normalizedToday = useMemo(
+    () => new Date(today.getFullYear(), today.getMonth(), today.getDate()),
+    [today]
+  )
+
+  const getAvailableDates = (startMonthDate: Date) => {
+    const dates: Array<{
+      date: string
+      offset: number
+      isOutsideViewMonth: boolean
+    }> = []
+
+    const cursor = new Date(startMonthDate)
+    if (cursor < normalizedToday) {
+      cursor.setFullYear(normalizedToday.getFullYear(), normalizedToday.getMonth(), normalizedToday.getDate())
     }
+
+    while (dates.length < 30) {
+      const monthDiff =
+        (cursor.getFullYear() - today.getFullYear()) * 12 + (cursor.getMonth() - today.getMonth())
+
+      if (monthDiff > MAX_MONTH_OFFSET) {
+        break
+      }
+
+      const isWeekend = cursor.getDay() === 0 || cursor.getDay() === 6
+      if (!isWeekend) {
+        dates.push({
+          date: cursor.toISOString().split('T')[0],
+          offset: monthDiff,
+          isOutsideViewMonth:
+            cursor.getMonth() !== startMonthDate.getMonth() ||
+            cursor.getFullYear() !== startMonthDate.getFullYear(),
+        })
+      }
+
+      cursor.setDate(cursor.getDate() + 1)
+    }
+
     return dates
   }
 
@@ -50,7 +82,30 @@ export function Booking() {
     setSelectedTime(time)
   }
 
-  const availableDates = getAvailableDates()
+  const currentMonthDate = useMemo(
+    () => new Date(today.getFullYear(), today.getMonth() + monthOffset, 1),
+    [today, monthOffset]
+  )
+
+  const availableDates = useMemo(
+    () => getAvailableDates(currentMonthDate),
+    [currentMonthDate]
+  )
+
+  useEffect(() => {
+    if (!availableDates.some(({ date }) => date === selectedDate)) {
+      setSelectedDate('')
+      setSelectedTime('')
+    }
+  }, [availableDates, selectedDate])
+
+  const handleDateSelect = (date: string, offset: number) => {
+    setSelectedDate(date)
+    setSelectedTime('')
+    if (offset !== monthOffset) {
+      setMonthOffset(offset)
+    }
+  }
 
   return (
     <section id="booking" className={styles.booking}>
@@ -76,9 +131,33 @@ export function Booking() {
             transition={{ duration: 0.6 }}
           >
             <div className={styles.calendar}>
+              <div className={styles.monthNav}>
+                <button
+                  type="button"
+                  className={styles.navButton}
+                  onClick={() => setMonthOffset(prev => Math.max(0, prev - 1))}
+                  disabled={monthOffset === 0}
+                  aria-label="Предишен месец"
+                >
+                  ← Предишен
+                </button>
+                <div className={styles.monthLabel}>
+                  {currentMonthDate.toLocaleDateString('bg-BG', { month: 'long', year: 'numeric' })}
+                </div>
+                <button
+                  type="button"
+                  className={styles.navButton}
+                  onClick={() => setMonthOffset(prev => Math.min(MAX_MONTH_OFFSET, prev + 1))}
+                  disabled={monthOffset === MAX_MONTH_OFFSET}
+                  aria-label="Следващ месец"
+                >
+                  Следващ →
+                </button>
+              </div>
+
               <h3 className={styles.calendarTitle}>Изберете дата / Select Date</h3>
               <div className={styles.datesGrid}>
-                {availableDates.map((date) => {
+                {availableDates.map(({ date, isOutsideViewMonth, offset }) => {
                   const dateObj = new Date(date)
                   const isSelected = selectedDate === date
                   const isToday = date === new Date().toISOString().split('T')[0]
@@ -87,8 +166,8 @@ export function Booking() {
                     <button
                       key={date}
                       type="button"
-                      className={`${styles.dateButton} ${isSelected ? styles.selected : ''} ${isToday ? styles.today : ''}`}
-                      onClick={() => setSelectedDate(date)}
+                      className={`${styles.dateButton} ${isSelected ? styles.selected : ''} ${isToday ? styles.today : ''} ${isOutsideViewMonth ? styles.outsideMonth : ''}`}
+                      onClick={() => handleDateSelect(date, offset)}
                     >
                       <span className={styles.day}>{dateObj.getDate()}</span>
                       <span className={styles.month}>

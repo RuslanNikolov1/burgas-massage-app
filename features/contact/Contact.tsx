@@ -2,8 +2,29 @@
 
 import { motion } from 'framer-motion'
 import Image from 'next/image'
+import type { ComponentType } from 'react'
+import {
+  FacebookLogo,
+  InstagramLogo,
+  PhoneCall,
+  MessengerLogo,
+  ChatsCircle,
+  LinkSimple,
+  type IconProps,
+} from 'phosphor-react'
 import { useTranslations } from '@/features/i18n/useTranslations'
 import styles from './Contact.module.scss'
+
+const iconColor = '#d1b272'
+const iconSize = 34
+
+const ICON_MAP: Record<string, ComponentType<IconProps>> = {
+  facebook: FacebookLogo,
+  instagram: InstagramLogo,
+  phone: PhoneCall,
+  messenger: MessengerLogo,
+  viber: ChatsCircle,
+}
 
 const contactLinks = [
   { type: 'facebook', url: '#', label: 'Facebook' },
@@ -16,26 +37,25 @@ const contactLinks = [
 export function Contact() {
   const t = useTranslations()
 
-  const getIcon = (type: string) => {
-    switch (type) {
-      case 'facebook':
-        return '📘'
-      case 'instagram':
-        return '📷'
-      case 'phone':
-        return '📞'
-      case 'messenger':
-        return '💬'
-      case 'viber':
-        return '💜'
-      default:
-        return '🔗'
-    }
+  const renderIcon = (type: string) => {
+    const IconComponent = ICON_MAP[type] || LinkSimple
+    return <IconComponent size={iconSize} color={iconColor} weight="duotone" aria-hidden />
   }
 
   return (
     <section id="contact" className={styles.contact}>
       <div className="container">
+        <a className={styles.cashBadge} href="tel:+359888123456" aria-label="Позвънете на +359 888 123 456">
+          <Image
+            src="/city-cash.png"
+            alt=""
+            width={140}
+            height={140}
+            className={styles.cashImage}
+            priority={false}
+          />
+          <span className={styles.cashPhone}>+359 888 123 456</span>
+        </a>
         <motion.h2
           className="section-title"
           initial={{ opacity: 0, y: -20 }}
@@ -84,7 +104,7 @@ export function Contact() {
                   whileTap={{ scale: 0.95 }}
                   aria-label={link.label}
                 >
-                  <span className={styles.icon}>{getIcon(link.type)}</span>
+                  <span className={styles.icon}>{renderIcon(link.type)}</span>
                   <span className={styles.label}>{link.label}</span>
                 </motion.a>
               ))}

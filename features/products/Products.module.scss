@@ -9,12 +9,44 @@
   }
 }
 
+.intro {
+  display: flex;
+  align-items: center;
+  gap: 40px;
+  justify-content: center;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+}
+
+.introImage {
+  flex-shrink: 0;
+  border: 2px solid rgba(209, 178, 114, 0.4);
+  border-radius: 24px;
+  overflow: hidden;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.35);
+  margin-bottom: 40px;
+
+  @media (max-width: 768px) {
+    max-width: 320px;
+  }
+}
+
+.womanImage {
+  display: block;
+  width: 55vw;
+  height: 43vh;
+}
+
 .grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 20px;
   
-  @media (max-width: 768px) {
+  @media (max-width: 1024px) {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  
+  @media (max-width: 640px) {
     grid-template-columns: 1fr;
     gap: 15px;
   }
@@ -27,6 +59,8 @@
   overflow: hidden;
   display: flex;
   flex-direction: column;
+  max-width: 320px;
+  margin: 0 auto;
   transition: all 0.3s ease;
   
   &:hover {
@@ -38,7 +72,7 @@
 
 .imagePlaceholder {
   width: 100%;
-  aspect-ratio: 4/3;
+  aspect-ratio: 3 / 2;
   background: linear-gradient(135deg, rgba(209, 178, 114, 0.1) 0%, rgba(209, 178, 114, 0.05) 100%);
   display: flex;
   align-items: center;

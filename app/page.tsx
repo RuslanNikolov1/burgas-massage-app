@@ -15,16 +15,32 @@ const About = dynamic(
   }
 )
 
-const Pricing = dynamic(
-  () => import('@/features/pricing/Pricing').then(mod => ({ default: mod.Pricing })),
+const ClassicalMassage = dynamic(
+  () => import('@/features/classicMassage/ClassicalMassage').then(mod => ({ default: mod.ClassicalMassage })),
   { 
     loading: () => <LoadingSkeleton />,
     ssr: true 
   }
 )
 
-const Booking = dynamic(
-  () => import('@/features/booking/Booking').then(mod => ({ default: mod.Booking })),
+const Chakras = dynamic(
+  () => import('@/features/chakras/Chakras').then(mod => ({ default: mod.Chakras })),
+  { 
+    loading: () => <LoadingSkeleton />,
+    ssr: true 
+  }
+)
+
+const Products = dynamic(
+  () => import('@/features/products/Products').then(mod => ({ default: mod.Products })),
+  { 
+    loading: () => <LoadingSkeleton />,
+    ssr: true 
+  }
+)
+
+const Pricing = dynamic(
+  () => import('@/features/pricing/Pricing').then(mod => ({ default: mod.Pricing })),
   { 
     loading: () => <LoadingSkeleton />,
     ssr: true 
@@ -39,8 +55,8 @@ const Feedbacks = dynamic(
   }
 )
 
-const Products = dynamic(
-  () => import('@/features/products/Products').then(mod => ({ default: mod.Products })),
+const Booking = dynamic(
+  () => import('@/features/booking/Booking').then(mod => ({ default: mod.Booking })),
   { 
     loading: () => <LoadingSkeleton />,
     ssr: true 
@@ -67,19 +83,25 @@ export default function Home() {
       <main>
         <Hero />
         <Suspense fallback={<LoadingSkeleton />}>
+          <ClassicalMassage />
+        </Suspense>
+        <Suspense fallback={<LoadingSkeleton />}>
+          <Chakras />
+        </Suspense>
+        <Suspense fallback={<LoadingSkeleton />}>
           <About />
-        </Suspense>
-        <Suspense fallback={<LoadingSkeleton />}>
-          <Pricing />
-        </Suspense>
-        <Suspense fallback={<LoadingSkeleton />}>
-          <Booking />
         </Suspense>
         <Suspense fallback={<LoadingSkeleton />}>
           <Feedbacks />
         </Suspense>
         <Suspense fallback={<LoadingSkeleton />}>
           <Products />
+        </Suspense>
+        <Suspense fallback={<LoadingSkeleton />}>
+          <Pricing />
+        </Suspense>
+        <Suspense fallback={<LoadingSkeleton />}>
+          <Booking />
         </Suspense>
         <Suspense fallback={<LoadingSkeleton />}>
           <Contact />

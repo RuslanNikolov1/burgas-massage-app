@@ -109,6 +109,15 @@
   flex-direction: column;
   align-items: flex-end;
   gap: 4px;
+  padding-right: 40px;
+  
+  @media (max-width: 1024px) {
+    padding-right: 30px;
+  }
+  
+  @media (max-width: 640px) {
+    padding-right: 15px;
+  }
 }
 
 .originalPrice {

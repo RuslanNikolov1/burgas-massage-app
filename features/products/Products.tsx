@@ -50,15 +50,36 @@ export function Products() {
   return (
     <section id="products" className={styles.products}>
       <div className="container">
-        <motion.h2
-          className="section-title"
-          initial={{ opacity: 0, y: -20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-        >
-          {t('products.title')}
-        </motion.h2>
+        <div className={styles.intro}>
+          <motion.h2
+            className="section-title"
+            initial={{ opacity: 0, y: -20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+          >
+            {t('products.title')}
+          </motion.h2>
+        </div>
+
+        <div className={styles.intro}>
+          <motion.div
+            className={styles.introImage}
+            initial={{ opacity: 0, x: 40 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+          >
+            <Image
+              src="/woman.png"
+              alt="Жена, наслаждаваща се на релаксиращ масаж"
+              width={360}
+              height={420}
+              className={styles.womanImage}
+              priority={false}
+            />
+          </motion.div>
+        </div>
         
         <div className={styles.grid}>
           {products.map((product, index) => (
@@ -84,7 +105,7 @@ export function Products() {
                 <p className={styles.description}>{product.description}</p>
                 <div className={styles.footer}>
                   <span className={styles.price}>{product.price}</span>
-                  <button className={styles.buyButton}>Купи / Buy</button>
+                  <button className={styles.buyButton}>Купи</button>
                 </div>
               </div>
             </motion.div>

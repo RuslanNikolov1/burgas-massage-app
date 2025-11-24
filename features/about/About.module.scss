@@ -1,11 +1,14 @@
 .about {
   background-color: var(--color-bg-secondary);
-  padding: 60px 20px;
+  padding: 90px 20px;
   border-top: 2px solid var(--color-accent);
   border-bottom: 2px solid var(--color-accent);
+  display: flex;
+  align-items: center;
   
   @media (max-width: 768px) {
-    padding: 45px 20px;
+    padding: 60px 20px;
+    min-height: unset;
   }
 }
 
@@ -14,6 +17,7 @@
   grid-template-columns: 1fr 1fr;
   gap: 40px;
   align-items: center;
+  margin-top: 10vh;
   
   @media (max-width: 1024px) {
     grid-template-columns: 1fr;
