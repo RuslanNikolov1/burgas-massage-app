@@ -35,12 +35,36 @@ export function ClassicalMassage() {
     <section className={styles.classicalMassage} aria-labelledby="classical-massage-title">
       <div className="container">
         <div className={styles.content}>
-          <div className={styles.intro}>
-            <p className={styles.sectionLabel}>{t('classic.label')}</p>
-            <h2 id="classical-massage-title" className="section-title">
-              {t('classic.heading')}
-            </h2>
-            <p>{t('classic.description')}</p>
+          <div className={styles.leftColumn}>
+            <div className={styles.intro}>
+              <p className={styles.sectionLabel}>{t('classic.label')}</p>
+              <h2 id="classical-massage-title" className="section-title">
+                {t('classic.heading')}
+              </h2>
+              <p>{t('classic.description')}</p>
+            </div>
+            <div className={styles.bedGallery}>
+              <div className={styles.bedImageWrapper}>
+                <Image
+                  src="/bed-1.png"
+                  alt={t('classic.bedAlt1')}
+                  width={280}
+                  height={200}
+                  className={styles.bedImage}
+                  sizes="(max-width: 768px) 45vw, 280px"
+                />
+              </div>
+              <div className={styles.bedImageWrapper}>
+                <Image
+                  src="/bed-2.png"
+                  alt={t('classic.bedAlt2')}
+                  width={280}
+                  height={200}
+                  className={styles.bedImage}
+                  sizes="(max-width: 768px) 45vw, 280px"
+                />
+              </div>
+            </div>
           </div>
 
           <div className={styles.benefits} aria-label={t('classic.label')}>
@@ -55,29 +79,6 @@ export function ClassicalMassage() {
                 <p>{t(benefit.descriptionKey)}</p>
               </article>
             ))}
-          </div>
-
-          <div className={styles.bedGallery}>
-            <div className={styles.bedImageWrapper}>
-              <Image
-                src="/bed-1.png"
-                alt={t('classic.bedAlt1')}
-                width={280}
-                height={200}
-                className={styles.bedImage}
-                sizes="(max-width: 768px) 45vw, 280px"
-              />
-            </div>
-            <div className={styles.bedImageWrapper}>
-              <Image
-                src="/bed-2.png"
-                alt={t('classic.bedAlt2')}
-                width={280}
-                height={200}
-                className={styles.bedImage}
-                sizes="(max-width: 768px) 45vw, 280px"
-              />
-            </div>
           </div>
         </div>
       </div>

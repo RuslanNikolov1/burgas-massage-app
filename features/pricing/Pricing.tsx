@@ -56,7 +56,7 @@ export function Pricing() {
           >
             <Image
               src="/stones.png"
-              alt="Massage stones"
+              alt="Топли масажни камъни използвани за релаксация и терапевтичен масаж в Бургас"
               width={500}
               height={500}
               className={styles.image}

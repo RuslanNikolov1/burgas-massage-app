@@ -80,7 +80,7 @@ export default function Home() {
   return (
     <>
       <Header />
-      <main>
+      <main role="main">
         <Hero />
         <Suspense fallback={<LoadingSkeleton />}>
           <ClassicalMassage />

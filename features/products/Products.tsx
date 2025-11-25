@@ -72,7 +72,7 @@ export function Products() {
           >
             <Image
               src="/woman.png"
-              alt={t('products.womanAlt')}
+              alt="Клиентка наслаждаваща се на релаксиращ масаж в Бургас - професионални масаж услуги"
               width={360}
               height={420}
               className={styles.womanImage}
@@ -94,7 +94,7 @@ export function Products() {
               <div className={styles.imagePlaceholder}>
                 <Image
                   src={product.image}
-                  alt={t(product.nameKey)}
+                  alt={`${t(product.nameKey)} - ${t(product.descriptionKey)} - Масаж продукти в Бургас`}
                   width={400}
                   height={300}
                   className={styles.productImage}

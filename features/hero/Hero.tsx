@@ -21,7 +21,7 @@ export function Hero() {
             <div className={styles.logoWrapper}>
               <Image
                 src="/logo.png"
-                alt="Logo"
+                alt="Бургас Масаж - Професионален масаж и релаксация в Бургас"
                 width={320}
                 height={320}
                 priority
@@ -48,7 +48,7 @@ export function Hero() {
             <div className={styles.imageWrapper}>
               <Image
                 src="/man.png"
-                alt="Masseur"
+                alt="Професионален масажист в Бургас предлагащ домашни масажи, мини спа и медитация услуги"
                 width={400}
                 height={350}
                 priority

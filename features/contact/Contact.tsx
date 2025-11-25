@@ -26,12 +26,16 @@ const ICON_MAP: Record<string, ComponentType<IconProps>> = {
   viber: ChatsCircle,
 }
 
+const FACEBOOK_URL = 'https://www.facebook.com/batvu'
+
+const INSTAGRAM_URL = 'https://www.instagram.com/batvu?utm_source=qr&igsh=MWZzbTdla3l4cThxZQ=='
+
 const contactLinks = [
-  { type: 'facebook', url: '#', label: 'Facebook' },
-  { type: 'instagram', url: '#', label: 'Instagram' },
-  { type: 'phone', url: 'tel:+359888123456', label: '+359 888 123 456' },
-  { type: 'messenger', url: '#', label: 'Messenger' },
-  { type: 'viber', url: '#', label: 'Viber' },
+  { type: 'facebook', url: FACEBOOK_URL, label: 'Facebook' },
+  { type: 'instagram', url: INSTAGRAM_URL, label: 'Instagram' },
+  { type: 'phone', url: 'tel:+359886830825', label: '+359 886 830 825' },
+  { type: 'messenger', url: FACEBOOK_URL, label: 'Messenger' },
+  { type: 'viber', url: 'viber://chat?number=%2B359886830825', label: '+359 886 830 825' },
 ]
 
 export function Contact() {
@@ -65,7 +69,7 @@ export function Contact() {
           >
             <Image
               src="/meditation.png"
-              alt="Meditation"
+              alt="Медитация и релаксация услуги в Бургас за справяне с тревожност и стрес"
               width={500}
               height={500}
               className={styles.image}
@@ -100,7 +104,7 @@ export function Contact() {
             </div>
           </motion.div>
         </div>
-        <a className={styles.cashBadge} href="tel:+359888123456" aria-label="Позвънете на +359 888 123 456">
+        <a className={styles.cashBadge} href="tel:+359886830825" aria-label="Позвънете на +359 886 830 825">
           <span className={styles.cashLabel}>{t('contact.cashLabel')}</span>
           <Image
             src="/city-cash.png"
@@ -110,7 +114,7 @@ export function Contact() {
             className={styles.cashImage}
             priority={false}
           />
-          <span className={styles.cashPhone}>+359 888 123 456</span>
+          <span className={styles.cashPhone}>+359 886 830 825</span>
         </a>
       </div>
     </section>

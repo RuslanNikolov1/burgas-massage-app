@@ -27,6 +27,9 @@ export function Booking() {
   const [selectedDate, setSelectedDate] = useState<string>('')
   const [selectedTime, setSelectedTime] = useState<string>('')
   const [monthOffset, setMonthOffset] = useState(0)
+  const [isSubmitting, setIsSubmitting] = useState(false)
+  const [submissionStatus, setSubmissionStatus] = useState<'idle' | 'success' | 'error'>('idle')
+  const [clientName, setClientName] = useState('')
 
   const today = useMemo(() => new Date(), [])
   const normalizedToday = useMemo(
@@ -103,12 +106,56 @@ export function Booking() {
   const handleDateSelect = (date: string, offset: number) => {
     setSelectedDate(date)
     setSelectedTime('')
+    setClientName('')
+    setSubmissionStatus('idle')
     if (offset !== monthOffset) {
       setMonthOffset(offset)
     }
   }
 
+  useEffect(() => {
+    setSubmissionStatus('idle')
+    setClientName('')
+  }, [selectedTime])
+
+  const handleReservation = async () => {
+    if (!selectedDate || !selectedTime || !clientName.trim()) return
+    setIsSubmitting(true)
+    setSubmissionStatus('idle')
+    try {
+      const response = await fetch('/api/reserve', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          date: selectedDate,
+          time: selectedTime,
+          name: clientName.trim(),
+        }),
+      })
+
+      if (!response.ok) {
+        throw new Error('Reservation failed')
+      }
+
+      setSubmissionStatus('success')
+    } catch (error) {
+      console.error(error)
+      setSubmissionStatus('error')
+    } finally {
+      setIsSubmitting(false)
+    }
+  }
+
   const locale = language === 'bg' ? 'bg-BG' : 'en-US'
+  const formattedSelectedDate = selectedDate
+    ? new Date(selectedDate).toLocaleDateString(locale, {
+        weekday: 'long',
+        day: 'numeric',
+        month: 'long',
+      })
+    : ''
 
   return (
     <section id="booking" className={styles.booking}>
@@ -208,19 +255,71 @@ export function Booking() {
           </motion.div>
           
           <motion.div
-            className={styles.imageWrapper}
+            className={styles.sidePanel}
             initial={{ opacity: 0, x: 50 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
           >
-            <Image
-              src="/bed.png"
-              alt="Massage bed"
-              width={500}
-              height={300}
-              className={styles.image}
-            />
+            <div className={styles.imageWrapper}>
+              <Image
+                src="/bed.png"
+                alt="Професионално масажно легло за домашни масажи и релаксация в Бургас"
+                width={500}
+                height={300}
+                className={styles.image}
+              />
+            </div>
+
+            <div className={styles.reserveCard}>
+              <h3 className={styles.reserveHeading}>{t('booking.reserveTitle')}</h3>
+
+              {selectedDate && selectedTime ? (
+                <>
+                  <div>
+                    <p className={styles.selectedSlotLabel}>{t('booking.selectedSlot')}</p>
+                    <p className={styles.selectedSlotValue}>
+                      {formattedSelectedDate} · {selectedTime}
+                    </p>
+                  </div>
+                  <div className={styles.nameGroup}>
+                    <label htmlFor="booking-name" className={styles.nameLabel}>
+                      {t('booking.nameLabel')}
+                    </label>
+                    <input
+                      id="booking-name"
+                      type="text"
+                      className={styles.nameInput}
+                      value={clientName}
+                      placeholder={t('booking.namePlaceholder')}
+                      onChange={event => {
+                        setClientName(event.target.value)
+                        setSubmissionStatus('idle')
+                      }}
+                    />
+                  </div>
+                  {clientName.trim().length > 0 && (
+                    <button
+                      type="button"
+                      className={styles.reserveButton}
+                      onClick={handleReservation}
+                      disabled={isSubmitting}
+                    >
+                      {isSubmitting ? t('booking.reserveSending') : t('booking.reserveButton')}
+                    </button>
+                  )}
+                </>
+              ) : (
+                <p className={styles.reserveHint}>{t('booking.reserveHint')}</p>
+              )}
+
+              {submissionStatus === 'success' && (
+                <p className={`${styles.statusMessage} ${styles.statusSuccess}`}>{t('booking.reserveSuccess')}</p>
+              )}
+              {submissionStatus === 'error' && (
+                <p className={`${styles.statusMessage} ${styles.statusError}`}>{t('booking.reserveError')}</p>
+              )}
+            </div>
           </motion.div>
         </div>
       </div>

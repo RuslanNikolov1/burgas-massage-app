@@ -10,19 +10,29 @@
 }
 
 .content {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  align-items: flex-start;
+  display: flex;
   gap: var(--spacing-xl);
+  align-items: flex-start;
 
-  @media (max-width: 1024px) {
-    grid-template-columns: 1fr;
+  @media (max-width: 1026px) {
+    flex-direction: column;
     gap: var(--spacing-lg);
   }
 }
 
+.leftColumn {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+
+  @media (max-width: 1026px) {
+    width: 100%;
+    display: contents;
+  }
+}
+
 .intro {
-  grid-column: 1;
   display: flex;
   flex-direction: column;
   gap: var(--spacing-md);
@@ -63,17 +73,17 @@
 }
 
 .bedGallery {
-  grid-column: 1;
   display: flex;
   gap: var(--spacing-sm);
   margin-top: var(--spacing-sm);
-  flex-wrap: wrap;
-  justify-content: center;
+  flex-wrap: nowrap;
+  justify-content: flex-start;
 
-  @media (max-width: 1024px) {
-    grid-column: 1 / -1;
+  @media (max-width: 1026px) {
     justify-content: center;
-    margin-top: 0;
+    margin-top: var(--spacing-md);
+    flex-wrap: wrap;
+    width: 100%;
   }
 }
 
@@ -104,18 +114,31 @@
 }
 
 .benefits {
-  grid-column: 2;
-  width: 100%;
+  flex: 1;
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  grid-template-columns: repeat(2, minmax(220px, 1fr));
   gap: var(--spacing-md);
 
-  @media (max-width: 1024px) {
-    grid-column: 1;
+  @media (max-width: 1026px) {
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
   }
 
   @media (max-width: 1026px) and (min-width: 427px) {
     grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 1026px) {
+  .intro {
+    order: 1;
+  }
+
+  .benefits {
+    order: 2;
+  }
+
+  .bedGallery {
+    order: 3;
   }
 }
 

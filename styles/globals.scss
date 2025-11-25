@@ -1,5 +1,5 @@
-@import './variables.scss';
-@import './fonts.scss';
+@use './variables';
+@use './fonts';
 
 * {
   margin: 0;
@@ -59,6 +59,16 @@ button {
 
 img {
   display: block;
+}
+
+::selection {
+  background-color: var(--color-accent);
+  color: var(--color-bg-primary);
+}
+
+::-moz-selection {
+  background-color: var(--color-accent);
+  color: var(--color-bg-primary);
 }
 
 .section {

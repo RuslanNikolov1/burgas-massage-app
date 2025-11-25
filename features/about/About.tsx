@@ -43,7 +43,7 @@ export function About() {
           >
             <Image
               src="/profile-photo.jpg"
-              alt="Masseur profile"
+              alt="Сертифициран масажист в Бургас с над 10 години опит в класически и терапевтични масажи"
               width={400}
               height={500}
               className={styles.image}

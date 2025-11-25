@@ -90,8 +90,8 @@ export function Header() {
             <span />
             <span />
           </button>
-          <a href="#hero" className={styles.logoLink} onClick={(e) => handleNavClick(e, 'hero')}>
-            <Image src="/logo.png" alt="Burgas Massage" width={140} height={140} className={styles.logoImage} priority />
+          <a href="#hero" className={styles.logoLink} onClick={(e) => handleNavClick(e, 'hero')} aria-label="Бургас Масаж - Начална страница">
+            <Image src="/logo.png" alt="Бургас Масаж - Професионален масаж и релаксация" width={140} height={140} className={styles.logoImage} priority />
           </a>
         </div>
         <div className={`${styles.navList} ${isMenuOpen ? styles.open : ''}`}>

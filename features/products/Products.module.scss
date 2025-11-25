@@ -379,13 +379,7 @@
   font-weight: bold;
   font-size: 1rem;
   border-radius: 6px;
-  transition: all 0.3s ease;
+  transition: none;
   letter-spacing: 0.3px;
-  
-  &:hover {
-    background-color: var(--color-accent-hover);
-    transform: scale(1.05);
-    box-shadow: 0 4px 15px rgba(209, 178, 114, 0.4);
-  }
 }
 
