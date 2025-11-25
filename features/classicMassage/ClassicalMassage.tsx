@@ -1,3 +1,4 @@
+import Image from 'next/image'
 import { Leaf, Heartbeat, ClockCounterClockwise, PersonSimple } from 'phosphor-react'
 import styles from './ClassicalMassage.module.scss'
 
@@ -44,6 +45,24 @@ export function ClassicalMassage() {
               сесия се адаптира спрямо състоянието ви в момента — за заземяване, зареждане или насочено освобождаване на
               упорито напрежение.
             </p>
+            <div className={styles.bedGallery}>
+              <Image
+                src="/bed-1.png"
+                alt="Масажно легло с подредени кърпи"
+                width={280}
+                height={200}
+                className={styles.bedImage}
+                sizes="(max-width: 768px) 45vw, 280px"
+              />
+              <Image
+                src="/bed-2.png"
+                alt="Подготвено пространство за класически масаж"
+                width={280}
+                height={200}
+                className={styles.bedImage}
+                sizes="(max-width: 768px) 45vw, 280px"
+              />
+            </div>
           </div>
 
           <div className={styles.benefits} aria-label="Ползи от класическия масаж">

@@ -51,15 +51,15 @@ export function Products() {
     <section id="products" className={styles.products}>
       <div className="container">
         <div className={styles.intro}>
-          <motion.h2
-            className="section-title"
-            initial={{ opacity: 0, y: -20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-          >
-            {t('products.title')}
-          </motion.h2>
+        <motion.h2
+          className="section-title"
+          initial={{ opacity: 0, y: -20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+        >
+          {t('products.title')}
+        </motion.h2>
         </div>
 
         <div className={styles.intro}>

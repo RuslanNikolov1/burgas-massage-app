@@ -24,7 +24,6 @@
   flex: 1;
   display: flex;
   flex-direction: column;
-  margin-top: 10vh;
   gap: var(--spacing-md);
 }
 
@@ -47,6 +46,29 @@
 
 .intro p {
   color: var(--color-text-secondary);
+}
+
+.bedGallery {
+  display: flex;
+  gap: var(--spacing-sm);
+  margin-top: var(--spacing-sm);
+  flex-wrap: wrap;
+
+  @media (max-width: 768px) {
+    justify-content: center;
+  }
+}
+
+.bedImage {
+  border-radius: 12px;
+  object-fit: cover;
+  width: 260px;
+  height: 190px;
+
+  @media (max-width: 768px) {
+    width: 45vw;
+    height: auto;
+  }
 }
 
 .benefits {
