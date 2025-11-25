@@ -3,7 +3,7 @@
 import { useEffect, useMemo, useState } from 'react'
 import { motion } from 'framer-motion'
 import Image from 'next/image'
-import { useTranslations } from '@/features/i18n/useTranslations'
+import { useTranslations, useLanguage } from '@/features/i18n/useTranslations'
 import styles from './Booking.module.scss'
 
 // Mock booked times - format: "YYYY-MM-DD HH:MM"
@@ -23,6 +23,7 @@ const MAX_MONTH_OFFSET = 5
 
 export function Booking() {
   const t = useTranslations()
+  const language = useLanguage()
   const [selectedDate, setSelectedDate] = useState<string>('')
   const [selectedTime, setSelectedTime] = useState<string>('')
   const [monthOffset, setMonthOffset] = useState(0)
@@ -107,6 +108,8 @@ export function Booking() {
     }
   }
 
+  const locale = language === 'bg' ? 'bg-BG' : 'en-US'
+
   return (
     <section id="booking" className={styles.booking}>
       <div className="container">
@@ -132,31 +135,33 @@ export function Booking() {
           >
             <div className={styles.calendar}>
               <div className={styles.monthNav}>
-                <button
-                  type="button"
-                  className={styles.navButton}
-                  onClick={() => setMonthOffset(prev => Math.max(0, prev - 1))}
-                  disabled={monthOffset === 0}
-                  aria-label="Предишен месец"
-                >
-                  ← Предишен
-                </button>
                 <div className={styles.monthLabel}>
-                  {currentMonthDate.toLocaleDateString('bg-BG', { month: 'long', year: 'numeric' })}
+                  {currentMonthDate.toLocaleDateString(locale, { month: 'long', year: 'numeric' })}
                 </div>
-                <button
-                  type="button"
-                  className={styles.navButton}
-                  onClick={() => setMonthOffset(prev => Math.min(MAX_MONTH_OFFSET, prev + 1))}
-                  disabled={monthOffset === MAX_MONTH_OFFSET}
-                  aria-label="Следващ месец"
-                >
-                  Следващ →
-                </button>
+                <div className={styles.navButtons}>
+                  <button
+                    type="button"
+                    className={styles.navButton}
+                    onClick={() => setMonthOffset(prev => Math.max(0, prev - 1))}
+                    disabled={monthOffset === 0}
+                    aria-label={t('booking.prevMonthAria')}
+                  >
+                    {t('booking.prevMonth')}
+                  </button>
+                  <button
+                    type="button"
+                    className={styles.navButton}
+                    onClick={() => setMonthOffset(prev => Math.min(MAX_MONTH_OFFSET, prev + 1))}
+                    disabled={monthOffset === MAX_MONTH_OFFSET}
+                    aria-label={t('booking.nextMonthAria')}
+                  >
+                    {t('booking.nextMonth')}
+                  </button>
+                </div>
               </div>
 
-              <h3 className={styles.calendarTitle}>Изберете дата / Select Date</h3>
-              <div className={styles.datesGrid}>
+              <h3 className={styles.calendarTitle}>{t('booking.selectDate')}</h3>
+              <div className={styles.datesGrid} aria-label={t('booking.datesAria')}>
                 {availableDates.map(({ date, isOutsideViewMonth, offset }) => {
                   const dateObj = new Date(date)
                   const isSelected = selectedDate === date
@@ -171,7 +176,7 @@ export function Booking() {
                     >
                       <span className={styles.day}>{dateObj.getDate()}</span>
                       <span className={styles.month}>
-                        {dateObj.toLocaleDateString('bg-BG', { month: 'short' })}
+                        {dateObj.toLocaleDateString(locale, { month: 'short' })}
                       </span>
                     </button>
                   )
@@ -180,8 +185,8 @@ export function Booking() {
               
               {selectedDate && (
                 <div className={styles.timesSection}>
-                  <h4 className={styles.timesTitle}>Изберете час / Select Time</h4>
-                  <div className={styles.timesGrid}>
+                  <h4 className={styles.timesTitle}>{t('booking.selectTime')}</h4>
+                  <div className={styles.timesGrid} aria-label={t('booking.timesAria')}>
                     {getAvailableTimes(selectedDate).map((hour) => {
                       const timeValue = `${hour}:00`
                       const isSelected = selectedTime === timeValue

@@ -1,3 +1,5 @@
+'use client'
+
 import Image from 'next/image'
 import {
   FlowerLotus,
@@ -8,61 +10,59 @@ import {
   MusicNotes,
   Quotes,
 } from 'phosphor-react'
+import { useTranslations } from '@/features/i18n/useTranslations'
 import styles from './Chakras.module.scss'
 
 const iconColor = '#d1b272'
 
 const PRACTICES = [
   {
-    title: 'Медитация',
-    description:
-      'Фокусирайте вниманието си върху всяка чакра, като наблюдавате дишането и усещанията в тялото.',
+    titleKey: 'chakras.practices.meditation.title',
+    descriptionKey: 'chakras.practices.meditation.description',
     icon: FlowerLotus,
   },
   {
-    title: 'Йога',
-    description:
-      'Асани като позата Дърво стабилизират коренната чакра, а нежните извивания активират горните центрове.',
+    titleKey: 'chakras.practices.yoga.title',
+    descriptionKey: 'chakras.practices.yoga.description',
     icon: PersonSimpleWalk,
   },
   {
-    title: 'Пранаяма',
-    description:
-      'Редуваното дишане през ноздрите и дълбокото коремно дишане успокояват нервната система и балансират чакрите.',
+    titleKey: 'chakras.practices.pranayama.title',
+    descriptionKey: 'chakras.practices.pranayama.description',
     icon: Wind,
   },
   {
-    title: 'Заземяване',
-    description: 'Разходка боси на земята активира коренната чакра и създава чувство на стабилност.',
+    titleKey: 'chakras.practices.grounding.title',
+    descriptionKey: 'chakras.practices.grounding.description',
     icon: Tree,
   },
   {
-    title: 'Ароматерапия',
-    description:
-      'Етерични масла като лавандула за сърдечната чакра или лимон за слънчевия сплит подкрепят хармонията.',
+    titleKey: 'chakras.practices.aroma.title',
+    descriptionKey: 'chakras.practices.aroma.description',
     icon: DropHalf,
   },
   {
-    title: 'Музика и цветове',
-    description:
-      'Бинаурални ритми, звуци и цветотерапия подпомагат релаксацията и изчистването на енергийните блокажи.',
+    titleKey: 'chakras.practices.music.title',
+    descriptionKey: 'chakras.practices.music.description',
     icon: MusicNotes,
   },
   {
-    title: 'Афирмации',
-    description: 'Утвърждения като „Аз съм в баланс“ пренасочват ума и подпомагат процеса на отваряне.',
+    titleKey: 'chakras.practices.affirmations.title',
+    descriptionKey: 'chakras.practices.affirmations.description',
     icon: Quotes,
   },
 ]
 
 export function Chakras() {
+  const t = useTranslations()
+
   return (
     <section className={styles.chakras} aria-labelledby="chakras-title">
       <div className="container">
         <div className={styles.imageWrapper}>
           <Image
             src="/chakras.jpg"
-            alt="Илюстрация на чакрите"
+            alt={t('chakras.imageAlt')}
             width={360}
             height={360}
             className={styles.image}
@@ -72,26 +72,22 @@ export function Chakras() {
 
         <header className={styles.header}>
           <h2 id="chakras-title" className="section-title">
-            Отваряне и балансиране на чакрите
+            {t('chakras.title')}
           </h2>
         </header>
 
-        <p className={styles.intro}>
-          Отварянето на чакрите се постига чрез медитация, йога, дихателни практики (пранаяма), заземяване и
-          използване на афирмации, етерични масла, музика и цветове. Тези техники подпомагат балансирането на
-          енергийните центрове в тялото, водят до по-дълбоко спокойствие и възвръщане на жизнеността.
-        </p>
+        <p className={styles.intro}>{t('chakras.intro')}</p>
 
-        <div className={styles.grid} aria-label="Практики за отваряне на чакрите">
+        <div className={styles.grid} aria-label={t('chakras.ariaPractices')}>
           {PRACTICES.map(practice => (
-            <article key={practice.title} className={styles.card}>
+            <article key={practice.titleKey} className={styles.card}>
               <div className={styles.cardHeader}>
                 <span className={styles.cardIcon}>
                   <practice.icon size={32} color={iconColor} weight="duotone" aria-hidden />
                 </span>
-                <h3>{practice.title}</h3>
+                <h3>{t(practice.titleKey)}</h3>
               </div>
-              <p>{practice.description}</p>
+              <p>{t(practice.descriptionKey)}</p>
             </article>
           ))}
         </div>

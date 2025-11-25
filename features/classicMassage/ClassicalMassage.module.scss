@@ -10,21 +10,29 @@
 }
 
 .content {
-  display: flex;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   align-items: flex-start;
   gap: var(--spacing-xl);
 
   @media (max-width: 1024px) {
-    flex-direction: column;
+    grid-template-columns: 1fr;
     gap: var(--spacing-lg);
   }
 }
 
 .intro {
-  flex: 1;
+  grid-column: 1;
   display: flex;
   flex-direction: column;
   gap: var(--spacing-md);
+
+  @media (max-width: 426px) {
+    width: 90%;
+    margin: 0 auto;
+    align-items: center;
+    text-align: center;
+  }
 }
 
 .sectionLabel {
@@ -41,42 +49,74 @@
 
   @media (max-width: 768px) {
     font-size: 2rem;
+    text-align: center;
+    overflow-wrap: break-word;
   }
 }
 
 .intro p {
   color: var(--color-text-secondary);
+
+  @media (max-width: 425px) {
+    text-align: center;
+  }
 }
 
 .bedGallery {
+  grid-column: 1;
   display: flex;
   gap: var(--spacing-sm);
   margin-top: var(--spacing-sm);
   flex-wrap: wrap;
+  justify-content: center;
 
-  @media (max-width: 768px) {
+  @media (max-width: 1024px) {
+    grid-column: 1 / -1;
     justify-content: center;
+    margin-top: 0;
   }
+}
+
+.bedImageWrapper {
+  position: relative;
+  border-radius: 16px;
+  background: linear-gradient(135deg, rgba(64, 179, 191, 0.25), rgba(64, 179, 191, 0.08));
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.2);
+  padding: var(--spacing-xs);
 }
 
 .bedImage {
   border-radius: 12px;
   object-fit: cover;
-  width: 260px;
-  height: 190px;
+  width: 220px;
+  height: 160px;
+  border: 2px solid var(--color-accent);
+
+  @media (min-width: 769px) and (max-width: 1024px) {
+    width: 320px;
+    height: 230px;
+  }
 
   @media (max-width: 768px) {
-    width: 45vw;
+    width: 70vw;
     height: auto;
   }
 }
 
 .benefits {
-  flex: 1;
+  grid-column: 2;
   width: 100%;
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
   gap: var(--spacing-md);
+
+  @media (max-width: 1024px) {
+    grid-column: 1;
+  }
+
+  @media (max-width: 1026px) and (min-width: 427px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
 }
 
 .card {

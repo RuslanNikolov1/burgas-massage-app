@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
+import Image from 'next/image'
 import { useTranslations } from '@/features/i18n/useTranslations'
 import { LanguageSwitcher } from '@/features/i18n/LanguageSwitcher'
 import styles from './Header.module.scss'
@@ -19,6 +20,7 @@ const sections = [
 export function Header() {
   const [activeSection, setActiveSection] = useState('hero')
   const [isScrolled, setIsScrolled] = useState(false)
+  const [isMenuOpen, setIsMenuOpen] = useState(false)
   const t = useTranslations()
 
   useEffect(() => {
@@ -63,8 +65,10 @@ export function Header() {
         top: offsetPosition,
         behavior: 'smooth'
       })
+      setIsMenuOpen(false)
     }
   }
+  const toggleMenu = () => setIsMenuOpen(prev => !prev)
 
   return (
     <motion.header
@@ -74,22 +78,40 @@ export function Header() {
       transition={{ duration: 0.3 }}
     >
       <nav className={styles.nav} role="navigation" aria-label="Main navigation">
-        <ul className={styles.navList}>
-          {sections.map((section) => (
-            <li key={section.id}>
-              <a
-                href={`#${section.id}`}
-                onClick={(e) => handleNavClick(e, section.id)}
-                className={`${styles.navLink} ${activeSection === section.id ? styles.active : ''}`}
-                aria-current={activeSection === section.id ? 'page' : undefined}
-              >
-                {t(section.key)}
-              </a>
-            </li>
-          ))}
-        </ul>
-        <div className={styles.languageSwitcher}>
-          <LanguageSwitcher />
+        <div className={styles.brandRow}>
+          <button
+            type="button"
+            className={`${styles.menuToggle} ${isMenuOpen ? styles.open : ''}`}
+            onClick={toggleMenu}
+            aria-label={isMenuOpen ? 'Close menu' : 'Open menu'}
+            aria-expanded={isMenuOpen}
+          >
+            <span />
+            <span />
+            <span />
+          </button>
+          <a href="#hero" className={styles.logoLink} onClick={(e) => handleNavClick(e, 'hero')}>
+            <Image src="/logo.png" alt="Burgas Massage" width={140} height={140} className={styles.logoImage} priority />
+          </a>
+        </div>
+        <div className={`${styles.navList} ${isMenuOpen ? styles.open : ''}`}>
+          <ul>
+            {sections.map((section) => (
+              <li key={section.id}>
+                <a
+                  href={`#${section.id}`}
+                  onClick={(e) => handleNavClick(e, section.id)}
+                  className={`${styles.navLink} ${activeSection === section.id ? styles.active : ''}`}
+                  aria-current={activeSection === section.id ? 'page' : undefined}
+                >
+                  {t(section.key)}
+                </a>
+              </li>
+            ))}
+          </ul>
+          <div className={styles.languageSwitcher}>
+            <LanguageSwitcher />
+          </div>
         </div>
       </nav>
     </motion.header>

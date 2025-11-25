@@ -7,39 +7,39 @@ import styles from './Products.module.scss'
 
 const products = [
   {
-    name: 'Ароматерапевтично масло за масаж',
-    price: '45 лв',
-    description: 'Натурално масло с лавандула за релаксация',
+    nameKey: 'products.items.1.name',
+    priceKey: 'products.items.1.price',
+    descriptionKey: 'products.items.1.description',
     image: '/product-1.jpg',
   },
   {
-    name: 'Масажни камъни',
-    price: '80 лв',
-    description: 'Комплект от базалтови камъни за топъл масаж',
+    nameKey: 'products.items.2.name',
+    priceKey: 'products.items.2.price',
+    descriptionKey: 'products.items.2.description',
     image: '/product-2.jpg',
   },
   {
-    name: 'Релаксиращ крем за тяло',
-    price: '35 лв',
-    description: 'Крем с ментол и календула за успокояване',
+    nameKey: 'products.items.3.name',
+    priceKey: 'products.items.3.price',
+    descriptionKey: 'products.items.3.description',
     image: '/product-3.png',
   },
   {
-    name: 'Ароматни свещи',
-    price: '25 лв',
-    description: 'Свещи с естествени аромати за атмосфера',
+    nameKey: 'products.items.4.name',
+    priceKey: 'products.items.4.price',
+    descriptionKey: 'products.items.4.description',
     image: '/product-4.png',
   },
   {
-    name: 'Масажен ролер',
-    price: '55 лв',
-    description: 'Дървен ролер за самомасаж',
+    nameKey: 'products.items.5.name',
+    priceKey: 'products.items.5.price',
+    descriptionKey: 'products.items.5.description',
     image: '/product-6.jpg',
   },
   {
-    name: 'Релаксиращ чай комплект',
-    price: '30 лв',
-    description: 'Смес от билки за релаксация и спокойствие',
+    nameKey: 'products.items.6.name',
+    priceKey: 'products.items.6.price',
+    descriptionKey: 'products.items.6.description',
     image: '/product-6.jpg',
   },
 ]
@@ -72,7 +72,7 @@ export function Products() {
           >
             <Image
               src="/woman.png"
-              alt="Жена, наслаждаваща се на релаксиращ масаж"
+              alt={t('products.womanAlt')}
               width={360}
               height={420}
               className={styles.womanImage}
@@ -94,18 +94,18 @@ export function Products() {
               <div className={styles.imagePlaceholder}>
                 <Image
                   src={product.image}
-                  alt={product.name}
+                  alt={t(product.nameKey)}
                   width={400}
                   height={300}
                   className={styles.productImage}
                 />
               </div>
               <div className={styles.content}>
-                <h3 className={styles.name}>{product.name}</h3>
-                <p className={styles.description}>{product.description}</p>
+                <h3 className={styles.name}>{t(product.nameKey)}</h3>
+                <p className={styles.description}>{t(product.descriptionKey)}</p>
                 <div className={styles.footer}>
-                  <span className={styles.price}>{product.price}</span>
-                  <button className={styles.buyButton}>Купи</button>
+                  <span className={styles.price}>{t(product.priceKey)}</span>
+                  <button className={styles.buyButton}>{t('products.buy')}</button>
                 </div>
               </div>
             </motion.div>

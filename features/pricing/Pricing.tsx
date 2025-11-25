@@ -6,13 +6,28 @@ import { useTranslations } from '@/features/i18n/useTranslations'
 import styles from './Pricing.module.scss'
 
 const pricingData = [
-  { duration: '30 мин', price: '80 лв', package: null },
-  { duration: '60 мин', price: '140 лв', package: null },
-  { duration: '90 мин', price: '190 лв', package: null },
-  { duration: '120 мин', price: '240 лв', package: null },
-  { duration: 'Пакет "Релакс"', price: '250 лв', package: '2x60 мин', original: '280 лв' },
-  { duration: 'Пакет "Възстановяване"', price: '350 лв', package: '3x60 мин', original: '420 лв' },
-  { duration: 'Пакет "Премиум"', price: '500 лв', package: '4x90 мин', original: '760 лв' },
+  { durationKey: 'pricing.rows.single30.duration', priceKey: 'pricing.rows.single30.price' },
+  { durationKey: 'pricing.rows.single60.duration', priceKey: 'pricing.rows.single60.price' },
+  { durationKey: 'pricing.rows.single90.duration', priceKey: 'pricing.rows.single90.price' },
+  { durationKey: 'pricing.rows.single120.duration', priceKey: 'pricing.rows.single120.price' },
+  {
+    durationKey: 'pricing.rows.relax.duration',
+    priceKey: 'pricing.rows.relax.price',
+    packageKey: 'pricing.rows.relax.package',
+    originalKey: 'pricing.rows.relax.original',
+  },
+  {
+    durationKey: 'pricing.rows.recovery.duration',
+    priceKey: 'pricing.rows.recovery.price',
+    packageKey: 'pricing.rows.recovery.package',
+    originalKey: 'pricing.rows.recovery.original',
+  },
+  {
+    durationKey: 'pricing.rows.premium.duration',
+    priceKey: 'pricing.rows.premium.price',
+    packageKey: 'pricing.rows.premium.package',
+    originalKey: 'pricing.rows.premium.original',
+  },
 ]
 
 export function Pricing() {
@@ -64,20 +79,20 @@ export function Pricing() {
               </thead>
               <tbody>
                 {pricingData.map((item, index) => (
-                  <tr key={index} className={item.package ? styles.packageRow : ''}>
+                  <tr key={index} className={item.packageKey ? styles.packageRow : ''}>
                     <td>
                       <div className={styles.duration}>
-                        {item.duration}
-                        {item.package && (
-                          <span className={styles.packageInfo}>({item.package})</span>
+                        {t(item.durationKey)}
+                        {item.packageKey && (
+                          <span className={styles.packageInfo}>({t(item.packageKey)})</span>
                         )}
                       </div>
                     </td>
                     <td className={styles.priceCell}>
-                      {item.original && (
-                        <span className={styles.originalPrice}>{item.original}</span>
+                      {item.originalKey && (
+                        <span className={styles.originalPrice}>{t(item.originalKey)}</span>
                       )}
-                      <span className={styles.price}>{item.price}</span>
+                      <span className={styles.price}>{t(item.priceKey)}</span>
                     </td>
                   </tr>
                 ))}

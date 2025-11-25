@@ -45,17 +45,6 @@ export function Contact() {
   return (
     <section id="contact" className={styles.contact}>
       <div className="container">
-        <a className={styles.cashBadge} href="tel:+359888123456" aria-label="Позвънете на +359 888 123 456">
-          <Image
-            src="/city-cash.png"
-            alt=""
-            width={140}
-            height={140}
-            className={styles.cashImage}
-            priority={false}
-          />
-          <span className={styles.cashPhone}>+359 888 123 456</span>
-        </a>
         <motion.h2
           className="section-title"
           initial={{ opacity: 0, y: -20 }}
@@ -111,6 +100,18 @@ export function Contact() {
             </div>
           </motion.div>
         </div>
+        <a className={styles.cashBadge} href="tel:+359888123456" aria-label="Позвънете на +359 888 123 456">
+          <span className={styles.cashLabel}>{t('contact.cashLabel')}</span>
+          <Image
+            src="/city-cash.png"
+            alt=""
+            width={140}
+            height={140}
+            className={styles.cashImage}
+            priority={false}
+          />
+          <span className={styles.cashPhone}>+359 888 123 456</span>
+        </a>
       </div>
     </section>
   )

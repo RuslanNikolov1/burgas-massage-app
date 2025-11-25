@@ -6,40 +6,34 @@ import styles from './Feedbacks.module.scss'
 
 const feedbacks = [
   {
-    name: 'Мария Петрова',
-    rating: 5,
-    text: 'Невероятен опит! Масажът беше много професионален и релаксиращ. Напълно препоръчвам!',
-    date: '15 Декември 2024',
+    nameKey: 'feedbacks.items.1.name',
+    textKey: 'feedbacks.items.1.text',
+    dateKey: 'feedbacks.items.1.date',
   },
   {
-    name: 'Иван Георгиев',
-    rating: 5,
-    text: 'Отличен масажист! Помогна ми много с болките в гърба. Определено ще се върна отново.',
-    date: '12 Декември 2024',
+    nameKey: 'feedbacks.items.2.name',
+    textKey: 'feedbacks.items.2.text',
+    dateKey: 'feedbacks.items.2.date',
   },
   {
-    name: 'Елена Димитрова',
-    rating: 5,
-    text: 'Много спокоен и професионален подход. Медитацията беше невероятна. Благодаря!',
-    date: '10 Декември 2024',
+    nameKey: 'feedbacks.items.3.name',
+    textKey: 'feedbacks.items.3.text',
+    dateKey: 'feedbacks.items.3.date',
   },
   {
-    name: 'Петър Стоянов',
-    rating: 5,
-    text: 'Първият ми масаж и беше страхотен! Много релаксиращ и професионален. Препоръчвам!',
-    date: '8 Декември 2024',
+    nameKey: 'feedbacks.items.4.name',
+    textKey: 'feedbacks.items.4.text',
+    dateKey: 'feedbacks.items.4.date',
   },
   {
-    name: 'Анна Иванова',
-    rating: 5,
-    text: 'Отлично обслужване и много добър масаж. Помогна ми с тревожността. Благодаря много!',
-    date: '5 Декември 2024',
+    nameKey: 'feedbacks.items.5.name',
+    textKey: 'feedbacks.items.5.text',
+    dateKey: 'feedbacks.items.5.date',
   },
   {
-    name: 'Димитър Николов',
-    rating: 5,
-    text: 'Професионален масаж и много приятна атмосфера. Определено най-добрият в Бургас!',
-    date: '3 Декември 2024',
+    nameKey: 'feedbacks.items.6.name',
+    textKey: 'feedbacks.items.6.text',
+    dateKey: 'feedbacks.items.6.date',
   },
 ]
 
@@ -70,10 +64,10 @@ export function Feedbacks() {
               transition={{ duration: 0.6, delay: index * 0.1 }}
             >
               <div className={styles.header}>
-                <h3 className={styles.name}>{feedback.name}</h3>
+                <h3 className={styles.name}>{t(feedback.nameKey)}</h3>
               </div>
-              <p className={styles.text}>{feedback.text}</p>
-              <span className={styles.date}>{feedback.date}</span>
+              <p className={styles.text}>{t(feedback.textKey)}</p>
+              <span className={styles.date}>{t(feedback.dateKey)}</span>
             </motion.div>
           ))}
         </div>
