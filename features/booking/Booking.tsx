@@ -30,6 +30,7 @@ export function Booking() {
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [submissionStatus, setSubmissionStatus] = useState<'idle' | 'success' | 'error'>('idle')
   const [clientName, setClientName] = useState('')
+  const [clientPhone, setClientPhone] = useState('')
 
   const today = useMemo(() => new Date(), [])
   const normalizedToday = useMemo(
@@ -107,6 +108,7 @@ export function Booking() {
     setSelectedDate(date)
     setSelectedTime('')
     setClientName('')
+    setClientPhone('')
     setSubmissionStatus('idle')
     if (offset !== monthOffset) {
       setMonthOffset(offset)
@@ -116,10 +118,12 @@ export function Booking() {
   useEffect(() => {
     setSubmissionStatus('idle')
     setClientName('')
+    setClientPhone('')
   }, [selectedTime])
 
-  const handleReservation = async () => {
-    if (!selectedDate || !selectedTime || !clientName.trim()) return
+  const handleReservation = async (event?: React.FormEvent<HTMLFormElement>) => {
+    event?.preventDefault()
+    if (!selectedDate || !selectedTime || !clientName.trim() || !clientPhone.trim()) return
     setIsSubmitting(true)
     setSubmissionStatus('idle')
     try {
@@ -132,6 +136,7 @@ export function Booking() {
           date: selectedDate,
           time: selectedTime,
           name: clientName.trim(),
+          phone: clientPhone.trim(),
         }),
       })
 
@@ -255,73 +260,81 @@ export function Booking() {
           </motion.div>
           
           <motion.div
-            className={styles.sidePanel}
+            className={styles.imageWrapper}
             initial={{ opacity: 0, x: 50 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
           >
-            <div className={styles.imageWrapper}>
-              <Image
-                src="/bed.png"
-                alt="Професионално масажно легло за домашни масажи и релаксация в Бургас"
-                width={500}
-                height={300}
-                className={styles.image}
-              />
-            </div>
-
-            <div className={styles.reserveCard}>
-              <h3 className={styles.reserveHeading}>{t('booking.reserveTitle')}</h3>
-
-              {selectedDate && selectedTime ? (
-                <>
-                  <div>
-                    <p className={styles.selectedSlotLabel}>{t('booking.selectedSlot')}</p>
-                    <p className={styles.selectedSlotValue}>
-                      {formattedSelectedDate} · {selectedTime}
-                    </p>
-                  </div>
-                  <div className={styles.nameGroup}>
-                    <label htmlFor="booking-name" className={styles.nameLabel}>
-                      {t('booking.nameLabel')}
-                    </label>
-                    <input
-                      id="booking-name"
-                      type="text"
-                      className={styles.nameInput}
-                      value={clientName}
-                      placeholder={t('booking.namePlaceholder')}
-                      onChange={event => {
-                        setClientName(event.target.value)
-                        setSubmissionStatus('idle')
-                      }}
-                    />
-                  </div>
-                  {clientName.trim().length > 0 && (
-                    <button
-                      type="button"
-                      className={styles.reserveButton}
-                      onClick={handleReservation}
-                      disabled={isSubmitting}
-                    >
-                      {isSubmitting ? t('booking.reserveSending') : t('booking.reserveButton')}
-                    </button>
-                  )}
-                </>
-              ) : (
-                <p className={styles.reserveHint}>{t('booking.reserveHint')}</p>
-              )}
-
-              {submissionStatus === 'success' && (
-                <p className={`${styles.statusMessage} ${styles.statusSuccess}`}>{t('booking.reserveSuccess')}</p>
-              )}
-              {submissionStatus === 'error' && (
-                <p className={`${styles.statusMessage} ${styles.statusError}`}>{t('booking.reserveError')}</p>
-              )}
-            </div>
+            <Image
+              src="/bed.png"
+              alt="Професионално масажно легло за домашни масажи и релаксация в Бургас"
+              width={500}
+              height={300}
+              className={styles.image}
+            />
           </motion.div>
         </div>
+
+        {selectedDate && selectedTime && (
+          <form className={styles.reservationForm} onSubmit={handleReservation}>
+            <h3 className={styles.formHeading}>{t('booking.reserveTitle')}</h3>
+            <p className={styles.formSummary}>
+              {t('booking.selectedSlot')}: {formattedSelectedDate} · {selectedTime}
+            </p>
+            <div className={styles.formRow}>
+              <label htmlFor="booking-name" className={styles.formLabel}>
+                {t('booking.nameLabel')}
+              </label>
+              <input
+                id="booking-name"
+                type="text"
+                className={styles.formInput}
+                value={clientName}
+                placeholder={t('booking.namePlaceholder')}
+                onChange={event => {
+                  setClientName(event.target.value)
+                  setSubmissionStatus('idle')
+                }}
+                required
+              />
+            </div>
+            <div className={styles.formRow}>
+              <label htmlFor="booking-phone" className={styles.formLabel}>
+                {t('booking.phoneLabel')}
+              </label>
+              <input
+                id="booking-phone"
+                type="tel"
+                className={styles.formInput}
+                value={clientPhone}
+                placeholder={t('booking.phonePlaceholder')}
+                onChange={event => {
+                  setClientPhone(event.target.value)
+                  setSubmissionStatus('idle')
+                }}
+                required
+              />
+            </div>
+            <button
+              type="submit"
+              className={styles.formButton}
+              disabled={isSubmitting || !clientName.trim() || !clientPhone.trim()}
+            >
+              {isSubmitting ? t('booking.reserveSending') : t('booking.reserveButton')}
+            </button>
+
+            {submissionStatus === 'success' && (
+              <p className={`${styles.statusMessage} ${styles.statusSuccess}`}>{t('booking.reserveSuccess')}</p>
+            )}
+            {submissionStatus === 'error' && (
+              <p className={`${styles.statusMessage} ${styles.statusError}`}>{t('booking.reserveError')}</p>
+            )}
+            {submissionStatus === 'idle' && (
+              <p className={styles.statusMessage}>{t('booking.reserveHint')}</p>
+            )}
+          </form>
+        )}
       </div>
     </section>
   )

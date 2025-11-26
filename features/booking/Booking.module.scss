@@ -24,7 +24,7 @@
 
 .content {
   display: grid;
-  grid-template-columns: minmax(0, 1.2fr) minmax(0, 0.8fr);
+  grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
   gap: 40px;
   align-items: flex-start;
   
@@ -36,18 +36,6 @@
 
 .calendarWrapper {
   grid-column: 1;
-}
-
-.sidePanel {
-  grid-column: 2;
-  display: flex;
-  flex-direction: column;
-  gap: 24px;
-  align-items: center;
-  
-  @media (max-width: 1024px) {
-    grid-column: 1;
-  }
 }
 
 .calendar {
@@ -247,76 +235,43 @@
   object-fit: cover;
 }
 
-.reserveCard {
-  width: 100%;
-  max-width: 420px;
-  background-color: rgba(255, 255, 255, 0.05);
-  border: 2px solid var(--color-accent);
+.reservationForm {
+  margin-top: 20px;
+  padding: 20px;
+  border: 2px solid rgba(209, 178, 114, 0.3);
   border-radius: 12px;
-  padding: 24px;
+  background-color: rgba(255, 255, 255, 0.03);
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 18px;
+}
+
+.formHeading {
+  font-family: var(--font-ouroboros);
+  font-size: 1.3rem;
+  color: var(--color-accent);
   text-align: center;
 }
 
-.reserveHeading {
-  font-family: var(--font-ouroboros);
-  font-size: 1.4rem;
-  color: var(--color-accent);
-}
-
-.reserveHint {
+.formSummary {
+  text-align: center;
   color: var(--color-text-primary);
-  opacity: 0.8;
-  font-size: 1rem;
-}
-
-.selectedSlotLabel {
   font-weight: 600;
-  letter-spacing: 0.5px;
-  color: var(--color-text-primary);
 }
 
-.selectedSlotValue {
-  font-size: 1.1rem;
-  color: var(--color-accent);
-  text-transform: capitalize;
-}
-
-.reserveButton {
-  padding: 12px 22px;
-  border-radius: 999px;
-  background-color: var(--color-accent);
-  color: var(--color-bg-primary);
-  font-weight: 700;
-  font-size: 1rem;
-  border: none;
-  cursor: pointer;
-  transition: opacity 0.2s ease;
-  
-  &:disabled {
-    opacity: 0.6;
-    cursor: not-allowed;
-  }
-}
-
-.nameGroup {
-  width: 100%;
-  text-align: left;
+.formRow {
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 6px;
 }
 
-.nameLabel {
+.formLabel {
   font-weight: 600;
   font-size: 0.95rem;
   letter-spacing: 0.3px;
 }
 
-.nameInput {
-  width: 100%;
+.formInput {
   padding: 12px 14px;
   border-radius: 8px;
   border: 1px solid rgba(255, 255, 255, 0.2);
@@ -336,8 +291,26 @@
   }
 }
 
+.formButton {
+  padding: 12px 22px;
+  border-radius: 999px;
+  background-color: var(--color-accent);
+  color: var(--color-bg-primary);
+  font-weight: 700;
+  font-size: 1rem;
+  border: none;
+  cursor: pointer;
+  transition: opacity 0.2s ease;
+  
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+}
+
 .statusMessage {
   font-size: 0.95rem;
+  text-align: center;
 }
 
 .statusSuccess {
