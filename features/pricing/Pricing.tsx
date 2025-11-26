@@ -9,24 +9,25 @@ const pricingData = [
   { durationKey: 'pricing.rows.single30.duration', priceKey: 'pricing.rows.single30.price' },
   { durationKey: 'pricing.rows.single60.duration', priceKey: 'pricing.rows.single60.price' },
   { durationKey: 'pricing.rows.single90.duration', priceKey: 'pricing.rows.single90.price' },
-  { durationKey: 'pricing.rows.single120.duration', priceKey: 'pricing.rows.single120.price' },
   {
     durationKey: 'pricing.rows.relax.duration',
     priceKey: 'pricing.rows.relax.price',
     packageKey: 'pricing.rows.relax.package',
-    originalKey: 'pricing.rows.relax.original',
   },
   {
     durationKey: 'pricing.rows.recovery.duration',
     priceKey: 'pricing.rows.recovery.price',
     packageKey: 'pricing.rows.recovery.package',
-    originalKey: 'pricing.rows.recovery.original',
   },
   {
     durationKey: 'pricing.rows.premium.duration',
     priceKey: 'pricing.rows.premium.price',
     packageKey: 'pricing.rows.premium.package',
-    originalKey: 'pricing.rows.premium.original',
+  },
+  {
+    durationKey: 'pricing.rows.meditation.duration',
+    priceKey: 'pricing.rows.meditation.price',
+    packageKey: 'pricing.rows.meditation.package',
   },
 ]
 

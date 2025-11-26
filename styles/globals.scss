@@ -92,6 +92,7 @@ img {
   margin-bottom: 40px;
   color: var(--color-accent);
   letter-spacing: 2px;
+  z-index: 1;
   
   @media (max-width: 768px) {
     font-size: 2.5rem;
@@ -100,6 +101,26 @@ img {
   
   @media (max-width: 480px) {
     font-size: 2rem;
+  }
+}
+
+.footer {
+  text-align: center;
+  padding: 30px 20px;
+  border-top: 1px solid rgba(209, 178, 114, 0.3);
+  background-color: rgba(2, 26, 31, 0.95);
+  font-size: 1rem;
+  letter-spacing: 0.5px;
+  margin-top: 60px;
+  color: var(--color-text-secondary);
+
+  a {
+    color: var(--color-accent);
+    font-weight: 600;
+
+    &:hover {
+      opacity: 0.8;
+    }
   }
 }
 

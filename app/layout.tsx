@@ -83,7 +83,7 @@ export const metadata: Metadata = {
     languages: {
       'bg-BG': siteUrl,
       'en-US': `${siteUrl}/en`,
-    },
+  },
   },
   category: 'Health & Wellness',
 }

@@ -7,6 +7,12 @@ import styles from './About.module.scss'
 
 export function About() {
   const t = useTranslations()
+  const whatItems = [
+    t('about.what.items.1'),
+    t('about.what.items.2'),
+    t('about.what.items.3'),
+    t('about.what.items.4'),
+  ]
 
   return (
     <section id="about" className={styles.about}>
@@ -20,20 +26,18 @@ export function About() {
         >
           {t('about.title')}
         </motion.h2>
-        
-        <div className={styles.content}>
+
+        <div className={styles.topRow}>
           <motion.div
-            className={styles.text}
+            className={styles.intro}
             initial={{ opacity: 0, x: -50 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
           >
-            <p className={styles.description}>
-              {t('about.description')}
-            </p>
+            <p>{t('about.mission')}</p>
           </motion.div>
-          
+
           <motion.div
             className={styles.imageWrapper}
             initial={{ opacity: 0, x: 50 }}
@@ -50,6 +54,28 @@ export function About() {
             />
           </motion.div>
         </div>
+
+        <motion.div
+          className={styles.details}
+          initial={{ opacity: 0, y: 40 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6, delay: 0.1 }}
+        >
+          <div className={styles.card}>
+            <h3>{t('about.whatTitle')}</h3>
+            <ul>
+              {whatItems.map((item, index) => (
+                <li key={index}>{item}</li>
+              ))}
+            </ul>
+          </div>
+
+          <div className={styles.card}>
+            <h3>{t('about.philosophyTitle')}</h3>
+            <p>{t('about.philosophyDescription')}</p>
+          </div>
+        </motion.div>
       </div>
     </section>
   )

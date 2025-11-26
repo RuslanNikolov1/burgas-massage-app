@@ -11,7 +11,7 @@ import {
   ChatsCircle,
   LinkSimple,
   type IconProps,
-} from 'phosphor-react'
+} from '@phosphor-icons/react'
 import { useTranslations } from '@/features/i18n/useTranslations'
 import styles from './Contact.module.scss'
 

@@ -1,7 +1,7 @@
 'use client'
 
 import Image from 'next/image'
-import { Leaf, Heartbeat, ClockCounterClockwise, PersonSimple } from 'phosphor-react'
+import { Leaf, Heartbeat, ClockCounterClockwise, PersonSimple } from '@phosphor-icons/react'
 import { useTranslations } from '@/features/i18n/useTranslations'
 import styles from './ClassicalMassage.module.scss'
 

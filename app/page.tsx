@@ -5,6 +5,9 @@ import dynamic from 'next/dynamic'
 import { Header } from '@/features/layout/Header'
 import { Hero } from '@/features/hero/Hero'
 import { LoadingSkeleton } from '@/features/ui/LoadingSkeleton'
+import { useTranslations } from '@/features/i18n/useTranslations'
+import { UserCircleDashed } from '@phosphor-icons/react'
+import footerStyles from './page.module.scss'
 
 // Lazy load all sections except Hero (which should load immediately)
 const About = dynamic(
@@ -71,12 +74,9 @@ const Contact = dynamic(
   }
 )
 
-const StickyBookingButton = dynamic(
-  () => import('@/features/ui/StickyBookingButton').then(mod => ({ default: mod.StickyBookingButton })),
-  { ssr: false }
-)
-
 export default function Home() {
+  const t = useTranslations()
+
   return (
     <>
       <Header />
@@ -107,7 +107,21 @@ export default function Home() {
           <Contact />
         </Suspense>
       </main>
-      <StickyBookingButton />
+      <footer className={footerStyles.footer}>
+        <span>
+          {t('footer.text')}{' '}
+          <a href="https://portfolio-website-dusky-five-28.vercel.app/" target="_blank" rel="noopener noreferrer">
+            <UserCircleDashed
+              size={20}
+              color="#40b3bf"
+              weight="duotone"
+              aria-hidden
+              className={footerStyles.footerIcon}
+            />
+            Ruslan Nikolov
+          </a>
+        </span>
+      </footer>
     </>
   )
 }

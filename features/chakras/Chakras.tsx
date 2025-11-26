@@ -9,7 +9,7 @@ import {
   DropHalf,
   MusicNotes,
   Quotes,
-} from 'phosphor-react'
+} from '@phosphor-icons/react'
 import { useTranslations } from '@/features/i18n/useTranslations'
 import styles from './Chakras.module.scss'
 

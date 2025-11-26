@@ -21,7 +21,32 @@ const translations: Translations = {
   'hero.subtitle': { bg: 'Помагат с тревожност, стрес и паник атаки', en: 'Help with anxiety, stress and panic attacks' },
   'hero.motivational': { bg: 'Ръцете носят лечебна сила и топлина, която успокоява душата и лекува тялото. Всяко докосване е изкуство, всяко движение е грижа.', en: 'Your hands carry healing power and warmth that soothes the soul and heals the body. Every touch is art, every movement is care.' },
   'about.title': { bg: 'За мен', en: 'About Me' },
-  'about.description': { bg: 'Аз съм сертифициран класически масажист в Бургас, специализиран в релаксационни и терапевтични масажи. С над десет години опит работя с хора с хронично напрежение, тревожност и паник атаки и създавам индивидуални програми, които съчетават класически техники, дихателни практики и нежни разтягания. Вярвам, че общуването и доверието са основа на всяка лечебна сесия, затова обръщам внимание на начина, по който се чувствате през целия процес.', en: 'I am a certified classical massage therapist based in Burgas, specializing in relaxation and therapeutic treatments. With more than a decade of experience, I support people dealing with chronic tension, anxiety, and panic attacks by creating tailored programs that combine classical techniques, breathing practices, and gentle stretches. I believe communication and trust are the foundation of every healing session, so I stay attentive to how you feel throughout the process.' },
+  'about.mission': {
+    bg: 'Като масажист и енергиен терапевт, моята мисия е да помагам на хората да възстановят своя вътрешен баланс, да релаксират дълбоко и да се освободят от натрупания стрес. Работя с професионален и холистичен подход, съчетавайки техники за масаж и енергийна терапия, които подпомагат както физическото, така и емоционалното благополучие.',
+    en: 'As a massage therapist and energy practitioner, my mission is to help people restore their inner balance, relax deeply, and release accumulated stress. I work with a professional, holistic approach that blends massage techniques with energy therapy to support both physical and emotional well-being.'
+  },
+  'about.whatTitle': { bg: 'Какво правя', en: 'What I do' },
+  'about.what.items.1': {
+    bg: 'Извършвам индивидуални масажни терапии за отпускане на мускулите, подобряване на кръвообращението и намаляване на болката.',
+    en: 'I provide individual massage sessions that relax muscles, improve circulation, and ease pain.'
+  },
+  'about.what.items.2': {
+    bg: 'Работя с енергийни практики за хармонизиране на енергийните потоци и освобождаване на блокажи.',
+    en: 'I work with energy practices that harmonize the body’s flow and release energetic blockages.'
+  },
+  'about.what.items.3': {
+    bg: 'Създавам лично пространство за спокойствие, регенерация и вътрешна яснота.',
+    en: 'I create a personal space for calm, regeneration, and inner clarity.'
+  },
+  'about.what.items.4': {
+    bg: 'Подхождам с внимание, грижа и интуитивно усещане към нуждите на всеки клиент.',
+    en: 'I approach every client with attentive care and an intuitive feel for their needs.'
+  },
+  'about.philosophyTitle': { bg: 'Моята философия', en: 'My philosophy' },
+  'about.philosophyDescription': {
+    bg: 'Вярвам, че тялото и енергията са тясно свързани. Когато двете работят в хармония, човек се чувства по-здрав, по-спокоен и по-силен. Чрез масаж и енергийна терапия помагам на клиентите си да постигнат това състояние на цялостен баланс.',
+    en: 'I believe the body and its energy are deeply connected. When they move in harmony we feel healthier, calmer, and stronger. Through massage and energy therapy I support clients in reaching that state of holistic balance.'
+  },
   'classic.label': { bg: 'Класически масаж', en: 'Classical Massage' },
   'classic.heading': { bg: 'Основата на обновяващото докосване', en: 'The Foundation of Restorative Touch' },
   'classic.description': {
@@ -96,25 +121,23 @@ const translations: Translations = {
   'pricing.duration': { bg: 'Продължителност', en: 'Duration' },
   'pricing.price': { bg: 'Цена', en: 'Price' },
   'pricing.rows.single30.duration': { bg: '30 мин', en: '30 min' },
-  'pricing.rows.single30.price': { bg: '80 лв', en: '80 BGN' },
+  'pricing.rows.single30.price': { bg: '45 лв', en: '45 BGN' },
   'pricing.rows.single60.duration': { bg: '60 мин', en: '60 min' },
-  'pricing.rows.single60.price': { bg: '140 лв', en: '140 BGN' },
+  'pricing.rows.single60.price': { bg: '80 лв', en: '80 BGN' },
   'pricing.rows.single90.duration': { bg: '90 мин', en: '90 min' },
-  'pricing.rows.single90.price': { bg: '190 лв', en: '190 BGN' },
-  'pricing.rows.single120.duration': { bg: '120 мин', en: '120 min' },
-  'pricing.rows.single120.price': { bg: '240 лв', en: '240 BGN' },
+  'pricing.rows.single90.price': { bg: '110 лв', en: '110 BGN' },
   'pricing.rows.relax.duration': { bg: 'Пакет „Релакс“', en: '“Relax” Package' },
   'pricing.rows.relax.package': { bg: '2 x 60 мин', en: '2 x 60 min' },
-  'pricing.rows.relax.price': { bg: '250 лв', en: '250 BGN' },
-  'pricing.rows.relax.original': { bg: '280 лв', en: '280 BGN' },
+  'pricing.rows.relax.price': { bg: '140 лв', en: '140 BGN' },
   'pricing.rows.recovery.duration': { bg: 'Пакет „Възстановяване“', en: '“Recovery” Package' },
   'pricing.rows.recovery.package': { bg: '3 x 60 мин', en: '3 x 60 min' },
-  'pricing.rows.recovery.price': { bg: '350 лв', en: '350 BGN' },
-  'pricing.rows.recovery.original': { bg: '420 лв', en: '420 BGN' },
+  'pricing.rows.recovery.price': { bg: '180 лв', en: '180 BGN' },
   'pricing.rows.premium.duration': { bg: 'Пакет „Премиум“', en: '“Premium” Package' },
-  'pricing.rows.premium.package': { bg: '4 x 90 мин', en: '4 x 90 min' },
-  'pricing.rows.premium.price': { bg: '500 лв', en: '500 BGN' },
-  'pricing.rows.premium.original': { bg: '760 лв', en: '760 BGN' },
+  'pricing.rows.premium.package': { bg: '4 x 60 мин', en: '4 x 60 min' },
+  'pricing.rows.premium.price': { bg: '220 лв', en: '220 BGN' },
+  'pricing.rows.meditation.duration': { bg: 'Обновяваща медитация', en: 'Restorative meditation' },
+  'pricing.rows.meditation.package': { bg: 'Безплатна практика', en: 'Complimentary session' },
+  'pricing.rows.meditation.price': { bg: '0 лв', en: 'Free' },
   'booking.title': { bg: 'Резервирайте час', en: 'Book Your Session' },
   'booking.workingHours': { bg: 'Работно време: 9:00 - 18:00', en: 'Working hours: 9:00 AM - 6:00 PM' },
   'booking.prevMonth': { bg: '← Предишен', en: '← Previous' },
@@ -156,6 +179,8 @@ const translations: Translations = {
   'feedbacks.items.6.text': { bg: 'Професионален масаж и много приятна атмосфера. Определено най-добрият в Бургас!', en: 'Professional massage and a lovely atmosphere. Definitely the best in Burgas!' },
   'feedbacks.items.6.date': { bg: '3 Декември 2024', en: '3 December 2024' },
   'products.title': { bg: 'Масажни продукти', en: 'Massage Products' },
+  'products.storeMessage': { bg: 'Онлайн магазинът е в разработка', en: 'Online store under development' },
+  'footer.text': { bg: 'Създаден от', en: 'Created by' },
   'products.womanAlt': { bg: 'Жена, наслаждаваща се на релаксиращ масаж', en: 'Woman enjoying a relaxing massage' },
   'products.items.1.name': { bg: 'Ароматерапевтично масло за масаж', en: 'Aromatherapy Massage Oil' },
   'products.items.1.description': { bg: 'Натурално масло с лавандула за релаксация', en: 'Natural lavender oil for deep relaxation' },
@@ -183,7 +208,6 @@ const translations: Translations = {
   'contact.messenger': { bg: 'Messenger', en: 'Messenger' },
   'contact.viber': { bg: 'Viber', en: 'Viber' },
   'contact.cashLabel': { bg: 'Моята друга работа', en: 'My other job' },
-  'sticky.button': { bg: 'Резервирай', en: 'Book Now' },
 }
 
 const getLanguage = (): 'bg' | 'en' => {

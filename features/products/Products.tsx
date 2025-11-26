@@ -24,24 +24,6 @@ const products = [
     descriptionKey: 'products.items.3.description',
     image: '/product-3.png',
   },
-  {
-    nameKey: 'products.items.4.name',
-    priceKey: 'products.items.4.price',
-    descriptionKey: 'products.items.4.description',
-    image: '/product-4.png',
-  },
-  {
-    nameKey: 'products.items.5.name',
-    priceKey: 'products.items.5.price',
-    descriptionKey: 'products.items.5.description',
-    image: '/product-6.jpg',
-  },
-  {
-    nameKey: 'products.items.6.name',
-    priceKey: 'products.items.6.price',
-    descriptionKey: 'products.items.6.description',
-    image: '/product-6.jpg',
-  },
 ]
 
 export function Products() {
@@ -49,6 +31,9 @@ export function Products() {
 
   return (
     <section id="products" className={styles.products}>
+      <div className={styles.messageOverlay}>
+        {t('products.storeMessage')}
+      </div>
       <div className="container">
         <div className={styles.intro}>
         <motion.h2
