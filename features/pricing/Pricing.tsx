@@ -5,7 +5,14 @@ import Image from 'next/image'
 import { useTranslations } from '@/features/i18n/useTranslations'
 import styles from './Pricing.module.scss'
 
-const pricingData = [
+type PricingItem = {
+  durationKey: string
+  priceKey: string
+  packageKey?: string
+  originalKey?: string
+}
+
+const pricingData: PricingItem[] = [
   { durationKey: 'pricing.rows.single30.duration', priceKey: 'pricing.rows.single30.price' },
   { durationKey: 'pricing.rows.single60.duration', priceKey: 'pricing.rows.single60.price' },
   { durationKey: 'pricing.rows.single90.duration', priceKey: 'pricing.rows.single90.price' },
