@@ -5,6 +5,7 @@ import dynamic from 'next/dynamic'
 import { Header } from '@/features/layout/Header'
 import { Hero } from '@/features/hero/Hero'
 import { LoadingSkeleton } from '@/features/ui/LoadingSkeleton'
+import { StickyBookingButton } from '@/features/ui/StickyBookingButton'
 import { useTranslations } from '@/features/i18n/useTranslations'
 import { UserCircleDashed } from '@phosphor-icons/react'
 import footerStyles from './page.module.scss'
@@ -79,6 +80,7 @@ export default function Home() {
 
   return (
     <>
+      <StickyBookingButton />
       <Header />
       <main role="main">
         <Hero />
