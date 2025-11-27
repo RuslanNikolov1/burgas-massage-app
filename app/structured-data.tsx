@@ -1,5 +1,5 @@
 export function StructuredData() {
-  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://burgas-massage.com'
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://energymassagetherapy.com'
 
   const localBusinessSchema = {
     '@context': 'https://schema.org',
