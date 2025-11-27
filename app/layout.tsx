@@ -2,10 +2,13 @@ import type { Metadata } from 'next'
 import '@/styles/globals.scss'
 import { StructuredData } from './structured-data'
 
-const siteUrl =
+const rawSiteUrl =
   process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/$/, '') || 'https://energymassagetherapy.com'
+const siteUrl = rawSiteUrl.startsWith('http://') || rawSiteUrl.startsWith('https://')
+  ? rawSiteUrl
+  : `https://${rawSiteUrl}`
 
-const defaultTitle = 'Енергиенмасаж и медитация в Бургаски регион'
+const defaultTitle = 'Енергиен масаж и медитация в Бургаски регион'
 const defaultDescription =
   'Energy Massage Therapy в Бургас предлага домашен масаж, енергийна терапия и медитация за тревожност, стрес и мускулно напрежение. Сертифициран терапевт с персонални програми за Център, Лазур и Морската градина. Резервирайте домашно посещение или студийна сесия в Бургас.'
 const keywordList = [
