@@ -17,7 +17,10 @@ const translations: Translations = {
   'nav.feedbacks': { bg: 'Отзиви', en: 'Reviews' },
   'nav.products': { bg: 'Продукти', en: 'Products' },
   'nav.contact': { bg: 'Контакти', en: 'Contact' },
-  'hero.services': { bg: 'Домашен масаж, мини спа и медитация', en: 'Home massage, mini spa and meditation services' },
+  'hero.services': {
+    bg: 'Домашен масаж, мини спа и медитация в Бургас',
+    en: 'Home massage, mini spa and meditation services in Burgas',
+  },
   'hero.subtitle': { bg: 'Помагат с тревожност, стрес и паник атаки', en: 'Help with anxiety, stress and panic attacks' },
   'hero.motivational': { bg: 'Ръцете носят лечебна сила и топлина, която успокоява душата и лекува тялото. Всяко докосване е изкуство, всяко движение е грижа.', en: 'Your hands carry healing power and warmth that soothes the soul and heals the body. Every touch is art, every movement is care.' },
   'about.title': { bg: 'За мен', en: 'About Me' },

@@ -2,34 +2,38 @@ import type { Metadata } from 'next'
 import '@/styles/globals.scss'
 import { StructuredData } from './structured-data'
 
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://burgas-massage.com'
+const siteUrl =
+  process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/$/, '') || 'https://energymassagetherapy.com'
+
+const defaultTitle = 'Energy Massage Burgas | Домашен масаж и медитация в Бургас'
+const defaultDescription =
+  'Energy Massage Therapy в Бургас предлага домашен масаж, енергийна терапия и медитация за тревожност, стрес и мускулно напрежение. Сертифициран терапевт с персонални програми за Център, Лазур и Морската градина. Резервирайте домашно посещение или студийна сесия в Бургас.'
+const keywordList = [
+  'масаж Бургас',
+  'домашен масаж Бургас',
+  'енергийна терапия Бургас',
+  'релаксация Бургас',
+  'медитация Бургас',
+  'mini spa Burgas',
+  'home massage Burgas',
+  'massage therapist Burgas',
+  'energy healing Burgas',
+  'anxiety relief massage Burgas',
+  'stress relief massage Burgas',
+  'therapeutic massage Burgas',
+]
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
-    default: 'Масаж и Релаксация в Бургас | Home Massage & Mini Spa',
-    template: '%s | Бургас Масаж'
+    default: defaultTitle,
+    template: `%s | Energy Massage`,
   },
-  description: 'Професионален масаж в Бургас. Home massage, mini spa и медитация за справяне с тревожност, стрес и паник атаки. Сертифициран масажист с над 10 години опит. Book your session today.',
-  keywords: [
-    'масаж Бургас',
-    'home massage Бургас',
-    'mini spa Бургас',
-    'медитация Бургас',
-    'релаксация Бургас',
-    'тревожност',
-    'стрес',
-    'паник атаки',
-    'класически масаж',
-    'шведски масаж',
-    'терапевтичен масаж',
-    'масажист Бургас',
-    'масаж на дом',
-    'масаж услуги Бургас'
-  ],
-  authors: [{ name: 'Burgas Massage' }],
-  creator: 'Burgas Massage',
-  publisher: 'Burgas Massage',
+  description: defaultDescription,
+  keywords: keywordList,
+  authors: [{ name: 'Energy Massage Therapy' }],
+  creator: 'Energy Massage Therapy',
+  publisher: 'Energy Massage Therapy',
   formatDetection: {
     email: false,
     address: false,
@@ -49,23 +53,23 @@ export const metadata: Metadata = {
     locale: 'bg_BG',
     alternateLocale: ['en_US'],
     url: siteUrl,
-    siteName: 'Бургас Масаж',
-    title: 'Масаж и Релаксация в Бургас | Home Massage & Mini Spa',
-    description: 'Професионален масаж в Бургас. Home massage, mini spa и медитация за справяне с тревожност, стрес и паник атаки. Сертифициран масажист с над 10 години опит.',
+    siteName: 'Energy Massage Therapy Burgas',
+    title: defaultTitle,
+    description: defaultDescription,
     images: [
       {
-        url: '/logo.png',
+        url: `${siteUrl}/logo.png`,
         width: 1200,
         height: 630,
-        alt: 'Бургас Масаж - Професионален масаж и релаксация',
+        alt: 'Energy Massage Therapy – професионален масаж и медитация в Бургас',
       },
     ],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Масаж и Релаксация в Бургас | Home Massage & Mini Spa',
-    description: 'Професионален масаж в Бургас. Home massage, mini spa и медитация за справяне с тревожност, стрес и паник атаки.',
-    images: ['/logo.png'],
+    title: defaultTitle,
+    description: defaultDescription,
+    images: [`${siteUrl}/logo.png`],
   },
   robots: {
     index: true,
@@ -83,9 +87,15 @@ export const metadata: Metadata = {
     languages: {
       'bg-BG': siteUrl,
       'en-US': `${siteUrl}/en`,
-  },
+    },
   },
   category: 'Health & Wellness',
+  other: {
+    'geo.region': 'BG-02',
+    'geo.placename': 'Burgas',
+    'geo.position': '42.5048;27.4626',
+    ICBM: '42.5048, 27.4626',
+  },
 }
 
 export default function RootLayout({

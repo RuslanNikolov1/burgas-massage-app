@@ -8,7 +8,7 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: 'Missing reservation data' }, { status: 400 })
     }
 
-    const targetEmail = process.env.BOOKING_TARGET_EMAIL || 'ruslannikolov1@gmail.com'
+    const targetEmail = process.env.BOOKING_TARGET_EMAIL || 'ivanvelichkov13@gmail.com'
     const apiKey = process.env.RESEND_API_KEY
     const fromEmail = process.env.RESEND_FROM_EMAIL
 
