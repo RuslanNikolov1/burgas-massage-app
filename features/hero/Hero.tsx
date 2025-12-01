@@ -45,6 +45,7 @@ export function Hero() {
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.6, delay: 0.2 }}
           >
+            <p className={styles.cities}>{t('hero.cities')}</p>
             <div className={styles.imageWrapper}>
               <Image
                 src="/man.png"

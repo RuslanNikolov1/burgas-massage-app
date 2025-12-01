@@ -36,6 +36,7 @@ export function About() {
             transition={{ duration: 0.6 }}
           >
             <p>{t('about.mission')}</p>
+            <p>{t('about.mission2')}</p>
           </motion.div>
 
           <motion.div
@@ -46,7 +47,7 @@ export function About() {
             transition={{ duration: 0.6 }}
           >
             <Image
-              src="/profile-photo.jpg"
+              src="/profile-picture.jpg"
               alt="Сертифициран масажист в Бургас с над 10 години опит в класически и терапевтични масажи"
               width={400}
               height={500}
@@ -74,6 +75,33 @@ export function About() {
           <div className={styles.card}>
             <h3>{t('about.philosophyTitle')}</h3>
             <p>{t('about.philosophyDescription')}</p>
+          </div>
+        </motion.div>
+
+        <motion.div
+          className={styles.gallery}
+          initial={{ opacity: 0, y: 40 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6, delay: 0.2 }}
+        >
+          <div className={styles.galleryImageWrapper}>
+            <Image
+              src="/massage-1.jpg"
+              alt="Професионален масаж в Бургас"
+              width={600}
+              height={400}
+              className={styles.galleryImage}
+            />
+          </div>
+          <div className={styles.galleryImageWrapper}>
+            <Image
+              src="/massage-2.png"
+              alt="Релаксиращ масаж и терапия"
+              width={600}
+              height={400}
+              className={styles.galleryImage}
+            />
           </div>
         </motion.div>
       </div>

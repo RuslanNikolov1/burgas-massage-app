@@ -8,12 +8,12 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: 'Missing reservation data' }, { status: 400 })
     }
 
-    const targetEmail = process.env.BOOKING_TARGET_EMAIL || 'ivanvelichkov13@gmail.com'
-    const apiKey = process.env.RESEND_API_KEY
-    const fromEmail = process.env.RESEND_FROM_EMAIL
+    const targetEmail = process.env.NEXT_PUBLIC_BOOKING_TARGET_EMAIL || 'ivanvelichkov13@gmail.com'
+    const apiKey = process.env.NEXT_PUBLIC_RESEND_API_KEY
+    const fromEmail = process.env.NEXT_PUBLIC_RESEND_FROM_EMAIL
 
     if (!apiKey || !fromEmail) {
-      console.error('Resend configuration missing RESEND_API_KEY or RESEND_FROM_EMAIL')
+      console.error('Resend configuration missing NEXT_PUBLIC_RESEND_API_KEY or NEXT_PUBLIC_RESEND_FROM_EMAIL')
       return NextResponse.json({ error: 'Email is not configured' }, { status: 500 })
     }
 

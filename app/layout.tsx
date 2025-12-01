@@ -8,9 +8,9 @@ const siteUrl = rawSiteUrl.startsWith('http://') || rawSiteUrl.startsWith('https
   ? rawSiteUrl
   : `https://${rawSiteUrl}`
 
-const defaultTitle = 'Енергиен масаж и медитация в Бургаски регион'
+const defaultTitle = 'Масаж в Бургас – Домашен масаж, мини спа и медитация'
 const defaultDescription =
-  'Energy Massage Therapy в Бургас предлага домашен масаж, енергийна терапия и медитация за тревожност, стрес и мускулно напрежение. Сертифициран терапевт с персонални програми за Център, Лазур и Морската градина. Резервирайте домашно посещение или студийна сесия в Бургас.'
+  'Професионален масаж в Бургас с домашно посещение. Релаксиращ, дълбокотъканен и терапевтичен масаж, мини спа ритуали и водена медитация. Запазете час още днес.'
 const keywordList = [
   'масаж Бургас',
   'домашен масаж Бургас',
@@ -114,6 +114,10 @@ export default function RootLayout({
         <link rel="icon" href="/logo.png" sizes="32x32" />
         <link rel="shortcut icon" href="/logo.png" />
         <link rel="apple-touch-icon" href="/logo.png" />
+        <meta property="og:image" content={`${siteUrl}/logo.png`} />
+        <meta property="og:image:width" content="1200" />
+        <meta property="og:image:height" content="630" />
+        <meta name="twitter:card" content="summary_large_image" />
         <StructuredData />
       </head>
       <body>{children}</body>

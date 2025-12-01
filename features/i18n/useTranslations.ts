@@ -18,15 +18,23 @@ const translations: Translations = {
   'nav.products': { bg: 'Продукти', en: 'Products' },
   'nav.contact': { bg: 'Контакти', en: 'Contact' },
   'hero.services': {
-    bg: 'Домашен масаж, мини спа и медитация в Бургас',
-    en: 'Home massage, mini spa and meditation services in Burgas',
+    bg: 'Масаж в Бургас и региона – Домашен масаж, мини спа и медитация',
+    en: 'Massage in Burgas and region – Home massage, mini spa and meditation',
+  },
+  'hero.cities': {
+    bg: 'Давам масажи и в Слънчев бряг, СветиВлас, Несебър, Кошарица, Равда, Поморие, Сарафово',
+    en: 'I offer massages also in Sunny Beach, St. Vlas, Nessebar, Kosharitsa, Ravda, Pomorie, Sarafovo',
   },
   'hero.subtitle': { bg: 'Помагат с тревожност, стрес и паник атаки', en: 'Help with anxiety, stress and panic attacks' },
   'hero.motivational': { bg: 'Ръцете носят лечебна сила и топлина, която успокоява душата и лекува тялото. Всяко докосване е изкуство, всяко движение е грижа.', en: 'Your hands carry healing power and warmth that soothes the soul and heals the body. Every touch is art, every movement is care.' },
   'about.title': { bg: 'За мен', en: 'About Me' },
   'about.mission': {
-    bg: 'Като масажист и енергиен терапевт, моята мисия е да помагам на хората да възстановят своя вътрешен баланс, да релаксират дълбоко и да се освободят от натрупания стрес. Работя с професионален и холистичен подход, съчетавайки техники за масаж и енергийна терапия, които подпомагат както физическото, така и емоционалното благополучие.',
-    en: 'As a massage therapist and energy practitioner, my mission is to help people restore their inner balance, relax deeply, and release accumulated stress. I work with a professional, holistic approach that blends massage techniques with energy therapy to support both physical and emotional well-being.'
+    bg: 'Като масажист и енергиен терапевт, помагам на хората да възстановят вътрешния си баланс и да се освободят от стреса. Работя с професионален холистичен подход, съчетавайки масаж и енергийна терапия за физическо и емоционално благополучие.',
+    en: 'As a massage therapist and energy practitioner, I help people restore their inner balance and release stress. I work with a professional holistic approach, combining massage and energy therapy for physical and emotional well-being.'
+  },
+  'about.mission2': {
+    bg: 'Всяка сесия е персонализирана според нуждите на клиента. Създавам безопасно пространство за облекчение от болка, намаляване на стреса и подобряване на здраве и жизненост.',
+    en: 'Each session is personalized according to the client\'s needs. I create a safe space for pain relief, stress reduction, and improved health and vitality.'
   },
   'about.whatTitle': { bg: 'Какво правя', en: 'What I do' },
   'about.what.items.1': {

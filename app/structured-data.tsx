@@ -1,5 +1,9 @@
 export function StructuredData() {
-  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://energymassagetherapy.com'
+  const rawSiteUrl =
+    process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/$/, '') || 'https://energymassagetherapy.com'
+  const siteUrl = rawSiteUrl.startsWith('http://') || rawSiteUrl.startsWith('https://')
+    ? rawSiteUrl
+    : `https://${rawSiteUrl}`
 
   const localBusinessSchema = {
     '@context': 'https://schema.org',
@@ -81,6 +85,21 @@ export function StructuredData() {
     },
   }
 
+  const healthAndBeautyBusinessSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'HealthAndBeautyBusiness',
+    name: 'Масаж в Бургас',
+    image: `${siteUrl}/logo.png`,
+    address: {
+      '@type': 'PostalAddress',
+      addressLocality: 'Бургас',
+      addressCountry: 'BG',
+    },
+    url: siteUrl,
+    telephone: '+359-XXX-XXX-XXX', // Update with actual phone number
+    description: 'Професионален масаж в Бургас с домашно посещение, мини спа и медитация.',
+  }
+
   return (
     <>
       <script
@@ -94,6 +113,10 @@ export function StructuredData() {
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(personSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(healthAndBeautyBusinessSchema) }}
       />
     </>
   )
