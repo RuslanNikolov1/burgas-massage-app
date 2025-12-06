@@ -37,6 +37,7 @@ export function About() {
           >
             <p>{t('about.mission')}</p>
             <p>{t('about.mission2')}</p>
+            <p>{t('about.mission3')}</p>
           </motion.div>
 
           <motion.div
@@ -47,8 +48,8 @@ export function About() {
             transition={{ duration: 0.6 }}
           >
             <Image
-              src="/profile-picture.jpg"
-              alt="Сертифициран масажист в Бургас с над 10 години опит в класически и терапевтични масажи"
+              src="/profile-pic.jpg"
+              alt="Сертифициран масажист в Бургас, специализиран в класически и терапевтични масажи"
               width={400}
               height={500}
               className={styles.image}

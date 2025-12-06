@@ -6,6 +6,7 @@ import { Header } from '@/features/layout/Header'
 import { Hero } from '@/features/hero/Hero'
 import { LoadingSkeleton } from '@/features/ui/LoadingSkeleton'
 import { StickyBookingButton } from '@/features/ui/StickyBookingButton'
+import { MusicMessage } from '@/features/ui/MusicMessage'
 import { useTranslations } from '@/features/i18n/useTranslations'
 import { UserCircleDashed } from '@phosphor-icons/react'
 import footerStyles from './page.module.scss'
@@ -21,6 +22,14 @@ const About = dynamic(
 
 const ClassicalMassage = dynamic(
   () => import('@/features/classicMassage/ClassicalMassage').then(mod => ({ default: mod.ClassicalMassage })),
+  { 
+    loading: () => <LoadingSkeleton />,
+    ssr: true 
+  }
+)
+
+const DestinyMatrix = dynamic(
+  () => import('@/features/destinyMatrix/DestinyMatrix'),
   { 
     loading: () => <LoadingSkeleton />,
     ssr: true 
@@ -82,10 +91,14 @@ export default function Home() {
     <>
       <StickyBookingButton />
       <Header />
+      <MusicMessage />
       <main role="main">
         <Hero />
         <Suspense fallback={<LoadingSkeleton />}>
           <ClassicalMassage />
+        </Suspense>
+        <Suspense fallback={<LoadingSkeleton />}>
+          <DestinyMatrix />
         </Suspense>
         <Suspense fallback={<LoadingSkeleton />}>
           <Chakras />

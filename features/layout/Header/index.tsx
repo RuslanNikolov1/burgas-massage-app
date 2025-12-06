@@ -5,6 +5,7 @@ import { motion } from 'framer-motion'
 import Image from 'next/image'
 import { useTranslations } from '@/features/i18n/useTranslations'
 import { LanguageSwitcher } from '@/features/i18n/LanguageSwitcher'
+import { MusicPlayer } from '@/features/ui/MusicPlayer'
 import styles from './Header.module.scss'
 
 const sections = [
@@ -77,21 +78,21 @@ export function Header() {
       animate={{ y: 0 }}
       transition={{ duration: 0.3 }}
     >
-      <nav className={styles.nav} role="navigation" aria-label="Main navigation">
+      <nav className={styles.nav} role="navigation" aria-label={t('nav.mainNavigation')}>
         <div className={styles.brandRow}>
           <button
             type="button"
             className={`${styles.menuToggle} ${isMenuOpen ? styles.open : ''}`}
             onClick={toggleMenu}
-            aria-label={isMenuOpen ? 'Close menu' : 'Open menu'}
+            aria-label={isMenuOpen ? t('nav.menuClose') : t('nav.menuOpen')}
             aria-expanded={isMenuOpen}
           >
             <span />
             <span />
             <span />
           </button>
-          <a href="#hero" className={styles.logoLink} onClick={(e) => handleNavClick(e, 'hero')} aria-label="Бургас Масаж - Начална страница">
-            <Image src="/logo.png" alt="Бургас Масаж - Професионален масаж и релаксация" width={140} height={140} className={styles.logoImage} priority />
+          <a href="#hero" className={styles.logoLink} onClick={(e) => handleNavClick(e, 'hero')} aria-label={t('nav.logoAria')}>
+            <Image src="/logo.png" alt={t('nav.logoAlt')} width={140} height={140} className={styles.logoImage} priority />
           </a>
         </div>
         <div className={`${styles.navList} ${isMenuOpen ? styles.open : ''}`}>
@@ -109,8 +110,11 @@ export function Header() {
               </li>
             ))}
           </ul>
-          <div className={styles.languageSwitcher}>
-            <LanguageSwitcher />
+          <div className={styles.controls}>
+            <MusicPlayer />
+            <div className={styles.languageSwitcher}>
+              <LanguageSwitcher />
+            </div>
           </div>
         </div>
       </nav>

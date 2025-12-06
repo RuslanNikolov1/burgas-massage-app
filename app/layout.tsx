@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import '@/styles/globals.scss'
 import { StructuredData } from './structured-data'
+import { LanguageProvider } from '@/features/i18n/LanguageProvider'
 
 const rawSiteUrl =
   process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/$/, '') || 'https://energymassagetherapy.com'
@@ -118,9 +119,18 @@ export default function RootLayout({
         <meta property="og:image:width" content="1200" />
         <meta property="og:image:height" content="630" />
         <meta name="twitter:card" content="summary_large_image" />
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        <link
+          href="https://fonts.googleapis.com/css2?family=GFS+Didot&family=Inter:wght@400;500;600&display=swap"
+          rel="stylesheet"
+        />
         <StructuredData />
       </head>
-      <body>{children}</body>
+      <body>
+        <LanguageProvider />
+        {children}
+      </body>
     </html>
   )
 }

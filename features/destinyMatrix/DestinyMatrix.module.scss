@@ -1,0 +1,988 @@
+// features/destinyMatrix/DestinyMatrix.module.scss
+// Based on DestinyMatrix/assets/styles/index.css
+
+.root {
+  background-color: var(--color-bg-secondary);
+  color: var(--color-text-primary);
+  font-family: var(--font-gfs-didot, 'GFS Didot', serif);
+  font-size: clamp(0.8vw, 1vw, 1.2vw);
+  padding: var(--spacing-xxl) var(--spacing-sm);
+  padding-bottom: clamp(8vh, 10em, 12vh);
+  margin: 0;
+  width: 100%;
+  border-top: 2px solid var(--color-accent);
+  border-bottom: 2px solid var(--color-accent);
+  
+  @media (max-width: 768px) {
+    padding: var(--spacing-xl) var(--spacing-sm);
+    padding-bottom: clamp(6vh, 8em, 10vh);
+  }
+  
+  // Ensure GFS Didot is loaded
+  @supports (font-family: 'GFS Didot') {
+    font-family: var(--font-gfs-didot);
+  }
+}
+
+.header {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-transform: uppercase;
+  text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.26);
+  text-align: center;
+  padding: clamp(3vh, 6em, 8vh) 0 clamp(2vh, 4em, 6vh) 0;
+  margin: 0;
+
+  .title {
+    margin: 0;
+    font-size: clamp(2.5vw, 3.75em, 5vw);
+    font-family: var(--font-gfs-didot, 'GFS Didot', serif);
+    color: var(--color-text-primary);
+    
+    @media (max-width: 768px) {
+      font-size: clamp(2vw, 2.5em, 3.5vw);
+    }
+  }
+}
+
+.glowWrap {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: -1;
+}
+
+.glow {
+  width: clamp(30vw, 50em, 60vw);
+  height: clamp(1vh, 1.875em, 2vh);
+  background: var(--color-accent);
+  opacity: 0.3;
+  filter: blur(clamp(2vw, 4.6875em, 6vw));
+}
+
+.glow2 {
+  position: absolute;
+  width: clamp(25vw, 45em, 55vw);
+  height: clamp(20vh, 36em, 40vh);
+  background: var(--color-accent);
+  opacity: 0.2;
+  filter: blur(clamp(2vw, 4.6875em, 6vw));
+  z-index: -1;
+}
+
+
+.birthdayContainer {
+    position: relative;
+    display: flex;
+  flex-direction: column;
+  justify-content: center;
+    align-items: center;
+  font-family: var(--font-inter, 'Inter', sans-serif);
+  margin-bottom: clamp(3vh, 5em, 6vh);
+  padding: 0 clamp(1vw, 2rem, 3vw);
+
+  p {
+    margin: 0;
+    font-size: clamp(1.2vw, 1.5em, 1.8vw);
+    color: var(--color-text-primary);
+  }
+}
+
+.inputsWrapper {
+  width: clamp(50vw, 60%, 70vw);
+  margin-top: clamp(2vh, 3.1875em, 4vh);
+  display: grid;
+  grid-template-columns: 1fr 1fr auto;
+  grid-template-rows: 1fr;
+  grid-template-areas: 'input1 input2 button';
+  grid-gap: clamp(1vw, 1.875em, 2.5vw);
+  align-items: center;
+}
+
+.inputWrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.hiddenDatePicker {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+  pointer-events: none;
+}
+
+.calendarButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px;
+  background-color: rgba(209, 178, 114, 0.1);
+  border: 1px solid rgba(209, 178, 114, 0.35);
+  border-radius: 0.5em;
+  color: var(--color-accent);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  flex-shrink: 0;
+  min-width: 40px;
+  height: clamp(2.5vh, 3em, 4vh);
+
+  &:hover {
+    background-color: rgba(209, 178, 114, 0.2);
+    border-color: var(--color-accent);
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 2px;
+  }
+}
+
+.inputWrap:first-of-type {
+  grid-area: input1;
+}
+
+.errorOutput,
+.wrongDate {
+  padding-top: 5em;
+  font-size: 1.5em;
+  color: #ea4631;
+    text-align: center;
+}
+
+.root {
+  input[type='text'] {
+    flex: 1;
+    width: 100%;
+    height: clamp(2.5vh, 3em, 4vh);
+    padding: clamp(1.5vh, 2em, 2.5vh) clamp(2.5vw, 4em, 5vw) clamp(1.5vh, 2em, 2.5vh) clamp(2.5vw, 4em, 5vw);
+    font-family: var(--font-inter, 'Inter', sans-serif);
+    font-size: clamp(1.2vw, 1.5em, 1.8vw);
+    background-color: rgba(0, 0, 0, 0.25);
+    color: var(--color-text-primary);
+    border: 1px solid rgba(209, 178, 114, 0.35);
+    border-radius: 0.5em;
+    transition: border-color 0.3s ease;
+
+    &:focus {
+      outline: none;
+      border-color: var(--color-accent);
+    }
+  }
+
+  input[type='date'] {
+    font-family: var(--font-inter, 'Inter', sans-serif);
+  }
+
+  input[type='date']::-webkit-calendar-picker-indicator {
+    filter: invert(1);
+  }
+}
+
+.createButton {
+  grid-area: button;
+  align-self: baseline;
+  padding: clamp(1vh, 1.25em, 1.5vh) clamp(1.5vw, 2em, 2.5vw) clamp(1vh, 1.25em, 1.5vh) clamp(1.5vw, 2em, 2.5vw);
+  background-color: var(--color-accent);
+  font-family: var(--font-inter, 'Inter', sans-serif);
+  font-size: clamp(1vw, 1.25em, 1.5vw);
+  line-height: 125%;
+  text-transform: uppercase;
+  border-radius: 0.5em;
+  border: 1px solid var(--color-accent);
+  z-index: 1;
+  cursor: pointer;
+  color: var(--color-bg-primary);
+  transition: all 0.3s ease;
+
+  &:hover {
+    color: var(--color-text-primary);
+    background-color: var(--color-accent-hover);
+    border-color: var(--color-accent-hover);
+    transform: translateY(-2px);
+  }
+}
+
+// Star decorations
+.starWrap1,
+.starWrap2,
+.starWrap3,
+.starWrap4,
+.starWrap5,
+.starWrap6,
+.starWrap7,
+.starWrap8 {
+  position: absolute;
+  font-size: clamp(0.8vw, 1.25em, 1.5vw);
+  pointer-events: none;
+}
+
+.starWrap1 {
+  top: 0;
+  left: clamp(-3vw, -2em, -1.5vw);
+}
+
+.starWrap2 {
+  top: clamp(-2vh, -1.56em, -1vh);
+  right: clamp(-2vw, -1.38em, -1vw);
+}
+
+.starWrap3 {
+  bottom: clamp(-2.5vh, -1.8em, -1vh);
+  right: clamp(-2vw, -1.38em, -1vw);
+}
+
+.starWrap4 {
+  top: clamp(-3vh, -2.5em, -1.5vh);
+  right: clamp(-1.5vw, -1em, -0.5vw);
+}
+
+.starWrap5 {
+  top: clamp(5vh, 7em, 8vh);
+  right: clamp(-2vw, -1.5em, -1vw);
+  opacity: 0.1;
+}
+
+.starWrap6 {
+  top: clamp(8vh, 10em, 12vh);
+  left: clamp(7vw, 9em, 11vw);
+}
+
+.starWrap7 {
+  top: clamp(-1.5vh, -1em, -0.5vh);
+  left: clamp(5vw, 6em, 7vw);
+  opacity: 0.1;
+}
+
+.starWrap8 {
+  top: clamp(9vh, 11em, 13vh);
+  right: clamp(7vw, 9em, 11vw);
+}
+
+.starMedium {
+  width: clamp(2vw, 2.9em, 3.5vw);
+  height: clamp(2vw, 2.9em, 3.5vw);
+}
+
+.starSmall {
+  width: clamp(1.2vw, 1.85em, 2.2vw);
+  height: clamp(1.2vw, 1.85em, 2.2vw);
+}
+
+.starLarge {
+  width: clamp(3vw, 4.3em, 5vw);
+  height: clamp(3vw, 4.3em, 5vw);
+}
+
+.matrixContainer {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: clamp(1.5vh, 2rem, 3vh) 0;
+}
+
+.personalCalculator {
+  display: flex;
+  justify-content: center;
+  font-size: clamp(2vw, 3.375em, 4.5vw);
+  align-items: center;
+  text-align: center;
+  text-transform: uppercase;
+  margin-bottom: clamp(1vh, 1rem, 2vh);
+}
+
+.outputPersonalDate {
+  text-align: center;
+  font-size: clamp(1vw, 1.25em, 1.5vw);
+  font-family: var(--font-inter, 'Inter', sans-serif);
+  margin-bottom: clamp(1.5vh, 2rem, 3vh);
+}
+
+.smokyWhite {
+  color: var(--color-text-primary);
+}
+
+.smokyWhite2 {
+  color: var(--color-accent);
+}
+
+.gray {
+  color: var(--color-text-secondary);
+}
+
+.pento {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  margin: clamp(5vh, 10%, 15vh) 0;
+}
+
+.matrixSvg {
+  float: none;
+  width: 100%;
+  max-width: clamp(40vw, 550px, 65vw);
+  min-width: clamp(280px, 300px, 320px);
+}
+
+// SVG classes
+.cls3,
+.cls4,
+.cls18 {
+  stroke-width: 1.5px;
+  stroke-miterlimit: 10;
+  stroke: white;
+  fill: none;
+}
+
+.cls4 {
+  stroke-dasharray: 0, 49, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 41;
+}
+
+.cls5,
+.cls7 {
+  stroke-width: 1px;
+}
+
+.cls18 {
+  stroke-dasharray: 0, 25, 10, 50, 10, 50, 10, 25;
+}
+
+.cls5,
+.cls6 {
+  stroke: #b653f7;
+  fill: #b653f7;
+}
+
+.cls7,
+.cls8 {
+  stroke: #ea4631;
+  fill: #ea4631;
+}
+
+.cls10 {
+  fill: #b653f7;
+}
+
+.cls13 {
+  fill: #3d54f5;
+}
+
+.cls15 {
+  fill: #74e0f8;
+}
+
+.cls19 {
+  fill: #ea4631;
+}
+
+.cls22 {
+  fill: #ed7233;
+}
+
+.cls24,
+.cls21,
+.cls23,
+.cls53 {
+  fill: #fffcf0;
+}
+
+.cls25 {
+  fill: #fbe49d;
+}
+
+.cls26 {
+  fill: #b6fd57;
+}
+
+.cls15,
+.cls21,
+.cls22,
+.cls26 {
+  filter: blur(2.90323px);
+}
+
+.cls13,
+.cls23 {
+  filter: blur(3.54839px);
+}
+
+.cls10,
+.cls19,
+.cls24,
+.cls25 {
+  filter: blur(5px);
+}
+
+.matrixValuePoint {
+  text-anchor: middle;
+  alignment-baseline: middle;
+}
+
+.cls28 {
+  font-size: 12.9501px;
+  line-height: 11px;
+  fill: #f5f5f5;
+}
+
+.cls29 {
+  font-size: 12.0251px;
+  line-height: 10px;
+  fill: #f5f5f5;
+}
+
+.cls33 {
+  font-size: 12px;
+  line-height: 81.9%;
+  fill: #f5f5f5;
+}
+
+.cls43 {
+  font-size: clamp(0.3vw, 5.76471px, 0.5vw);
+  line-height: 81.9%;
+  fill: #f5f5f5;
+}
+
+.cls44 {
+  font-size: 11.5587px;
+  line-height: 81.9%;
+  fill: #f5f5f5;
+}
+
+.cls54,
+.cls55,
+.cls56 {
+  font-size: 29.7851px;
+  line-height: 37px;
+}
+
+.cls54,
+.cls57,
+.cls59,
+.cls61 {
+  fill: #f5f5f5;
+}
+
+.cls55,
+.cls58,
+.cls60 {
+  fill: #000000;
+}
+
+.cls56 {
+  fill: #d2b154;
+}
+
+.cls57,
+.cls58 {
+  font-size: 17.2946px;
+  line-height: 22px;
+}
+
+.cls59,
+.cls60 {
+  font-size: 21.1378px;
+  line-height: 26px;
+}
+
+.cls61 {
+  font-size: 6px;
+  line-height: 81.9%;
+  fill: #f5f5f5;
+}
+
+.bigCircle {
+  // Default radius, adjusted by JavaScript for browser compatibility
+  r: 32.5;
+}
+
+.mediumCircle {
+  // Default radius, adjusted by JavaScript for browser compatibility
+  r: 23;
+}
+
+.smallCircle {
+  // Default radius, adjusted by JavaScript for browser compatibility
+  r: 20;
+}
+
+// Chakra Table
+.chakraTableContainer {
+  position: relative;
+  margin: clamp(2vh, 3vh, 4vh) 0;
+  width: 100%;
+  max-width: clamp(40vw, 50vw, 60vw);
+}
+
+.chakraTable {
+  border-spacing: 0;
+  border-radius: clamp(0.5vw, 10px, 1vw);
+  width: 100%;
+  max-width: clamp(40vw, 50vw, 60vw);
+  display: block;
+  font-family: var(--font-inter, 'Inter', sans-serif);
+
+  td:first-child,
+  th:first-child {
+    border-left: 1px solid white;
+  }
+
+  tr:first-child th,
+  tr:last-child td {
+    border-top: 1px solid white;
+  }
+
+  td,
+  th {
+    border-right: 1px solid white;
+    border-bottom: 1px solid white;
+  }
+}
+
+.chakraName {
+  width: clamp(12vw, 16.25vw, 20vw);
+  height: clamp(2.5vh, 3.0625vh, 4vh);
+  padding: clamp(0.2vh, 0.3125vh, 0.4vh);
+  text-align: left;
+}
+
+.chakraNameLeft {
+  justify-content: center;
+  flex-direction: column-reverse;
+  align-items: flex-start;
+  padding-left: clamp(2vw, 2.9375vw, 3.5vw);
+}
+
+.chakraNameFlex {
+  display: flex;
+  align-items: baseline;
+}
+
+// Chakra circle indicators (using CSS ::before)
+.chakraNameFlex[id='circle-sahastrara']::before {
+  content: '7';
+  width: 1.25em;
+  border-radius: 50%;
+  height: 1.25em;
+  display: inline-flex;
+  background: #b653f7;
+  justify-content: center;
+  align-items: center;
+  margin-right: 1.25em;
+  box-shadow: 0 0 0.625em 0.625em #b653f7;
+  font-family: var(--font-gfs-didot, 'GFS Didot', serif);
+  font-size: 1.375em;
+}
+
+.chakraNameFlex[id='circle-ajna']::before {
+  content: '6';
+  width: 1.25em;
+  border-radius: 50%;
+  height: 1.25em;
+  display: inline-flex;
+  background: #3d54f5;
+  justify-content: center;
+  align-items: center;
+  margin-right: 1.25em;
+  box-shadow: 0 0 0.625em 0.625em #3d54f5;
+  font-family: var(--font-gfs-didot, 'GFS Didot', serif);
+  font-size: 1.375em;
+}
+
+.chakraNameFlex[id='circle-vishuddha']::before {
+  content: '5';
+  width: 1.25em;
+  border-radius: 50%;
+  height: 1.25em;
+  display: inline-flex;
+  color: #000000;
+  background: #74e0f8;
+  justify-content: center;
+  align-items: center;
+  margin-right: 1.25em;
+  box-shadow: 0 0 0.625em 0.625em #74e0f8;
+  font-family: var(--font-gfs-didot, 'GFS Didot', serif);
+  font-size: 1.375em;
+}
+
+.chakraNameFlex[id='circle-anahata']::before {
+  content: '4';
+  width: 1.25em;
+  border-radius: 50%;
+  height: 1.25em;
+  display: inline-flex;
+  color: #000000;
+  background: #b6fd57;
+  justify-content: center;
+  align-items: center;
+  margin-right: 1.25em;
+  box-shadow: 0 0 0.625em 0.625em #b6fd57;
+  font-family: var(--font-gfs-didot, 'GFS Didot', serif);
+  font-size: 1.375em;
+}
+
+.chakraNameFlex[id='circle-manipura']::before {
+  content: '3';
+  width: 1.25em;
+  border-radius: 50%;
+  height: 1.25em;
+  display: inline-flex;
+  color: #000000;
+  background: #fbe49d;
+  justify-content: center;
+  align-items: center;
+  margin-right: 1.25em;
+  box-shadow: 0 0 0.625em 0.625em #fbe49d;
+  font-family: var(--font-gfs-didot, 'GFS Didot', serif);
+  font-size: 1.375em;
+}
+
+.chakraNameFlex[id='circle-svadhishtana']::before {
+  content: '2';
+  width: 1.25em;
+  border-radius: 50%;
+  height: 1.25em;
+  display: inline-flex;
+  color: #f5f5f5;
+  background: #ed7233;
+  justify-content: center;
+  align-items: center;
+  margin-right: 1.25em;
+  box-shadow: 0 0 0.625em 0.625em #ed7233;
+  font-family: var(--font-gfs-didot, 'GFS Didot', serif);
+  font-size: 1.375em;
+}
+
+.chakraNameFlex[id='circle-muladhara']::before {
+  content: '1';
+  width: 1.25em;
+  border-radius: 50%;
+  height: 1.25em;
+  display: inline-flex;
+  color: #f5f5f5;
+  background: #ea4631;
+  justify-content: center;
+  align-items: center;
+  margin-right: 1.25em;
+  box-shadow: 0 0 0.625em 0.625em #ea4631;
+  font-family: var(--font-gfs-didot, 'GFS Didot', serif);
+  font-size: 1.375em;
+}
+
+.chakraTd {
+  padding: clamp(0.2vh, 0.3125vh, 0.4vh);
+  text-align: center;
+  width: clamp(9vw, 12.5vw, 15vw);
+}
+
+.chakraTr {
+  font-family: var(--font-inter, 'Inter', sans-serif);
+  text-align-last: center;
+  padding: clamp(0.2vh, 0.3125vh, 0.4vh);
+  text-align: center;
+    background-color: var(--color-bg-secondary);
+}
+
+.chakraNameBottom {
+  box-shadow: none;
+}
+
+.chakraNameRadiusLeft {
+  background-color: rgba(209, 178, 114, 0.2);
+  border-top-left-radius: 10px;
+}
+
+.chakraNameRadiusRight {
+  background-color: rgba(209, 178, 114, 0.2);
+  border-top-right-radius: 10px;
+}
+
+.chakraNameRadiusLeftBottom {
+    background-color: var(--color-bg-secondary);
+  border-bottom-left-radius: 10px;
+  border-top-left-radius: 10px;
+}
+
+.chakraNameRadiusRightBottom {
+    background-color: var(--color-bg-secondary);
+  border-top-right-radius: 10px;
+  border-bottom-right-radius: 10px;
+}
+
+.chakraNameRadiusRightBottom2 {
+  border-bottom-right-radius: 10px;
+}
+
+.chakraTableHeader {
+  font-family: var(--font-inter, 'Inter', sans-serif);
+  text-transform: uppercase;
+
+  > :nth-child(2),
+  > :nth-child(3) {
+    background-color: #827d78;
+  }
+}
+
+.chakraNameTop {
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+}
+
+// Purposes Table
+.infoTxt {
+  margin: clamp(2vh, 3vh, 4vh) 0;
+  width: 100%;
+  max-width: clamp(60vw, 80vw, 90vw);
+}
+
+.purposesTable {
+  font-family: var(--font-inter, 'Inter', sans-serif);
+  font-size: clamp(1vw, 1.25vw, 1.5vw);
+  margin-bottom: clamp(1vh, 1.25vh, 1.5vh);
+  width: 100%;
+
+  tr {
+    text-align: center;
+  }
+}
+
+.purposesTop {
+  margin-top: clamp(3vh, 5vh, 6vh);
+}
+
+.tablePadding {
+  padding-bottom: clamp(1vh, 1.25vh, 1.5vh);
+}
+
+.tablePaddingTop {
+  padding-top: clamp(1vh, 1.25vh, 1.5vh);
+}
+
+.fontSize16 {
+  font-family: var(--font-inter, 'Inter', sans-serif);
+  font-size: clamp(0.8vw, 1vw, 1.2vw);
+}
+
+.fontSize18 {
+  font-family: var(--font-inter, 'Inter', sans-serif);
+  font-size: clamp(0.9vw, 1.125vw, 1.3vw);
+}
+
+.trade {
+  font-family: var(--font-inter, 'Inter', sans-serif);
+}
+
+.baseCircle {
+  border: 1px solid white;
+  border-radius: 50%;
+  width: clamp(2vw, 2.5em, 3vw);
+  height: clamp(2vw, 2.5em, 3vw);
+  display: inline-block;
+  text-align: center;
+  line-height: clamp(2vw, 2.5em, 3vw);
+  font-size: clamp(1vw, 1.25em, 1.5vw);
+}
+
+
+// Responsive styles
+@media screen and (max-width: 810px) {
+  .root {
+    font-size: clamp(0.8vw, 16px, 1.2vw);
+  }
+
+  .header {
+    padding: clamp(3vh, 4rem, 5vh) 0;
+
+    .title {
+      font-size: clamp(2vw, 2em, 3vw);
+    }
+  }
+
+  .birthdayContainer {
+    padding: 0 clamp(2vw, 1rem, 3vw);
+    margin-bottom: clamp(2vh, 2rem, 3vh);
+
+    p {
+      font-size: clamp(1vw, 1.2em, 1.5vw);
+    }
+  }
+
+  .inputsWrapper {
+    width: 100%;
+    margin-top: clamp(1.5vh, 2rem, 2.5vh);
+    grid-template-columns: 1fr;
+    grid-template-rows: auto;
+    grid-template-areas:
+      'input1'
+      'input2'
+      'button';
+    grid-gap: clamp(1vh, 1rem, 1.5vh);
+  }
+
+  .root {
+    input[type='date'],
+    input[type='text'] {
+      width: 100%;
+      max-width: clamp(280px, 350px, 90vw);
+      height: clamp(3vh, 3.5em, 4.5vh);
+      padding: clamp(1.8vh, 2.2em, 2.8vh) clamp(3vw, 4.5em, 5.5vw) clamp(1.8vh, 2.2em, 2.8vh) clamp(3vw, 4.5em, 5.5vw);
+      font-size: clamp(1.1vw, 18px, 1.6vw);
+    }
+  }
+
+.analysisContainer {
+  margin: clamp(3vh, 4em, 5vh) 0;
+  padding: clamp(2vh, 3em, 4vh) clamp(2vw, 3rem, 4vw);
+  background-color: rgba(0, 0, 0, 0.25);
+  border: 1px solid rgba(209, 178, 114, 0.35);
+  border-radius: 16px;
+  color: var(--color-text-primary);
+  font-family: var(--font-inter, 'Inter', sans-serif);
+}
+
+.analysisTitle {
+  font-size: clamp(1.5vw, 2em, 2.5vw);
+  color: var(--color-accent);
+  margin: 0 0 clamp(2vh, 2.5em, 3vh) 0;
+  text-align: center;
+  font-family: var(--font-gfs-didot, 'GFS Didot', serif);
+}
+
+.analysisSection {
+  margin-bottom: clamp(2vh, 2.5em, 3vh);
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
+
+.analysisSubtitle {
+  font-size: clamp(1.2vw, 1.5em, 2vw);
+  color: var(--color-accent);
+  margin: 0 0 clamp(1vh, 1.2em, 1.5vh) 0;
+  font-weight: 600;
+}
+
+.analysisText {
+  font-size: clamp(1vw, 1.2em, 1.5vw);
+  line-height: 1.7;
+  margin: 0;
+  color: var(--color-text-primary);
+}
+
+.interpretationsList {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(1vh, 1.2em, 1.5vh);
+}
+
+.interpretationItem {
+  display: flex;
+  gap: clamp(1vw, 1.5em, 2vw);
+  font-size: clamp(1vw, 1.2em, 1.5vw);
+  line-height: 1.6;
+}
+
+.interpretationNumber {
+  font-weight: 600;
+  color: var(--color-accent);
+  min-width: clamp(2vw, 3em, 4vw);
+}
+
+.interpretationText {
+  color: var(--color-text-primary);
+  flex: 1;
+}
+
+.linesList {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(1.5vh, 2em, 2.5vh);
+}
+
+.lineItem {
+  font-size: clamp(1vw, 1.2em, 1.5vw);
+  line-height: 1.7;
+
+  strong {
+    color: var(--color-accent);
+    display: block;
+    margin-bottom: clamp(0.5vh, 0.8em, 1vh);
+  }
+
+  ul {
+    margin: 0;
+    padding-left: clamp(2vw, 2.5em, 3vw);
+    color: var(--color-text-primary);
+    list-style-type: disc;
+
+    li {
+      margin-bottom: clamp(0.5vh, 0.6em, 0.8vh);
+    }
+  }
+}
+
+  .createButton {
+    width: 100%;
+    max-width: clamp(250px, 300px, 90vw);
+    font-size: clamp(0.9vw, 16px, 1.3vw);
+  }
+
+  .personalCalculator {
+    font-size: clamp(1.5vw, 1.5em, 2.5vw);
+  }
+
+  .matrixSvg {
+    max-width: 100%;
+  }
+
+  .starWrap1,
+  .starWrap2,
+  .starWrap3,
+  .starWrap4,
+  .starWrap5,
+  .starWrap6,
+  .starWrap7,
+  .starWrap8 {
+    display: none;
+  }
+}
+
+@media screen and (max-width: 479px) {
+  .root {
+    font-size: clamp(0.6vw, 4.79px, 1vw);
+  }
+
+  .header .title {
+    font-size: clamp(2vw, 28px, 3.5vw);
+  }
+
+  .personalCalculator {
+    font-size: clamp(2vw, 28px, 3.5vw);
+  }
+
+  .outputPersonalDate,
+  .output2 {
+    font-size: clamp(0.9vw, 16px, 1.3vw);
+  }
+
+  .chakraTable {
+    max-width: 100%;
+    font-size: clamp(0.7vw, 10px, 1.2vw);
+  }
+
+  .purposesTable {
+    font-size: clamp(0.7vw, 10px, 1.2vw);
+  }
+}

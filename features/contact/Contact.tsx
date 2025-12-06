@@ -69,7 +69,7 @@ export function Contact() {
           >
             <Image
               src="/meditation.png"
-              alt="Медитация и релаксация услуги в Бургас за справяне с тревожност и стрес"
+              alt={t('contact.meditationAlt')}
               width={500}
               height={500}
               className={styles.image}

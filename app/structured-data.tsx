@@ -70,7 +70,7 @@ export function StructuredData() {
     '@type': 'Person',
     name: 'Burgas Massage Therapist',
     jobTitle: 'Certified Massage Therapist',
-    description: 'Сертифициран класически масажист в Бургас, специализиран в релаксационни и терапевтични масажи с над 10 години опит.',
+    description: 'Сертифициран класически масажист в Бургас, специализиран в релаксационни и терапевтични масажи.',
     knowsAbout: [
       'Classical Massage',
       'Swedish Massage',

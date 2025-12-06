@@ -36,6 +36,10 @@ const translations: Translations = {
     bg: 'Всяка сесия е персонализирана според нуждите на клиента. Създавам безопасно пространство за облекчение от болка, намаляване на стреса и подобряване на здраве и жизненост.',
     en: 'Each session is personalized according to the client\'s needs. I create a safe space for pain relief, stress reduction, and improved health and vitality.'
   },
+  'about.mission3': {
+    bg: 'Сертифициран съм в класически и терапевтични масажи и постоянно усъвършенствам знанията си. Моята цел е да помогна на всеки клиент да намери своя път към по-добро самочувствие и цялостно здраве.',
+    en: 'I am certified in classical and therapeutic massage and continuously improve my knowledge. My goal is to help each client find their path to better well-being and overall health.'
+  },
   'about.whatTitle': { bg: 'Какво правя', en: 'What I do' },
   'about.what.items.1': {
     bg: 'Извършвам индивидуални масажни терапии за отпускане на мускулите, подобряване на кръвообращението и намаляване на болката.',
@@ -129,7 +133,7 @@ const translations: Translations = {
     en: 'Affirmations such as “I am in balance” or “My energy flows freely” retrain the mind and keep the chakra-opening process supported.'
   },
   'pricing.title': { bg: 'Цени и Пакети', en: 'Pricing & Packages' },
-  'pricing.duration': { bg: 'Продължителност', en: 'Duration' },
+  'pricing.duration': { bg: 'Време', en: 'Time' },
   'pricing.price': { bg: 'Цена', en: 'Price' },
   'pricing.rows.single30.duration': { bg: '30 мин', en: '30 min' },
   'pricing.rows.single30.price': { bg: '45 лв', en: '45 BGN' },
@@ -219,6 +223,116 @@ const translations: Translations = {
   'contact.messenger': { bg: 'Messenger', en: 'Messenger' },
   'contact.viber': { bg: 'Viber', en: 'Viber' },
   'contact.cashLabel': { bg: 'Моята друга работа', en: 'My other job' },
+  'destiny.title': { bg: 'Матрица на съдбата', en: 'Destiny Matrix' },
+  'destiny.subtitle': { bg: 'Въведете датата си на раждане и открийте вашата матрица, жизнен път и интерпретации.', en: 'Enter your birth date and discover your matrix, life path and interpretations.' },
+  'destiny.calculate': { bg: 'Изчисли', en: 'Calculate' },
+  'destiny.reset': { bg: 'Нулиране', en: 'Reset' },
+  'destiny.matrixTitle': { bg: 'Матрица на съдбата 3×3', en: '3×3 Destiny Matrix' },
+  'destiny.lifePath': { bg: 'Жизнен път', en: 'Life Path' },
+  'destiny.interpretations': { bg: 'Интерпретации на личността', en: 'Personality Interpretations' },
+  'destiny.lines': { bg: 'Линии (значения)', en: 'Lines (meanings)' },
+  'destiny.horizontal': { bg: 'Хоризонтални', en: 'Horizontal' },
+  'destiny.vertical': { bg: 'Вертикални', en: 'Vertical' },
+  'destiny.diagonal': { bg: 'Диагонални', en: 'Diagonal' },
+  'destiny.exportPNG': { bg: 'Експорт PNG', en: 'Export PNG' },
+  'destiny.exportPDF': { bg: 'Експорт PDF', en: 'Export PDF' },
+  'destiny.share': { bg: 'Сподели', en: 'Share' },
+  'destiny.alertDate': { bg: 'Моля, изберете датата си на раждане.', en: 'Please choose your birth date.' },
+  'destiny.alertGender': { bg: 'Моля, изберете пол.', en: 'Please select gender.' },
+  'destiny.datePlaceholder': { bg: 'ДД/ММ/ГГГГ', en: 'DD/MM/YYYY' },
+  'destiny.gender': { bg: 'Пол', en: 'Gender' },
+  'destiny.selectGender': { bg: 'Изберете пол', en: 'Select gender' },
+  'destiny.alertCalculate': { bg: 'Моля, изчислете матрицата си първо.', en: 'Please calculate your matrix first.' },
+  'destiny.alertCopied': { bg: 'Изображението е копирано в клипборда! Можете да го поставите навсякъде.', en: 'Image copied to clipboard! You can paste it anywhere.' },
+  'destiny.interpretations.1': { bg: 'Лидерство, инициатива, независимост, драйв.', en: 'Leadership, initiative, independence, drive.' },
+  'destiny.interpretations.2': { bg: 'Сътрудничество, чувствителност, дипломация, партньорство.', en: 'Cooperation, sensitivity, diplomacy, partnership.' },
+  'destiny.interpretations.3': { bg: 'Креативност, самовыражение, общителност, оптимизъм.', en: 'Creativity, self-expression, sociability, optimism.' },
+  'destiny.interpretations.4': { bg: 'Дисциплина, структура, практичност, надеждност.', en: 'Discipline, structure, practicality, reliability.' },
+  'destiny.interpretations.5': { bg: 'Свобода, приключение, разнообразие, любопитство.', en: 'Freedom, adventure, variety, curiosity.' },
+  'destiny.interpretations.6': { bg: 'Служение, отговорност, семейство, грижа.', en: 'Service, responsibility, family, nurturing.' },
+  'destiny.interpretations.7': { bg: 'Самоанализ, духовност, анализ, мъдрост.', en: 'Introspection, spirituality, analysis, wisdom.' },
+  'destiny.interpretations.8': { bg: 'Сила, материално благополучие, авторитет, бизнес.', en: 'Power, material success, authority, business.' },
+  'destiny.interpretations.9': { bg: 'Състрадание, идеализъм, хуманитарни грижи.', en: 'Compassion, idealism, humanitarian concerns.' },
+  'destiny.lines.horizontal.1': { bg: 'Горен ред (1-2-3): Съзнателно аз, социална роля, непосредствено изражение.', en: 'Top row (1-2-3): Conscious self, social role, immediate expression.' },
+  'destiny.lines.horizontal.2': { bg: 'Среден ред (4-5-6): Вътрешни подбуди, емоционален център, практически умения.', en: 'Middle row (4-5-6): Inner drives, emotional center, practical skill.' },
+  'destiny.lines.horizontal.3': { bg: 'Долен ред (7-8-9): Подсъзнателни мотиви, жизнена цел, наследство.', en: 'Bottom row (7-8-9): Subconscious motives, life purpose, legacy.' },
+  'destiny.lines.vertical.1': { bg: 'Лява колона (1-4-7): Лична идентичност, основи, корени.', en: 'Left column (1-4-7): Personal identity, foundations, roots.' },
+  'destiny.lines.vertical.2': { bg: 'Централна колона (2-5-8): Оста на взаимоотношенията, сърце + център на силата.', en: 'Center column (2-5-8): Relationship axis, heart + power center.' },
+  'destiny.lines.vertical.3': { bg: 'Дясна колона (3-6-9): Социална проекция, действие, завършване.', en: 'Right column (3-6-9): Social projection, action, completion.' },
+  'destiny.lines.diagonal.1': { bg: 'Главен диагонал (1-5-9): Път на личностно развитие (аз → център → наследство).', en: 'Main diagonal (1-5-9): Personal development path (self → center → legacy).' },
+  'destiny.lines.diagonal.2': { bg: 'Друг диагонал (3-5-7): Социална/креативна борба, превръщаща се в интеграция.', en: 'Other diagonal (3-5-7): Social/creative struggle turning into integration.' },
+  'destiny.lifePathMeanings.1': { bg: 'Лидерство, независимост, оригиналност. Вие сте мотивирани да създавате, инициирате и водите.', en: 'Leadership, independence, originality. You are driven to create, initiate, and lead.' },
+  'destiny.lifePathMeanings.2': { bg: 'Дипломация, чувствителност, хармония. Вие сте посредник и строител на мир.', en: 'Diplomacy, sensitivity, harmony. You are a mediator and peace-builder.' },
+  'destiny.lifePathMeanings.3': { bg: 'Креативност, изразяване, радост. Вие процъфтявате в комуникацията и художественото изразяване.', en: 'Creativity, expression, joy. You thrive in communication and artistic expression.' },
+  'destiny.lifePathMeanings.4': { bg: 'Стабилност, дисциплина, изграждане на основи. Предпочитате структура и дългосрочни цели.', en: 'Stability, discipline, foundation-building. You prefer structure and long-term goals.' },
+  'destiny.lifePathMeanings.5': { bg: 'Свобода, приключение, адаптивност. Имате нужда от разнообразие и постоянна промяна.', en: 'Freedom, adventure, adaptability. You need variety and constant change.' },
+  'destiny.lifePathMeanings.6': { bg: 'Отговорност, любов, грижа. Вие сте естествен грижовен и защитник.', en: 'Responsibility, love, nurturing. You are a natural caregiver and protector.' },
+  'destiny.lifePathMeanings.7': { bg: 'Мъдрост, самоанализ, духовност. Търсите истината и по-дълбоко разбиране.', en: 'Wisdom, introspection, spirituality. You seek truth and deeper understanding.' },
+  'destiny.lifePathMeanings.8': { bg: 'Сила, амбиция, успех. Вие сте мотивирани да постигате материално и професионално.', en: 'Power, ambition, success. You are driven to achieve materially and professionally.' },
+  'destiny.lifePathMeanings.9': { bg: 'Състрадание, хуманитаризъм, завършване. Вие сте предназначени да помагате на колектива.', en: 'Compassion, humanitarianism, completion. You are meant to help the collective.' },
+  'destiny.lifePathMeanings.11': { bg: 'Мастер Интуиция — повишена духовна прозорливост и чувствителност.', en: 'Master Intuition — heightened spiritual insight and sensitivity.' },
+  'destiny.lifePathMeanings.22': { bg: 'Мастер Строител — превръщане на идеи в големи, трайни постижения.', en: 'Master Builder — turning ideas into large, lasting achievements.' },
+  'destiny.lifePathMeanings.33': { bg: 'Мастер Учител — безусловна любов, изцеление и насоки.', en: 'Master Teacher — unconditional love, healing, and guidance.' },
+  'nav.mainNavigation': { bg: 'Основна навигация', en: 'Main navigation' },
+  'nav.menuOpen': { bg: 'Отвори меню', en: 'Open menu' },
+  'nav.menuClose': { bg: 'Затвори меню', en: 'Close menu' },
+  'nav.logoAria': { bg: 'Бургас Масаж - Начална страница', en: 'Burgas Massage - Home page' },
+  'destiny.dateOfBirth': { bg: 'Дата на раждане', en: 'Date of birth' },
+  'destiny.name': { bg: 'Име', en: 'Name' },
+  'destiny.partner1DateOfBirth': { bg: 'Дата на раждане на партньор 1', en: 'Partner 1 date of birth' },
+  'destiny.partner2DateOfBirth': { bg: 'Дата на раждане на партньор 2', en: 'Partner 2 date of birth' },
+  'destiny.namePlaceholder': { bg: 'Име', en: 'Name' },
+  'hero.logoAlt': { bg: 'Бургас Масаж - Професионален масаж и релаксация в Бургас', en: 'Burgas Massage - Professional massage and relaxation in Burgas' },
+  'hero.massageAlt': { bg: 'Професионален масажист в Бургас предлагащ домашни масажи, мини спа и медитация услуги', en: 'Professional massage therapist in Burgas offering home massages, mini spa and meditation services' },
+  'nav.logoAlt': { bg: 'Бургас Масаж - Професионален масаж и релаксация', en: 'Burgas Massage - Professional massage and relaxation' },
+  'contact.meditationAlt': { bg: 'Медитация и релаксация услуги в Бургас за справяне с тревожност и стрес', en: 'Meditation and relaxation services in Burgas for managing anxiety and stress' },
+  'destiny.partner1': { bg: 'Партньор 1', en: 'Partner 1' },
+  'destiny.partner2': { bg: 'Партньор 2', en: 'Partner 2' },
+  'destiny.enterDateAndName': { bg: 'Въведете датата си на раждане и име:', en: 'Enter your date of birth and name:' },
+  'destiny.enterDate': { bg: 'Въведете датата си на раждане:', en: 'Enter your date of birth:' },
+  'destiny.nameRequired': { bg: 'Името е задължително', en: 'Name is required' },
+  'destiny.invalidNameFormat': { bg: 'Невалиден формат на име', en: 'Invalid name format' },
+  'destiny.calculationError': { bg: 'Грешка при изчисление. Моля, опитайте отново.', en: 'Calculation error. Please try again.' },
+  'destiny.bothDatesRequired': { bg: 'И двете дати са задължителни', en: 'Both dates are required' },
+  'destiny.invalidDates': { bg: 'Невалидни дати', en: 'Invalid dates' },
+  'destiny.personalCalculation': { bg: 'Лично изчисление', en: 'Personal calculation' },
+  'destiny.compatibility': { bg: 'Съвместимост', en: 'Compatibility' },
+  'destiny.createChart': { bg: 'създайте вашата карта', en: 'create your chart' },
+  'destiny.dateOfBirthLabel': { bg: 'Дата на раждане:', en: 'Date of Birth:' },
+  'destiny.yourCompatibility': { bg: 'Вашата съвместимост', en: 'Your compatibility' },
+  'destiny.personalPurpose': { bg: 'Лична цел:', en: 'Personal purpose:' },
+  'destiny.purposeForSociety': { bg: 'Цел за обществото и рода:', en: 'Purpose for society and genus:' },
+  'destiny.openCalendar': { bg: 'Отвори календар', en: 'Open calendar' },
+  'destiny.chakraName': { bg: 'Име на чакра', en: 'Chakra name' },
+  'destiny.physics': { bg: 'Физика', en: 'Physics' },
+  'destiny.energy': { bg: 'Енергия', en: 'Energy' },
+  'destiny.emotions': { bg: 'Емоции', en: 'Emotions' },
+  'destiny.result': { bg: 'Резултат:', en: 'Result:' },
+  'destiny.years': { bg: 'години', en: 'years' },
+  'destiny.yearsOld': { bg: 'години', en: 'years old' },
+  'destiny.old': { bg: 'години', en: 'old' },
+  'destiny.maleGenerationLine': { bg: 'мъжка генерационна линия', en: 'male generation line' },
+  'destiny.femaleGenerationLine': { bg: 'женска генерационна линия', en: 'female generation line' },
+  'destiny.sky': { bg: 'Небе:', en: 'Sky:' },
+  'destiny.earth': { bg: 'Земя:', en: 'Earth:' },
+  'destiny.male': { bg: 'М:', en: 'M:' },
+  'destiny.female': { bg: 'Ж:', en: 'F:' },
+  'destiny.personalPurposeDescription': {
+    bg: 'Търсене на душата, баланс на женствените и мъжки качества, способности, умения',
+    en: 'Soul searching, balance of feminine and masculine qualities, abilities, skills',
+  },
+  'destiny.socialPurposeDescription': {
+    bg: 'Задачи за рода, резултати и признание в обществото',
+    en: 'Tasks for genus, results and recognition in society',
+  },
+  'destiny.generalPurposeTitle': { bg: 'Обща цел за този живот:', en: 'General purpose for this lifetime:' },
+  'destiny.planetaryPurposeTitle': { bg: 'Планетарна цел:', en: 'Planetary purpose:' },
+  'destiny.generalPurposeDescription': {
+    bg: 'Духовен път, глобална задача, къде е божественото в мен?',
+    en: 'Spiritual path, global task, where is the divine in me?',
+  },
+  'destiny.planetaryPurposeDescription': { bg: 'Глобална цел на душата', en: 'Global soul purpose' },
+  'music.relaxingMessage': { bg: 'Можете да пуснете релаксираща музика ;)', en: 'You can play relaxing music ;)' },
 }
 
 const getLanguage = (): 'bg' | 'en' => {
@@ -234,11 +348,14 @@ const getLanguage = (): 'bg' | 'en' => {
 }
 
 function useLanguageState() {
-  const [languageState] = useState<'bg' | 'en'>(() => getLanguage())
+  const [languageState, setLanguageState] = useState<'bg' | 'en'>(() => getLanguage())
   const [mounted, setMounted] = useState(false)
 
   useEffect(() => {
     setMounted(true)
+    // Sync with localStorage on mount (in case it changed)
+    const currentLang = getLanguage()
+    setLanguageState(currentLang)
   }, [])
 
   return mounted ? languageState : 'bg'
