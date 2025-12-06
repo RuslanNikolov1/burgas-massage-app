@@ -11,7 +11,9 @@ import {
   convertISOToDDMMYYYY,
   formatDateInput,
   calculateLifePath,
+  analyzeAllLines,
   type PersonData,
+  type LineAnalysis,
 } from './destiny.utils'
 import { Calendar } from '@phosphor-icons/react'
 import Image from 'next/image'
@@ -147,7 +149,7 @@ function PersonalCalculator({
   onGenderChange: (gender: 'male' | 'female' | '') => void
   onCalculate: () => void
   onReset: () => void
-  containerRef: React.RefObject<HTMLDivElement>
+  containerRef: React.RefObject<HTMLDivElement | null>
   t: (key: string) => string
 }) {
   const datePickerRef = useRef<HTMLInputElement>(null)
@@ -173,57 +175,61 @@ function PersonalCalculator({
       <div className={styles.birthdayContainer}>
         <p>{t('destiny.enterDate')}</p>
         <div className={styles.inputsWrapper}>
-          <div className={styles.inputWrap}>
-            <input
-              id="personal-date"
-              type="text"
-              value={date}
-              onChange={handleDateInput}
-              placeholder={t('destiny.datePlaceholder')}
-              maxLength={10}
-              aria-label={t('destiny.dateOfBirth')}
-            />
-            <input
-              ref={datePickerRef}
-              type="date"
-              onChange={handleDatePickerChange}
-              className={styles.hiddenDatePicker}
-              aria-label={t('destiny.dateOfBirth')}
-            />
-            <button
-              type="button"
-              onClick={handleCalendarClick}
-              className={styles.calendarButton}
-              aria-label={t('destiny.openCalendar')}
-            >
-              <Calendar size={20} weight="duotone" />
-            </button>
-            <div className={styles.starWrap2}>
-              <Image
-                src="/destiny-matrix-assets/img/starmedium.svg"
-                alt=""
-                width={46}
-                height={46}
-                className={styles.starMedium}
+          <div className={styles.inputsRow}>
+            <div className={styles.inputWrap}>
+              <input
+                id="personal-date"
+                type="text"
+                value={date}
+                onChange={handleDateInput}
+                placeholder={t('destiny.datePlaceholder')}
+                maxLength={10}
+                aria-label={t('destiny.dateOfBirth')}
               />
+              <input
+                ref={datePickerRef}
+                type="date"
+                onChange={handleDatePickerChange}
+                className={styles.hiddenDatePicker}
+                aria-label={t('destiny.dateOfBirth')}
+              />
+              <button
+                type="button"
+                onClick={handleCalendarClick}
+                className={styles.calendarButton}
+                aria-label={t('destiny.openCalendar')}
+              >
+                <Calendar size={20} weight="duotone" />
+              </button>
+              <div className={styles.starWrap2}>
+                <Image
+                  src="/destiny-matrix-assets/img/starmedium.svg"
+                  alt=""
+                  width={46}
+                  height={46}
+                  className={styles.starMedium}
+                />
+              </div>
+            </div>
+            <div className={styles.inputWrap}>
+              <select
+                id="personal-gender"
+                value={gender}
+                onChange={(e) => onGenderChange(e.target.value as 'male' | 'female' | '')}
+                className={`${styles.genderSelect} ${!gender ? styles.placeholder : ''}`}
+                aria-label={t('destiny.gender')}
+              >
+                <option value="">{t('destiny.selectGender')}</option>
+                <option value="male">{t('destiny.male')}</option>
+                <option value="female">{t('destiny.female')}</option>
+              </select>
             </div>
           </div>
-          <div className={styles.inputWrap}>
-            <select
-              id="personal-gender"
-              value={gender}
-              onChange={(e) => onGenderChange(e.target.value as 'male' | 'female' | '')}
-              className={styles.genderSelect}
-              aria-label={t('destiny.gender')}
-            >
-              <option value="">{t('destiny.selectGender')}</option>
-              <option value="male">{t('destiny.male')}</option>
-              <option value="female">{t('destiny.female')}</option>
-            </select>
+          <div className={styles.buttonRow}>
+            <button id="get-the-answer" onClick={onCalculate} className={styles.createButton}>
+              {t('destiny.createChart')}
+            </button>
           </div>
-          <button id="get-the-answer" onClick={onCalculate} className={styles.createButton}>
-            {t('destiny.createChart')}
-          </button>
         </div>
         {error && <div className={styles.errorOutput}>{error}</div>}
         {/* Decorative stars */}
@@ -1026,6 +1032,9 @@ function MatrixAnalysis({ data, date, t }: { data: PersonData; date: string; t: 
     return ''
   }
 
+  // Analyze all lines
+  const lineAnalyses = analyzeAllLines(data.points)
+
   // Get unique numbers from key points for analysis
   const keyNumbers = [
     data.points.apoint,
@@ -1034,6 +1043,84 @@ function MatrixAnalysis({ data, date, t }: { data: PersonData; date: string; t: 
     data.points.dpoint,
     data.points.epoint,
   ].filter((num, index, self) => self.indexOf(num) === index) // Get unique numbers
+
+  // Generate line interpretation text
+  const generateLineInterpretation = (analysis: LineAnalysis, lineType: 'mental' | 'emotional' | 'character'): string => {
+    const presentText = analysis.present.map(d => t(`destiny.interpretations.${d}`)).join(', ')
+    const missingText = analysis.missing.map(d => t(`destiny.interpretations.${d}`)).join(', ')
+    
+    let interpretation = ''
+    
+    if (analysis.present.length > 0) {
+      interpretation += `${t('destiny.strengths')}: ${presentText}. `
+    }
+    
+    if (analysis.missing.length > 0) {
+      interpretation += `${t('destiny.weaknesses')}: ${t('destiny.missingDigits')} ${missingText}. `
+    }
+    
+    if (Object.keys(analysis.repeated).length > 0) {
+      const repeatedText = Object.entries(analysis.repeated)
+        .map(([digit, count]) => `${t('destiny.digit')} ${digit} ${t('destiny.appears')} ${count} ${t('destiny.times')}`)
+        .join(', ')
+      interpretation += `${t('destiny.excessEnergy')}: ${repeatedText}. `
+    }
+    
+    return interpretation.trim()
+  }
+
+  // Render line analysis
+  const renderLineAnalysis = (analysis: LineAnalysis, lineName: string) => {
+    const strengthLabels: { [key: string]: string } = {
+      empty: t('destiny.lineStrength.empty'),
+      weak: t('destiny.lineStrength.weak'),
+      balanced: t('destiny.lineStrength.balanced'),
+      strong: t('destiny.lineStrength.strong'),
+    }
+
+    return (
+      <div className={styles.lineAnalysisItem}>
+        <div className={styles.lineAnalysisHeader}>
+          <strong>{lineName} ({analysis.digits.join('-')})</strong>
+          <span className={styles.lineStrength} data-strength={analysis.strength}>
+            {strengthLabels[analysis.strength] || analysis.strength}
+          </span>
+        </div>
+        <div className={styles.lineAnalysisDetails}>
+          <div className={styles.lineDigits}>
+            <span className={styles.lineLabel}>{t('destiny.presentDigits')}:</span>
+            <span className={styles.presentDigits}>
+              {analysis.present.length > 0 ? analysis.present.join(', ') : t('destiny.none')}
+            </span>
+            {analysis.missing.length > 0 && (
+              <>
+                <span className={styles.lineSeparator}> | </span>
+                <span className={styles.missingDigits}>
+                  {t('destiny.missing')}: {analysis.missing.join(', ')}
+                </span>
+              </>
+            )}
+          </div>
+          
+          <div className={styles.lineInterpretation}>
+            <p>{generateLineInterpretation(analysis, analysis.type)}</p>
+          </div>
+
+          {analysis.missing.length > 0 && (
+            <div className={styles.lineKarmic}>
+              <strong>{t('destiny.karmicLesson')}:</strong>
+              <p>{t('destiny.karmicLessonText').replace('{digits}', analysis.missing.join(', ')).replace('{line}', lineName)}</p>
+            </div>
+          )}
+
+          <div className={styles.lineRecommendation}>
+            <strong>{t('destiny.recommendation')}:</strong>
+            <p>{t(`destiny.recommendation.${analysis.type}`)}</p>
+          </div>
+        </div>
+      </div>
+    )
+  }
 
   return (
     <div className={styles.analysisContainer}>
@@ -1077,29 +1164,9 @@ function MatrixAnalysis({ data, date, t }: { data: PersonData; date: string; t: 
       <div className={styles.analysisSection}>
         <h4 className={styles.analysisSubtitle}>{t('destiny.lines')}</h4>
         <div className={styles.linesList}>
-          <div className={styles.lineItem}>
-            <strong>{t('destiny.horizontal')}:</strong>
-            <ul>
-              <li>{t('destiny.lines.horizontal.1')}</li>
-              <li>{t('destiny.lines.horizontal.2')}</li>
-              <li>{t('destiny.lines.horizontal.3')}</li>
-            </ul>
-          </div>
-          <div className={styles.lineItem}>
-            <strong>{t('destiny.vertical')}:</strong>
-            <ul>
-              <li>{t('destiny.lines.vertical.1')}</li>
-              <li>{t('destiny.lines.vertical.2')}</li>
-              <li>{t('destiny.lines.vertical.3')}</li>
-            </ul>
-          </div>
-          <div className={styles.lineItem}>
-            <strong>{t('destiny.diagonal')}:</strong>
-            <ul>
-              <li>{t('destiny.lines.diagonal.1')}</li>
-              <li>{t('destiny.lines.diagonal.2')}</li>
-            </ul>
-          </div>
+          {renderLineAnalysis(lineAnalyses.mental, t('destiny.mentalLine'))}
+          {renderLineAnalysis(lineAnalyses.emotional, t('destiny.emotionalLine'))}
+          {renderLineAnalysis(lineAnalyses.character, t('destiny.characterLine'))}
         </div>
       </div>
     </div>

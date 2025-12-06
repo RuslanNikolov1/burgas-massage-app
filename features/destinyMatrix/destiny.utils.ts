@@ -553,3 +553,133 @@ export function convertISOToDDMMYYYY(dateISO: string): string {
 export function titleCase(str: string): string {
   return str.replace(/^[a-zа-яё]|[\-\s][a-zа-яё]/g, (a) => a.toUpperCase());
 }
+
+/**
+ * Line Analysis Types
+ */
+export type LineType = 'mental' | 'emotional' | 'character'
+
+export interface LineAnalysis {
+  type: LineType
+  digits: number[] // Expected digits for this line (3-6-9, 2-5-8, or 1-4-7)
+  present: number[] // Which digits are present in the matrix
+  missing: number[] // Which digits are missing
+  strength: 'empty' | 'weak' | 'balanced' | 'strong' // 0, 1, 2, or 3 digits
+  repeated: { [digit: number]: number } // Count of how many times each digit appears
+}
+
+/**
+ * Extracts all digits 1-9 from all points in the matrix with their counts
+ * Each point value is reduced to a single digit (1-9), and we count occurrences
+ */
+function extractDigitsFromPoints(points: Points): { digits: number[]; counts: { [digit: number]: number } } {
+  const allValues = Object.values(points)
+  const digits: number[] = []
+  const counts: { [digit: number]: number } = {}
+  
+  allValues.forEach(value => {
+    // Reduce to single digit (1-9), handling master numbers
+    let num = value
+    if (num > 9 && num !== 11 && num !== 22 && num !== 33) {
+      // Keep reducing until we get 1-9
+      while (num > 9 && num !== 11 && num !== 22 && num !== 33) {
+        num = (num % 10) + Math.floor(num / 10)
+      }
+    }
+    
+    // Extract the final digit (1-9)
+    let finalDigit: number | null = null
+    if (num >= 1 && num <= 9) {
+      finalDigit = num
+    } else if (num === 11) {
+      finalDigit = 1 // Master 11 contributes to digit 1
+    } else if (num === 22) {
+      finalDigit = 2 // Master 22 contributes to digit 2
+    } else if (num === 33) {
+      finalDigit = 3 // Master 33 contributes to digit 3
+    }
+    
+    if (finalDigit !== null) {
+      digits.push(finalDigit)
+      counts[finalDigit] = (counts[finalDigit] || 0) + 1
+    }
+  })
+  
+  return { digits, counts }
+}
+
+/**
+ * Analyzes a specific line (Mental, Emotional, or Character)
+ */
+export function analyzeLine(
+  points: Points,
+  lineType: LineType
+): LineAnalysis {
+  const { digits: allDigits, counts: digitCounts } = extractDigitsFromPoints(points)
+  
+  // Define which digits belong to each line
+  const lineDigits: { [key in LineType]: number[] } = {
+    mental: [3, 6, 9],
+    emotional: [2, 5, 8],
+    character: [1, 4, 7],
+  }
+  
+  const expectedDigits = lineDigits[lineType]
+  const present: number[] = []
+  const missing: number[] = []
+  
+  // Check which expected digits are present or missing
+  expectedDigits.forEach(digit => {
+    if (digitCounts[digit] && digitCounts[digit] > 0) {
+      present.push(digit)
+    } else {
+      missing.push(digit)
+    }
+  })
+  
+  // Determine strength
+  const presentCount = present.length
+  let strength: 'empty' | 'weak' | 'balanced' | 'strong'
+  if (presentCount === 0) {
+    strength = 'empty'
+  } else if (presentCount === 1) {
+    strength = 'weak'
+  } else if (presentCount === 2) {
+    strength = 'balanced'
+  } else {
+    strength = 'strong'
+  }
+  
+  // Find repeated digits (appearing more than once)
+  const repeated: { [digit: number]: number } = {}
+  present.forEach(digit => {
+    const count = digitCounts[digit] || 0
+    if (count > 1) {
+      repeated[digit] = count
+    }
+  })
+  
+  return {
+    type: lineType,
+    digits: expectedDigits,
+    present,
+    missing,
+    strength,
+    repeated,
+  }
+}
+
+/**
+ * Analyzes all three lines
+ */
+export function analyzeAllLines(points: Points): {
+  mental: LineAnalysis
+  emotional: LineAnalysis
+  character: LineAnalysis
+} {
+  return {
+    mental: analyzeLine(points, 'mental'),
+    emotional: analyzeLine(points, 'emotional'),
+    character: analyzeLine(points, 'character'),
+  }
+}

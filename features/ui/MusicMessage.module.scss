@@ -5,8 +5,8 @@
   margin: 0;
   padding: clamp(0.6vh, 0.8rem, 1vh) clamp(1.2vw, 1.5rem, 2vw);
   font-size: clamp(0.75vw, 0.9rem, 1.1vw);
-  background-color: #fff8db;
-  color: #04282f;
+  background-color: var(--color-accent);
+  color: var(--color-bg-primary);
   text-align: center;
   white-space: nowrap;
   font-family: var(--font-inter, 'Inter', sans-serif);
@@ -16,32 +16,6 @@
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
   animation: fadeInOut 0.5s ease-in-out;
 
-  &::before {
-    content: '';
-    position: absolute;
-    top: 50%;
-    left: -8px;
-    transform: translateY(-50%);
-    width: 0;
-    height: 0;
-    border-top: 8px solid transparent;
-    border-bottom: 8px solid transparent;
-    border-right: 8px solid #fff8db;
-  }
-
-  &::after {
-    content: '';
-    position: absolute;
-    top: 50%;
-    right: -8px;
-    transform: translateY(-50%);
-    width: 0;
-    height: 0;
-    border-top: 8px solid transparent;
-    border-bottom: 8px solid transparent;
-    border-left: 8px solid #fff8db;
-  }
-
   @media (max-width: 1024px) {
     position: relative;
     top: auto;
@@ -49,11 +23,6 @@
     margin: clamp(1vh, 1rem, 1.5vh) auto clamp(1vh, 1rem, 1.5vh) auto;
     display: block;
     width: fit-content;
-
-    &::before,
-    &::after {
-      display: none;
-    }
   }
 }
 

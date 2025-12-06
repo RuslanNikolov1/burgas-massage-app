@@ -227,13 +227,8 @@ const translations: Translations = {
   'destiny.subtitle': { bg: 'Въведете датата си на раждане и открийте вашата матрица, жизнен път и интерпретации.', en: 'Enter your birth date and discover your matrix, life path and interpretations.' },
   'destiny.calculate': { bg: 'Изчисли', en: 'Calculate' },
   'destiny.reset': { bg: 'Нулиране', en: 'Reset' },
-  'destiny.matrixTitle': { bg: 'Матрица на съдбата 3×3', en: '3×3 Destiny Matrix' },
-  'destiny.lifePath': { bg: 'Жизнен път', en: 'Life Path' },
   'destiny.interpretations': { bg: 'Интерпретации на личността', en: 'Personality Interpretations' },
   'destiny.lines': { bg: 'Линии (значения)', en: 'Lines (meanings)' },
-  'destiny.horizontal': { bg: 'Хоризонтални', en: 'Horizontal' },
-  'destiny.vertical': { bg: 'Вертикални', en: 'Vertical' },
-  'destiny.diagonal': { bg: 'Диагонални', en: 'Diagonal' },
   'destiny.exportPNG': { bg: 'Експорт PNG', en: 'Export PNG' },
   'destiny.exportPDF': { bg: 'Експорт PDF', en: 'Export PDF' },
   'destiny.share': { bg: 'Сподели', en: 'Share' },
@@ -332,7 +327,55 @@ const translations: Translations = {
     en: 'Spiritual path, global task, where is the divine in me?',
   },
   'destiny.planetaryPurposeDescription': { bg: 'Глобална цел на душата', en: 'Global soul purpose' },
-  'music.relaxingMessage': { bg: 'Можете да пуснете релаксираща музика ;)', en: 'You can play relaxing music ;)' },
+  'music.relaxingMessage': { bg: 'Можете да пуснете релаксираща музика от тук', en: 'You can play relaxing music from here' },
+  
+  // Line Analysis Translations
+  'destiny.mentalLine': { bg: 'Ментална линия', en: 'Mental Line' },
+  'destiny.emotionalLine': { bg: 'Емоционална линия', en: 'Emotional Line' },
+  'destiny.characterLine': { bg: 'Характерна линия', en: 'Character Line' },
+  'destiny.horizontal': { bg: 'Хоризонтални линии', en: 'Horizontal Lines' },
+  'destiny.vertical': { bg: 'Вертикални линии', en: 'Vertical Lines' },
+  'destiny.diagonal': { bg: 'Диагонални линии', en: 'Diagonal Lines' },
+  'destiny.matrixTitle': { bg: 'Анализ на матрицата', en: 'Matrix Analysis' },
+  
+  // Line Strength
+  'destiny.lineStrength.empty': { bg: 'Празна (голям урок)', en: 'Empty (major lesson)' },
+  'destiny.lineStrength.weak': { bg: 'Слаба', en: 'Weak' },
+  'destiny.lineStrength.balanced': { bg: 'Балансирана', en: 'Balanced' },
+  'destiny.lineStrength.strong': { bg: 'Силна', en: 'Strong' },
+  
+  // Analysis Labels
+  'destiny.presentDigits': { bg: 'Присъстващи цифри', en: 'Present digits' },
+  'destiny.missing': { bg: 'Липсващи', en: 'Missing' },
+  'destiny.none': { bg: 'Няма', en: 'None' },
+  'destiny.strengths': { bg: 'Силни страни', en: 'Strengths' },
+  'destiny.weaknesses': { bg: 'Слаби страни', en: 'Weaknesses' },
+  'destiny.excessEnergy': { bg: 'Излишна енергия', en: 'Excess Energy' },
+  'destiny.behavioralExpression': { bg: 'Поведенческо изражение', en: 'Behavioral Expression' },
+  'destiny.karmicLesson': { bg: 'Кармичен урок', en: 'Karmic Lesson' },
+  'destiny.recommendation': { bg: 'Препоръка', en: 'Recommendation' },
+  'destiny.missingDigits': { bg: 'Липсват цифри', en: 'Missing digits' },
+  'destiny.digit': { bg: 'Цифра', en: 'Digit' },
+  'destiny.appears': { bg: 'се появява', en: 'appears' },
+  'destiny.times': { bg: 'пъти', en: 'times' },
+  'destiny.karmicLessonText': { 
+    bg: 'Трябва да развиете качествата на цифрите {digits} в {line} линията.', 
+    en: 'You need to develop the qualities of digits {digits} in the {line} line.' 
+  },
+  
+  // Recommendations (simplified - will be enhanced)
+  'destiny.recommendation.mental': { 
+    bg: 'Фокусирайте се върху развиване на мислене, логика и креативност. Използвайте планиране и структуриране.', 
+    en: 'Focus on developing thinking, logic, and creativity. Use planning and structuring tools.' 
+  },
+  'destiny.recommendation.emotional': { 
+    bg: 'Работете върху емоционална интелигентност и баланс. Практикувайте граници и асертивност.', 
+    en: 'Work on emotional intelligence and balance. Practice boundaries and assertiveness.' 
+  },
+  'destiny.recommendation.character': { 
+    bg: 'Развивайте дисциплина, воля и вътрешна рефлексия. Добавете редовни практики за самоанализ.', 
+    en: 'Develop discipline, willpower, and inner reflection. Add regular self-analysis practices.' 
+  },
 }
 
 const getLanguage = (): 'bg' | 'en' => {

@@ -98,12 +98,23 @@
 .inputsWrapper {
   width: clamp(50vw, 60%, 70vw);
   margin-top: clamp(2vh, 3.1875em, 4vh);
+  display: flex;
+  flex-direction: column;
+  gap: clamp(1.5vh, 2em, 2.5vh);
+}
+
+.inputsRow {
   display: grid;
-  grid-template-columns: 1fr 1fr auto;
-  grid-template-rows: 1fr;
-  grid-template-areas: 'input1 input2 button';
+  grid-template-columns: 1fr 1fr;
   grid-gap: clamp(1vw, 1.875em, 2.5vw);
   align-items: center;
+  width: 100%;
+}
+
+.buttonRow {
+  display: flex;
+  justify-content: center;
+  width: 100%;
 }
 
 .inputWrap {
@@ -147,9 +158,6 @@
   }
 }
 
-.inputWrap:first-of-type {
-  grid-area: input1;
-}
 
 .errorOutput,
 .wrongDate {
@@ -163,6 +171,7 @@
   input[type='text'] {
     flex: 1;
     width: 100%;
+    min-width: 0;
     height: clamp(2.5vh, 3em, 4vh);
     padding: clamp(1.5vh, 2em, 2.5vh) clamp(2.5vw, 4em, 5vw) clamp(1.5vh, 2em, 2.5vh) clamp(2.5vw, 4em, 5vw);
     font-family: var(--font-inter, 'Inter', sans-serif);
@@ -173,9 +182,18 @@
     border-radius: 0.5em;
     transition: border-color 0.3s ease;
 
+    &::placeholder {
+      color: rgba(209, 178, 114, 0.6);
+      opacity: 1;
+    }
+
     &:focus {
       outline: none;
       border-color: var(--color-accent);
+
+      &::placeholder {
+        color: rgba(209, 178, 114, 0.4);
+      }
     }
   }
 
@@ -186,12 +204,55 @@
   input[type='date']::-webkit-calendar-picker-indicator {
     filter: invert(1);
   }
+
+  select {
+    flex: 1;
+    width: 100%;
+    min-width: 0;
+    height: clamp(2.5vh, 3em, 4vh);
+    padding: clamp(1.5vh, 2em, 2.5vh) clamp(2.5vw, 4em, 5vw) clamp(1.5vh, 2em, 2.5vh) clamp(2.5vw, 4em, 5vw);
+    font-family: var(--font-inter, 'Inter', sans-serif);
+    font-size: clamp(1.2vw, 1.5em, 1.8vw);
+    background-color: rgba(0, 0, 0, 0.25);
+    color: var(--color-text-primary);
+    border: 1px solid rgba(209, 178, 114, 0.35);
+    border-radius: 0.5em;
+    transition: border-color 0.3s ease;
+    cursor: pointer;
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23d1b272' d='M6 9L1 4h10z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right clamp(2.5vw, 4em, 5vw) center;
+    background-size: clamp(1vw, 1.2em, 1.5vw);
+    padding-right: clamp(4vw, 6em, 8vw);
+
+    &:focus {
+      outline: none;
+      border-color: var(--color-accent);
+    }
+
+    &:hover {
+      border-color: rgba(209, 178, 114, 0.5);
+    }
+
+    option {
+      background-color: var(--color-bg-secondary);
+      color: var(--color-text-primary);
+    }
+
+    option[value=''] {
+      color: rgba(209, 178, 114, 0.6);
+    }
+
+    // Style when showing placeholder (empty value)
+    &.placeholder {
+      color: rgba(209, 178, 114, 0.6);
+    }
+  }
 }
 
 .createButton {
-  grid-area: button;
-  align-self: baseline;
-  padding: clamp(1vh, 1.25em, 1.5vh) clamp(1.5vw, 2em, 2.5vw) clamp(1vh, 1.25em, 1.5vh) clamp(1.5vw, 2em, 2.5vw);
+  padding: clamp(1vh, 1.25em, 1.5vh) clamp(3vw, 4em, 5vw) clamp(1vh, 1.25em, 1.5vh) clamp(3vw, 4em, 5vw);
   background-color: var(--color-accent);
   font-family: var(--font-inter, 'Inter', sans-serif);
   font-size: clamp(1vw, 1.25em, 1.5vw);
@@ -203,6 +264,7 @@
   cursor: pointer;
   color: var(--color-bg-primary);
   transition: all 0.3s ease;
+  min-width: clamp(200px, 250px, 300px);
 
   &:hover {
     color: var(--color-text-primary);
@@ -821,23 +883,33 @@
   .inputsWrapper {
     width: 100%;
     margin-top: clamp(1.5vh, 2rem, 2.5vh);
+    gap: clamp(1.5vh, 2rem, 2.5vh);
+  }
+
+  .inputsRow {
     grid-template-columns: 1fr;
-    grid-template-rows: auto;
-    grid-template-areas:
-      'input1'
-      'input2'
-      'button';
     grid-gap: clamp(1vh, 1rem, 1.5vh);
+  }
+
+  .buttonRow {
+    width: 100%;
   }
 
   .root {
     input[type='date'],
-    input[type='text'] {
+    input[type='text'],
+    select {
       width: 100%;
       max-width: clamp(280px, 350px, 90vw);
       height: clamp(3vh, 3.5em, 4.5vh);
       padding: clamp(1.8vh, 2.2em, 2.8vh) clamp(3vw, 4.5em, 5.5vw) clamp(1.8vh, 2.2em, 2.8vh) clamp(3vw, 4.5em, 5.5vw);
       font-size: clamp(1.1vw, 18px, 1.6vw);
+    }
+
+    select {
+      padding-right: clamp(5vw, 7em, 9vw);
+      background-size: clamp(1.2vw, 1.5em, 2vw);
+      background-position: right clamp(3vw, 4.5em, 5.5vw) center;
     }
   }
 
@@ -984,5 +1056,142 @@
 
   .purposesTable {
     font-size: clamp(0.7vw, 10px, 1.2vw);
+  }
+}
+
+// Line Analysis Styles
+.lineAnalysisItem {
+  margin-bottom: clamp(2vh, 2.5em, 3vh);
+  padding: clamp(1.5vh, 2em, 2.5vh);
+  background-color: rgba(0, 0, 0, 0.15);
+  border: 1px solid rgba(209, 178, 114, 0.2);
+  border-radius: 12px;
+}
+
+.lineAnalysisHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: clamp(1vh, 1.2em, 1.5vh);
+  padding-bottom: clamp(0.5vh, 0.8em, 1vh);
+  border-bottom: 1px solid rgba(209, 178, 114, 0.3);
+
+  strong {
+    font-size: clamp(1.2vw, 1.5em, 2vw);
+    color: var(--color-accent);
+  }
+}
+
+.lineStrength {
+  padding: clamp(0.3vh, 0.4em, 0.5vh) clamp(0.8vw, 1em, 1.2vw);
+  border-radius: 6px;
+  font-size: clamp(0.9vw, 1em, 1.2vw);
+  font-weight: 600;
+  text-transform: uppercase;
+
+  &[data-strength='empty'] {
+    background-color: rgba(234, 70, 49, 0.2);
+    color: #ea4631;
+  }
+
+  &[data-strength='weak'] {
+    background-color: rgba(237, 114, 51, 0.2);
+    color: #ed7233;
+  }
+
+  &[data-strength='balanced'] {
+    background-color: rgba(209, 178, 114, 0.2);
+    color: var(--color-accent);
+  }
+
+  &[data-strength='strong'] {
+    background-color: rgba(182, 253, 87, 0.2);
+    color: #b6fd57;
+  }
+}
+
+.lineAnalysisDetails {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(1vh, 1.2em, 1.5vh);
+}
+
+.lineDigits {
+  font-size: clamp(1vw, 1.2em, 1.5vw);
+  color: var(--color-text-primary);
+  margin-bottom: clamp(0.5vh, 0.6em, 0.8vh);
+
+  .lineLabel {
+    font-weight: 600;
+    color: var(--color-accent);
+    margin-right: clamp(0.5vw, 0.8em, 1vw);
+  }
+
+  .presentDigits {
+    color: var(--color-text-primary);
+  }
+
+  .lineSeparator {
+    margin: 0 clamp(0.5vw, 0.8em, 1vw);
+    color: rgba(209, 178, 114, 0.5);
+  }
+
+  .missingDigits {
+    color: rgba(234, 70, 49, 0.8);
+  }
+}
+
+.lineInterpretation {
+  font-size: clamp(1vw, 1.2em, 1.5vw);
+  line-height: 1.7;
+  color: var(--color-text-primary);
+  padding: clamp(1vh, 1.2em, 1.5vh);
+  background-color: rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+}
+
+.lineKarmic,
+.lineRecommendation {
+  font-size: clamp(1vw, 1.2em, 1.5vw);
+  line-height: 1.7;
+  color: var(--color-text-primary);
+
+  strong {
+    color: var(--color-accent);
+    display: block;
+    margin-bottom: clamp(0.5vh, 0.6em, 0.8vh);
+  }
+
+  p {
+    margin: 0;
+    padding-left: clamp(1vw, 1.5em, 2vw);
+  }
+}
+
+@media screen and (max-width: 810px) {
+  .lineAnalysisItem {
+    padding: clamp(1.2vh, 1.5em, 2vh);
+  }
+
+  .lineAnalysisHeader {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: clamp(0.5vh, 0.8em, 1vh);
+
+    strong {
+      font-size: clamp(1.1vw, 1.3em, 1.8vw);
+    }
+  }
+
+  .lineStrength {
+    align-self: flex-start;
+    font-size: clamp(0.8vw, 0.9em, 1.1vw);
+  }
+
+  .lineDigits,
+  .lineInterpretation,
+  .lineKarmic,
+  .lineRecommendation {
+    font-size: clamp(0.9vw, 16px, 1.3vw);
   }
 }
