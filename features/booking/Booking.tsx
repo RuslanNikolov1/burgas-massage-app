@@ -330,9 +330,6 @@ export function Booking() {
             {submissionStatus === 'error' && (
               <p className={`${styles.statusMessage} ${styles.statusError}`}>{t('booking.reserveError')}</p>
             )}
-            {submissionStatus === 'idle' && (
-              <p className={styles.statusMessage}>{t('booking.reserveHint')}</p>
-            )}
           </form>
         )}
       </div>

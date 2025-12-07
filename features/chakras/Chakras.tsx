@@ -57,7 +57,7 @@ export function Chakras() {
   const t = useTranslations()
 
   return (
-    <section className={styles.chakras} aria-labelledby="chakras-title">
+    <section id="chakras" className={styles.chakras} aria-labelledby="chakras-title">
       <div className="container">
         <div className={styles.imageWrapper}>
           <Image

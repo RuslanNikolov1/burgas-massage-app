@@ -32,7 +32,7 @@ export function ClassicalMassage() {
   const t = useTranslations()
 
   return (
-    <section className={styles.classicalMassage} aria-labelledby="classical-massage-title">
+    <section id="classical-massage" className={styles.classicalMassage} aria-labelledby="classical-massage-title">
       <div className="container">
         <div className={styles.content}>
           <div className={styles.leftColumn}>

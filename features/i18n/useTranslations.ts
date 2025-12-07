@@ -11,11 +11,14 @@ type Translations = {
 
 const translations: Translations = {
   'nav.home': { bg: 'Начало', en: 'Home' },
+  'nav.classical-massage': { bg: 'Класически масаж', en: 'Classical Massage' },
+  'nav.chakras': { bg: 'Чакри', en: 'Chakras' },
   'nav.about': { bg: 'За мен', en: 'About' },
-  'nav.pricing': { bg: 'Цени', en: 'Pricing' },
-  'nav.booking': { bg: 'Резервация', en: 'Booking' },
   'nav.feedbacks': { bg: 'Отзиви', en: 'Reviews' },
   'nav.products': { bg: 'Продукти', en: 'Products' },
+  'nav.pricing': { bg: 'Цени', en: 'Pricing' },
+  'nav.booking': { bg: 'Резервация', en: 'Booking' },
+  'nav.destiny-matrix': { bg: 'Матрица', en: 'Matrix' },
   'nav.contact': { bg: 'Контакти', en: 'Contact' },
   'hero.services': {
     bg: 'Масаж в Бургас и региона – Домашен масаж, мини спа и медитация',
@@ -164,7 +167,6 @@ const translations: Translations = {
   'booking.datesAria': { bg: 'Календар с налични дати за резервация', en: 'Calendar with available booking dates' },
   'booking.timesAria': { bg: 'Налични часове за избраната дата', en: 'Available times for the selected date' },
   'booking.reserveTitle': { bg: 'Вашата резервация', en: 'Your reservation' },
-  'booking.reserveHint': { bg: 'Изберете дата и час от календара, за да продължите.', en: 'Pick a date and hour from the calendar to continue.' },
   'booking.selectedSlot': { bg: 'Избран слот', en: 'Selected slot' },
   'booking.reserveButton': { bg: 'Резервирай', en: 'Reserve' },
   'booking.reserveSending': { bg: 'Изпращане...', en: 'Sending...' },

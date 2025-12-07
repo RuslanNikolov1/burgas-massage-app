@@ -9,11 +9,13 @@ export async function POST(request: Request) {
     }
 
     const targetEmail = process.env.NEXT_PUBLIC_BOOKING_TARGET_EMAIL || 'ivanvelichkov13@gmail.com'
-    const apiKey = process.env.NEXT_PUBLIC_RESEND_API_KEY
-    const fromEmail = process.env.NEXT_PUBLIC_RESEND_FROM_EMAIL
+    // Use server-only env vars (without NEXT_PUBLIC_) for sensitive data like API keys
+    // Falls back to NEXT_PUBLIC_ vars for backwards compatibility, but prefer RESEND_API_KEY
+    const apiKey = process.env.RESEND_API_KEY
+    const fromEmail = process.env.RESEND_FROM_EMAIL || process.env.NEXT_PUBLIC_RESEND_FROM_EMAIL
 
     if (!apiKey || !fromEmail) {
-      console.error('Resend configuration missing NEXT_PUBLIC_RESEND_API_KEY or NEXT_PUBLIC_RESEND_FROM_EMAIL')
+      console.error('Resend configuration missing. Set RESEND_API_KEY and RESEND_FROM_EMAIL (or NEXT_PUBLIC_ versions for backwards compatibility)')
       return NextResponse.json({ error: 'Email is not configured' }, { status: 500 })
     }
 

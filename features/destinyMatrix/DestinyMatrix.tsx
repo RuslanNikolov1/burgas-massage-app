@@ -94,7 +94,7 @@ export default function DestinyMatrix({ className = '' }: Props) {
   }
 
   return (
-    <section className={`${styles.root} ${className}`}>
+    <section id="destiny-matrix" className={`${styles.root} ${className}`}>
       <div className={styles.header}>
         <div className={styles.glowWrap}>
           <div className={styles.glow}></div>

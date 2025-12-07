@@ -35,7 +35,7 @@ const contactLinks = [
   { type: 'instagram', url: INSTAGRAM_URL, label: 'Instagram' },
   { type: 'phone', url: 'tel:+359886830825', label: '+359 886 830 825' },
   { type: 'messenger', url: FACEBOOK_URL, label: 'Messenger' },
-  { type: 'viber', url: 'viber://chat?number=%2B359886830825', label: '+359 886 830 825' },
+  { type: 'viber', url: 'viber://chat?number=%2B359886830825', label: 'Viber' },
 ]
 
 export function Contact() {

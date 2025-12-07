@@ -9,17 +9,17 @@ import { MusicPlayer } from '@/features/ui/MusicPlayer'
 import styles from './Header.module.scss'
 
 const sections = [
-  { id: 'hero', key: 'nav.home' },
   { id: 'about', key: 'nav.about' },
-  { id: 'pricing', key: 'nav.pricing' },
-  { id: 'booking', key: 'nav.booking' },
   { id: 'feedbacks', key: 'nav.feedbacks' },
   { id: 'products', key: 'nav.products' },
+  { id: 'pricing', key: 'nav.pricing' },
+  { id: 'booking', key: 'nav.booking' },
+  { id: 'destiny-matrix', key: 'nav.destiny-matrix' },
   { id: 'contact', key: 'nav.contact' },
 ]
 
 export function Header() {
-  const [activeSection, setActiveSection] = useState('hero')
+  const [activeSection, setActiveSection] = useState('about')
   const [isScrolled, setIsScrolled] = useState(false)
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const t = useTranslations()
