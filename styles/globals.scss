@@ -71,6 +71,34 @@ img {
   color: var(--color-bg-primary);
 }
 
+// Custom scrollbar styling
+// Webkit browsers (Chrome, Safari, Edge)
+::-webkit-scrollbar {
+  width: 12px;
+  height: 12px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 6px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-accent);
+  border-radius: 6px;
+  border: 2px solid rgba(0, 0, 0, 0.2);
+  
+  &:hover {
+    background: var(--color-accent-hover);
+  }
+}
+
+// Firefox
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-accent) rgba(0, 0, 0, 0.2);
+}
+
 .section {
   padding: 80px 20px;
   

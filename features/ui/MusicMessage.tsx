@@ -33,3 +33,5 @@ export function MusicMessage() {
     <p className={styles.message}>{t('music.relaxingMessage')}</p>
   )
 }
+
+

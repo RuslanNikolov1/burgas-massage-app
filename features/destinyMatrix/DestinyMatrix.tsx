@@ -10,10 +10,7 @@ import {
   convertDDMMYYYYToISO,
   convertISOToDDMMYYYY,
   formatDateInput,
-  calculateLifePath,
-  analyzeAllLines,
   type PersonData,
-  type LineAnalysis,
 } from './destiny.utils'
 import { Calendar } from '@phosphor-icons/react'
 import Image from 'next/image'
@@ -27,7 +24,6 @@ export default function DestinyMatrix({ className = '' }: Props) {
 
   // Personal calculator state
   const [personalDate, setPersonalDate] = useState<string>('')
-  const [personalGender, setPersonalGender] = useState<'male' | 'female' | ''>('')
   const [personalData, setPersonalData] = useState<PersonData | null>(null)
   const [personalError, setPersonalError] = useState<string>('')
   const personalContainerRef = useRef<HTMLDivElement | null>(null)
@@ -66,11 +62,6 @@ export default function DestinyMatrix({ className = '' }: Props) {
       return
     }
 
-    if (!personalGender) {
-      setPersonalError(t('destiny.alertGender'))
-      return
-    }
-
     // Convert DD/MM/YYYY to ISO format for validation
     const dateISO = convertDDMMYYYYToISO(personalDate)
     if (!dateISO) {
@@ -85,7 +76,7 @@ export default function DestinyMatrix({ className = '' }: Props) {
       }
 
     try {
-      const data = createPersonFromDate(dateISO, personalGender)
+      const data = createPersonFromDate(dateISO)
       setPersonalData(data)
       if (personalContainerRef.current) {
         personalContainerRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' })
@@ -98,7 +89,6 @@ export default function DestinyMatrix({ className = '' }: Props) {
 
   const handlePersonalReset = () => {
     setPersonalDate('')
-    setPersonalGender('')
     setPersonalData(null)
     setPersonalError('')
   }
@@ -114,11 +104,9 @@ export default function DestinyMatrix({ className = '' }: Props) {
 
       <PersonalCalculator
         date={personalDate}
-        gender={personalGender}
         data={personalData}
         error={personalError}
         onDateChange={setPersonalDate}
-        onGenderChange={setPersonalGender}
         onCalculate={handlePersonalCalculate}
         onReset={handlePersonalReset}
         containerRef={personalContainerRef}
@@ -131,28 +119,49 @@ export default function DestinyMatrix({ className = '' }: Props) {
 // Personal Calculator Component
 function PersonalCalculator({
   date,
-  gender,
   data,
   error,
   onDateChange,
-  onGenderChange,
   onCalculate,
   onReset,
   containerRef,
   t,
 }: {
   date: string
-  gender: 'male' | 'female' | ''
   data: PersonData | null
   error: string
   onDateChange: (date: string) => void
-  onGenderChange: (gender: 'male' | 'female' | '') => void
   onCalculate: () => void
   onReset: () => void
   containerRef: React.RefObject<HTMLDivElement | null>
   t: (key: string) => string
 }) {
   const datePickerRef = useRef<HTMLInputElement>(null)
+  const dateInputRef = useRef<HTMLInputElement>(null)
+  const formatGuideRef = useRef<HTMLSpanElement>(null)
+  
+  // Update format guide position based on typed text width
+  useEffect(() => {
+    if (date && dateInputRef.current && formatGuideRef.current) {
+      // Create a temporary span to measure the typed text width
+      const measureSpan = document.createElement('span')
+      measureSpan.style.visibility = 'hidden'
+      measureSpan.style.position = 'absolute'
+      measureSpan.style.fontFamily = getComputedStyle(dateInputRef.current).fontFamily
+      measureSpan.style.fontSize = getComputedStyle(dateInputRef.current).fontSize
+      measureSpan.textContent = date
+      document.body.appendChild(measureSpan)
+      const width = measureSpan.offsetWidth
+      document.body.removeChild(measureSpan)
+      
+      // Position the format guide after the typed text
+      const padding = parseFloat(getComputedStyle(dateInputRef.current).paddingLeft) || 0
+      formatGuideRef.current.style.left = `${padding + width}px`
+    } else if (formatGuideRef.current) {
+      // Reset position when empty
+      formatGuideRef.current.style.left = ''
+    }
+  }, [date])
   
   const handleDateInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     const formatted = formatDateInput(e.target.value)
@@ -170,6 +179,22 @@ function PersonalCalculator({
     }
   }
 
+  // Generate dynamic placeholder based on current input
+  const getDynamicPlaceholder = (): string => {
+    if (!date) return t('destiny.datePlaceholder')
+    
+    const parts = date.split('/')
+    if (parts.length === 1 && parts[0].length > 0) {
+      // Only day entered: show "/MM/YYYY" after the typed day
+      return '/MM/YYYY'
+    } else if (parts.length === 2 && parts[1].length > 0) {
+      // Day and month entered: show "/YYYY" after the typed date
+      return '/YYYY'
+    }
+    // Full date entered - don't show placeholder
+    return ''
+  }
+
   return (
     <>
       <div className={styles.birthdayContainer}>
@@ -177,15 +202,27 @@ function PersonalCalculator({
         <div className={styles.inputsWrapper}>
           <div className={styles.inputsRow}>
             <div className={styles.inputWrap}>
-              <input
-                id="personal-date"
-                type="text"
-                value={date}
-                onChange={handleDateInput}
-                placeholder={t('destiny.datePlaceholder')}
-                maxLength={10}
-                aria-label={t('destiny.dateOfBirth')}
-              />
+              <div className={styles.dateInputWrapper}>
+                <input
+                  ref={dateInputRef}
+                  id="personal-date"
+                  type="text"
+                  value={date}
+                  onChange={handleDateInput}
+                  placeholder=""
+                  maxLength={10}
+                  aria-label={t('destiny.dateOfBirth')}
+                  className={styles.dateInput}
+                  data-has-value={!!date}
+                />
+                <span 
+                  ref={formatGuideRef}
+                  className={styles.dateFormatGuide} 
+                  data-has-value={!!date}
+                >
+                  {getDynamicPlaceholder()}
+                </span>
+              </div>
               <input
                 ref={datePickerRef}
                 type="date"
@@ -199,33 +236,9 @@ function PersonalCalculator({
                 className={styles.calendarButton}
                 aria-label={t('destiny.openCalendar')}
               >
-                <Calendar size={20} weight="duotone" />
+                <Calendar size={24} weight="duotone" />
               </button>
-              <div className={styles.starWrap2}>
-                <Image
-                  src="/destiny-matrix-assets/img/starmedium.svg"
-                  alt=""
-                  width={46}
-                  height={46}
-                  className={styles.starMedium}
-                />
-              </div>
             </div>
-            <div className={styles.inputWrap}>
-              <select
-                id="personal-gender"
-                value={gender}
-                onChange={(e) => onGenderChange(e.target.value as 'male' | 'female' | '')}
-                className={`${styles.genderSelect} ${!gender ? styles.placeholder : ''}`}
-                aria-label={t('destiny.gender')}
-              >
-                <option value="">{t('destiny.selectGender')}</option>
-                <option value="male">{t('destiny.male')}</option>
-                <option value="female">{t('destiny.female')}</option>
-              </select>
-            </div>
-          </div>
-          <div className={styles.buttonRow}>
             <button id="get-the-answer" onClick={onCalculate} className={styles.createButton}>
               {t('destiny.createChart')}
             </button>
@@ -300,8 +313,6 @@ function PersonalCalculator({
             </span>
           </div>
           <MatrixSVG data={data} t={t} />
-          <MatrixAnalysis data={data} date={date} t={t} />
-          <ChakraTable data={data} t={t} />
           <PurposesTable data={data} t={t} />
         </div>
       )}
@@ -566,138 +577,122 @@ function YearsPoints({ years, t }: { years: PersonData['years']; t: (key: string
   return (
     <g id="points-years">
       {/* Major year labels (0, 10, 20, 30, 40, 50, 60, 70) */}
-      <text className={styles.cls28} transform="translate(20 295)">
+      <text className={styles.cls28} transform="translate(10 295)">
         0
-        <tspan x="-10" y="10">{t('destiny.years')}</tspan>
-        <tspan x="-4" y="20">{t('destiny.old')}</tspan>
+        <tspan x="-15" y="10">{t('destiny.years')}</tspan>
       </text>
-      <text className={styles.cls28} transform="translate(100 70)">
+      <text className={styles.cls28} transform="translate(85 70)">
         10
-        <tspan x="-8" y="10">{t('destiny.years')}</tspan>
-        <tspan x="-2" y="20">{t('destiny.old')}</tspan>
+        <tspan x="-12" y="10">{t('destiny.years')}</tspan>
       </text>
-      <text className={styles.cls28} transform="translate(330 20)">
+      <text className={styles.cls28} transform="translate(315 10)">
         20
-        <tspan x="-8" y="10">{t('destiny.years')}</tspan>
-        <tspan x="-2" y="20">{t('destiny.old')}</tspan>
+        <tspan x="-12" y="10">{t('destiny.years')}</tspan>
       </text>
-      <text className={styles.cls28} transform="translate(550 70)">
+      <text className={styles.cls28} transform="translate(535 70)">
         30
-        <tspan x="-8" y="10">{t('destiny.years')}</tspan>
-        <tspan x="-2" y="20">{t('destiny.old')}</tspan>
+        <tspan x="-12" y="10">{t('destiny.years')}</tspan>
       </text>
-      <text className={styles.cls28} transform="translate(638 295)">
+      <text className={styles.cls28} transform="translate(625 295)">
         40
-        <tspan x="-8" y="10">{t('destiny.years')}</tspan>
-        <tspan x="-2" y="20">{t('destiny.old')}</tspan>
+        <tspan x="-12" y="10">{t('destiny.years')}</tspan>
       </text>
-      <text className={styles.cls28} transform="translate(550 515)">
+      <text className={styles.cls28} transform="translate(535 515)">
         50
-        <tspan x="-8" y="10">{t('destiny.years')}</tspan>
-        <tspan x="-2" y="20">{t('destiny.old')}</tspan>
+        <tspan x="-12" y="10">{t('destiny.years')}</tspan>
       </text>
-      <text className={styles.cls28} transform="translate(328 580)">
+      <text className={styles.cls28} transform="translate(315 575)">
         60
-        <tspan x="-8" y="10">{t('destiny.years')}</tspan>
-        <tspan x="-2" y="20">{t('destiny.old')}</tspan>
+        <tspan x="-12" y="10">{t('destiny.years')}</tspan>
       </text>
-      <text className={styles.cls28} transform="translate(100 515)">
+      <text className={styles.cls28} transform="translate(85 515)">
         70
-        <tspan x="-8" y="10">{t('destiny.years')}</tspan>
-        <tspan x="-2" y="20">{t('destiny.old')}</tspan>
+        <tspan x="-12" y="10">{t('destiny.years')}</tspan>
       </text>
 
       {/* Intermediate year labels (5, 15, 25, 35, 45, 55, 65, 75) */}
-      <text className={styles.cls29} transform="translate(97.49 198.76)">
+      <text className={styles.cls29} transform="translate(82.49 198.76)">
         5
-        <tspan className={styles.cls43} x="8.34" y="-6">{t('destiny.years')}</tspan>
-        <tspan className={styles.cls43} x="8.34" y="0">{t('destiny.old')}</tspan>
+        <tspan className={styles.cls43} x="15" y="-3">{t('destiny.years')}</tspan>
       </text>
-      <text className={styles.cls29} transform="translate(232.22 66.42)">
+      <text className={styles.cls29} transform="translate(217.22 66.42)">
         15
-        <tspan className={styles.cls43} x="13.9" y="-6">{t('destiny.years')}</tspan>
-        <tspan className={styles.cls43} x="13.9" y="0">{t('destiny.old')}</tspan>
+        <tspan className={styles.cls43} x="20" y="-3">{t('destiny.years')}</tspan>
       </text>
-      <text className={styles.cls29} transform="translate(405.8 67.22)">
+      <text className={styles.cls29} transform="translate(390.8 67.22)">
         25
-        <tspan className={styles.cls43} x="14.9" y="-6">{t('destiny.years')}</tspan>
-        <tspan className={styles.cls43} x="14.9" y="0">{t('destiny.old')}</tspan>
+        <tspan className={styles.cls43} x="22" y="-3">{t('destiny.years')}</tspan>
       </text>
-      <text className={styles.cls29} transform="translate(540.55 204.76)">
+      <text className={styles.cls29} transform="translate(525.55 204.76)">
         35
-        <tspan className={styles.cls43} x="14.9" y="-6">{t('destiny.years')}</tspan>
-        <tspan className={styles.cls43} x="14.9" y="0">{t('destiny.old')}</tspan>
+        <tspan className={styles.cls43} x="22" y="-3">{t('destiny.years')}</tspan>
       </text>
-      <text className={styles.cls29} transform="translate(542.76 402.12)">
+      <text className={styles.cls29} transform="translate(527.76 402.12)">
         45
-        <tspan className={styles.cls43} x="14.9" y="-6">{t('destiny.years')}</tspan>
-        <tspan className={styles.cls43} x="14.9" y="0">{t('destiny.old')}</tspan>
+        <tspan className={styles.cls43} x="22" y="-3">{t('destiny.years')}</tspan>
       </text>
-      <text className={styles.cls29} transform="translate(403.8 539.38)">
+      <text className={styles.cls29} transform="translate(388.8 539.38)">
         55
-        <tspan className={styles.cls43} x="14.9" y="-6">{t('destiny.years')}</tspan>
-        <tspan className={styles.cls43} x="14.9" y="0">{t('destiny.old')}</tspan>
+        <tspan className={styles.cls43} x="22" y="-3">{t('destiny.years')}</tspan>
       </text>
-      <text className={styles.cls29} transform="translate(235.6 539.38)">
+      <text className={styles.cls29} transform="translate(220.6 539.38)">
         65
-        <tspan className={styles.cls43} x="14.9" y="-6">{t('destiny.years')}</tspan>
-        <tspan className={styles.cls43} x="14.9" y="0">{t('destiny.old')}</tspan>
+        <tspan className={styles.cls43} x="22" y="-3">{t('destiny.years')}</tspan>
       </text>
-      <text className={styles.cls29} transform="translate(97.69 400.12)">
+      <text className={styles.cls29} transform="translate(82.69 400.12)">
         75
-        <tspan className={styles.cls43} x="14.9" y="-6">{t('destiny.years')}</tspan>
-        <tspan className={styles.cls43} x="14.9" y="0">{t('destiny.old')}</tspan>
+        <tspan className={styles.cls43} x="22" y="-3">{t('destiny.years')}</tspan>
       </text>
 
-      {/* Age range labels */}
-      <text className={styles.cls61} transform="translate(71.7 252.94)">1-2,5</text>
-      <text className={styles.cls61} transform="translate(79.14 234.61)">2,5-3,5</text>
-      <text className={styles.cls61} transform="translate(86.39 216.23)">3,5-4</text>
-      <text className={styles.cls61} transform="translate(102.39 179.23)">6-7,5</text>
-      <text className={styles.cls61} transform="translate(109.39 160.23)">7,5-8,5</text>
-      <text className={styles.cls61} transform="translate(117.39 143.23)">8,5-9</text>
-      <text className={styles.cls61} transform="translate(176.55 85.51)">11-12,5</text>
-      <text className={styles.cls61} transform="translate(195.09 77.79)">12,5-13,5</text>
-      <text className={styles.cls61} transform="translate(214.38 70.22)">13,5-14</text>
-      <text className={styles.cls61} transform="translate(250.51 54.83)">16-17,5</text>
-      <text className={styles.cls61} transform="translate(268.88 47.18)">17,5-18,5</text>
-      <text className={styles.cls61} transform="translate(287.83 39.52)">18,5-19</text>
-      <text className={styles.cls61} transform="translate(360 38.52)">21-22,5</text>
-      <text className={styles.cls61} transform="translate(372.75 47.17)">22,5-23,5</text>
-      <text className={styles.cls61} transform="translate(397.13 54.83)">23,5-24</text>
-      <text className={styles.cls61} transform="translate(433.01 70.14)">26-27,5</text>
-      <text className={styles.cls61} transform="translate(448.01 77.79)">27,5-28,5</text>
-      <text className={styles.cls61} transform="translate(469.26 85.51)">28,5-29</text>
-      <text className={styles.cls61} transform="translate(528.75 146.23)">31-32,5</text>
-      <text className={styles.cls61} transform="translate(529.12 163.23)">32,5-33,5</text>
-      <text className={styles.cls61} transform="translate(543.78 182.23)">33,5-34</text>
-      <text className={styles.cls61} transform="translate(558.77 219.23)">36-37,5</text>
-      <text className={styles.cls61} transform="translate(560.77 237.61)">37,5-38,5</text>
-      <text className={styles.cls61} transform="translate(573.07 255.94)">38,5-39</text>
-      <text className={styles.cls61} transform="translate(572.49 345.82)">41-42,5</text>
-      <text className={styles.cls61} transform="translate(558.89 363.52)">42,5-43,5</text>
-      <text className={styles.cls61} transform="translate(557.3 382.28)">43,5-44</text>
-      <text className={styles.cls61} transform="translate(541.66 419.27)">46-47,5</text>
-      <text className={styles.cls61} transform="translate(528.32 437.69)">47,5-48,5</text>
-      <text className={styles.cls61} transform="translate(526.7 456.08)">48,5-49</text>
-      <text className={styles.cls61} transform="translate(358.55 560.01)">58,5-59</text>
-      <text className={styles.cls61} transform="translate(369.09 552.29)">57,5-58,5</text>
-      <text className={styles.cls61} transform="translate(387.38 545.68)">56-57,5</text>
-      <text className={styles.cls61} transform="translate(430.51 529.33)">53,5-54</text>
-      <text className={styles.cls61} transform="translate(441.88 522.68)">52,5-53,5</text>
-      <text className={styles.cls61} transform="translate(463.83 515.02)">51-52,5</text>
-      <text className={styles.cls61} transform="translate(178 514.02)">68,5-69</text>
-      <text className={styles.cls61} transform="translate(196.75 521.67)">67,5-68,5</text>
-      <text className={styles.cls61} transform="translate(215.13 529.33)">66-67,5</text>
-      <text className={styles.cls61} transform="translate(254.01 545.68)">63,5-64</text>
-      <text className={styles.cls61} transform="translate(271.01 552.29)">62,5-63,5</text>
-      <text className={styles.cls61} transform="translate(285.26 559.01)">61-62,5</text>
-      <text className={styles.cls61} transform="translate(73.75 343.82)">78,5-79</text>
-      <text className={styles.cls61} transform="translate(81.12 361.52)">77,5-78,5</text>
-      <text className={styles.cls61} transform="translate(88.78 380.28)">76-77,5</text>
-      <text className={styles.cls61} transform="translate(103.77 417.27)">73,5-74</text>
-      <text className={styles.cls61} transform="translate(111.77 435.69)">72,5-73,5</text>
-      <text className={styles.cls61} transform="translate(119.07 454.08)">71-72,5</text>
+      {/* Age range labels - pushed further from matrix center (333, 299) by factor of 1.2 */}
+      <text className={styles.cls61} transform="translate(58.16 250.53)">1-2,5</text>
+      <text className={styles.cls61} transform="translate(64.03 231.33)">2,5-3,5</text>
+      <text className={styles.cls61} transform="translate(69.67 212.08)">3,5-4</text>
+      <text className={styles.cls61} transform="translate(80.87 173.08)">6-7,5</text>
+      <text className={styles.cls61} transform="translate(86.87 153.08)">7,5-8,5</text>
+      <text className={styles.cls61} transform="translate(93.87 135.08)">8,5-9</text>
+      <text className={styles.cls61} transform="translate(146.04 76.41)">11-12,5</text>
+      <text className={styles.cls61} transform="translate(163.09 68.35)">12,5-13,5</text>
+      <text className={styles.cls61} transform="translate(180.86 60.66)">13,5-14</text>
+      <text className={styles.cls61} transform="translate(213.21 44.40)">16-17,5</text>
+      <text className={styles.cls61} transform="translate(230.26 36.42)">17,5-18,5</text>
+      <text className={styles.cls61} transform="translate(247.80 28.42)">18,5-19</text>
+      <text className={styles.cls61} transform="translate(315.40 27.42)">21-22,5</text>
+      <text className={styles.cls61} transform="translate(327.30 35.80)">22,5-23,5</text>
+      <text className={styles.cls61} transform="translate(350.56 43.40)">23,5-24</text>
+      <text className={styles.cls61} transform="translate(385.01 58.17)">26-27,5</text>
+      <text className={styles.cls61} transform="translate(399.01 65.55)">27,5-28,5</text>
+      <text className={styles.cls61} transform="translate(419.31 72.41)">28,5-29</text>
+      <text className={styles.cls61} transform="translate(476.40 131.08)">31-32,5</text>
+      <text className={styles.cls61} transform="translate(476.74 147.08)">32,5-33,5</text>
+      <text className={styles.cls61} transform="translate(490.34 164.88)">33,5-34</text>
+      <text className={styles.cls61} transform="translate(504.12 200.08)">36-37,5</text>
+      <text className={styles.cls61} transform="translate(505.92 217.93)">37,5-38,5</text>
+      <text className={styles.cls61} transform="translate(517.68 235.13)">38,5-39</text>
+      <text className={styles.cls61} transform="translate(517.19 323.18)">41-42,5</text>
+      <text className={styles.cls61} transform="translate(504.07 340.22)">42,5-43,5</text>
+      <text className={styles.cls61} transform="translate(502.76 358.94)">43,5-44</text>
+      <text className={styles.cls61} transform="translate(488.39 394.12)">46-47,5</text>
+      <text className={styles.cls61} transform="translate(475.78 411.83)">47,5-48,5</text>
+      <text className={styles.cls61} transform="translate(474.44 430.10)">48,5-49</text>
+      <text className={styles.cls61} transform="translate(313.66 531.81)">58,5-59</text>
+      <text className={styles.cls61} transform="translate(323.31 523.75)">57,5-58,5</text>
+      <text className={styles.cls61} transform="translate(340.26 516.42)">56-57,5</text>
+      <text className={styles.cls61} transform="translate(380.21 499.20)">53,5-54</text>
+      <text className={styles.cls61} transform="translate(390.66 492.22)">52,5-53,5</text>
+      <text className={styles.cls61} transform="translate(410.60 484.02)">51-52,5</text>
+      <text className={styles.cls61} transform="translate(127.20 492.82)">68,5-69</text>
+      <text className={styles.cls61} transform="translate(145.30 499.60)">67,5-68,5</text>
+      <text className={styles.cls61} transform="translate(163.16 506.20)">66-67,5</text>
+      <text className={styles.cls61} transform="translate(201.21 521.42)">63,5-64</text>
+      <text className={styles.cls61} transform="translate(217.41 527.75)">62,5-63,5</text>
+      <text className={styles.cls61} transform="translate(230.71 533.81)">61-62,5</text>
+      <text className={styles.cls61} transform="translate(60.50 332.58)">78,5-79</text>
+      <text className={styles.cls61} transform="translate(67.14 349.82)">77,5-78,5</text>
+      <text className={styles.cls61} transform="translate(74.14 366.94)">76-77,5</text>
+      <text className={styles.cls61} transform="translate(88.52 402.12)">73,5-74</text>
+      <text className={styles.cls61} transform="translate(95.92 419.83)">72,5-73,5</text>
+      <text className={styles.cls61} transform="translate(102.88 437.10)">71-72,5</text>
 
       {/* Year value points along the paths (af, fb, bg, gc, ci, id, dh, ha) */}
       {/* af line */}
@@ -887,292 +882,6 @@ function YearsPoints({ years, t }: { years: PersonData['years']; t: (key: string
   )
 }
 
-// Chakra Table Component
-function ChakraTable({ data, t }: { data: PersonData; t: (key: string) => string }) {
-  const resultPhysics = data.chartHeart.sahphysics + data.chartHeart.ajphysics + data.chartHeart.vishphysics + data.chartHeart.anahphysics + data.chartHeart.manphysics + data.chartHeart.svadphysics + data.chartHeart.mulphysics
-  const resultEnergy = data.chartHeart.sahenergy + data.chartHeart.ajenergy + data.chartHeart.vishenergy + data.chartHeart.anahenergy + data.chartHeart.manenergy + data.chartHeart.svadenergy + data.chartHeart.mulenergy
-  const resultEmotions = data.chartHeart.sahemotions + data.chartHeart.ajemotions + data.chartHeart.vishemotions + data.chartHeart.anahemotions + data.chartHeart.manemotions + data.chartHeart.svademotions + data.chartHeart.mulemotions
-
-  // Helper function to reduce numbers
-  const reduce = (n: number) => {
-    let num = n
-    while (num > 9 && num !== 11 && num !== 22 && num !== 33) {
-      num = (num % 10) + Math.floor(num / 10)
-    }
-    return num
-  }
-
-  return (
-    <div id="chakra-table" className={styles.chakraTableContainer}>
-      <div className={styles.glowWrap} style={{ zIndex: -1 }}>
-        <div className={styles.glow2}></div>
-      </div>
-      <table className={styles.chakraTable}>
-        <thead>
-          <tr className={styles.chakraTableHeader}>
-            <th className={`${styles.chakraName} ${styles.chakraNameRadiusLeft}`}>{t('destiny.chakraName')}</th>
-            <th className={styles.chakraTd}>{t('destiny.physics')}</th>
-            <th className={styles.chakraTd}>{t('destiny.energy')}</th>
-            <th className={`${styles.chakraTd} ${styles.chakraNameRadiusRight}`}>{t('destiny.emotions')}</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr className={styles.chakraTr}>
-            <td className={`${styles.chakraName} ${styles.chakraNameLeft}`}>
-              <span className={styles.chakraNameFlex} id="circle-sahastrara">
-                Sahastrara
-              </span>
-            </td>
-            <td className={styles.chakraTd}>{data.chartHeart.sahphysics}</td>
-            <td className={styles.chakraTd}>{data.chartHeart.sahenergy}</td>
-            <td className={styles.chakraTd}>{data.chartHeart.sahemotions}</td>
-          </tr>
-          <tr className={styles.chakraTr}>
-            <td className={`${styles.chakraName} ${styles.chakraNameLeft}`}>
-              <span className={styles.chakraNameFlex} id="circle-ajna">
-                Ajna
-              </span>
-            </td>
-            <td className={styles.chakraTd}>{data.chartHeart.ajphysics}</td>
-            <td className={styles.chakraTd}>{data.chartHeart.ajenergy}</td>
-            <td className={styles.chakraTd}>{data.chartHeart.ajemotions}</td>
-          </tr>
-          <tr className={styles.chakraTr}>
-            <td className={`${styles.chakraName} ${styles.chakraNameLeft}`}>
-              <span className={styles.chakraNameFlex} id="circle-vishuddha">
-                Vishuddha
-              </span>
-            </td>
-            <td className={styles.chakraTd}>{data.chartHeart.vishphysics}</td>
-            <td className={styles.chakraTd}>{data.chartHeart.vishenergy}</td>
-            <td className={styles.chakraTd}>{data.chartHeart.vishemotions}</td>
-          </tr>
-          <tr className={styles.chakraTr}>
-            <td className={`${styles.chakraName} ${styles.chakraNameLeft}`}>
-              <span className={styles.chakraNameFlex} id="circle-anahata">
-                Anahata
-              </span>
-            </td>
-            <td className={styles.chakraTd}>{data.chartHeart.anahphysics}</td>
-            <td className={styles.chakraTd}>{data.chartHeart.anahenergy}</td>
-            <td className={styles.chakraTd}>{data.chartHeart.anahemotions}</td>
-          </tr>
-          <tr className={styles.chakraTr}>
-            <td className={`${styles.chakraName} ${styles.chakraNameLeft}`}>
-              <span className={styles.chakraNameFlex} id="circle-manipura">
-                Manipura
-              </span>
-            </td>
-            <td className={styles.chakraTd}>{data.chartHeart.manphysics}</td>
-            <td className={styles.chakraTd}>{data.chartHeart.manenergy}</td>
-            <td className={styles.chakraTd}>{data.chartHeart.manemotions}</td>
-          </tr>
-          <tr className={styles.chakraTr}>
-            <td className={`${styles.chakraName} ${styles.chakraNameLeft}`}>
-              <span className={styles.chakraNameFlex} id="circle-svadhishtana">
-                Svadhishtana
-              </span>
-            </td>
-            <td className={styles.chakraTd}>{data.chartHeart.svadphysics}</td>
-            <td className={styles.chakraTd}>{data.chartHeart.svadenergy}</td>
-            <td className={styles.chakraTd}>{data.chartHeart.svademotions}</td>
-          </tr>
-          <tr className={`${styles.chakraTr} ${styles.chakraNameBottom}`}>
-            <td
-              className={`${styles.chakraName} ${styles.chakraNameLeft}`}
-              style={{ borderBottomLeftRadius: '10px' }}
-            >
-              <span className={styles.chakraNameFlex} id="circle-muladhara">
-                Muladhara
-              </span>
-            </td>
-            <td className={styles.chakraTd}>{data.chartHeart.mulphysics}</td>
-            <td className={styles.chakraTd}>{data.chartHeart.mulenergy}</td>
-            <td className={`${styles.chakraTd} ${styles.chakraNameRadiusRightBottom2}`}>
-              {data.chartHeart.mulemotions}
-            </td>
-          </tr>
-          <tr style={{ height: '20px' }}></tr>
-          <tr className={`${styles.chakraTr} ${styles.chakraNameBottom} ${styles.chakraNameTop}`}>
-            <td className={styles.chakraNameRadiusLeftBottom}>Result:</td>
-            <td className={styles.chakraTd}>{reduce(resultPhysics)}</td>
-            <td className={styles.chakraTd}>{reduce(resultEnergy)}</td>
-            <td className={`${styles.chakraTd} ${styles.chakraNameRadiusRightBottom}`}>
-              {reduce(resultEmotions)}
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-  )
-}
-
-// Matrix Analysis Component
-function MatrixAnalysis({ data, date, t }: { data: PersonData; date: string; t: (key: string) => string }) {
-  // Calculate life path from date
-  const getLifePath = (): number => {
-    if (!date) return 0
-    const parts = date.split('/')
-    if (parts.length !== 3) return 0
-    const day = parseInt(parts[0], 10)
-    const month = parseInt(parts[1], 10)
-    const year = parseInt(parts[2], 10)
-    if (isNaN(day) || isNaN(month) || isNaN(year)) return 0
-    return calculateLifePath(day, month, year)
-  }
-
-  const lifePath = getLifePath()
-  const getInterpretation = (num: number): string => {
-    if (num >= 1 && num <= 9) {
-      return t(`destiny.interpretations.${num}`)
-    }
-    if (num === 11) return t('destiny.lifePathMeanings.11')
-    if (num === 22) return t('destiny.lifePathMeanings.22')
-    if (num === 33) return t('destiny.lifePathMeanings.33')
-    return ''
-  }
-
-  // Analyze all lines
-  const lineAnalyses = analyzeAllLines(data.points)
-
-  // Get unique numbers from key points for analysis
-  const keyNumbers = [
-    data.points.apoint,
-    data.points.bpoint,
-    data.points.cpoint,
-    data.points.dpoint,
-    data.points.epoint,
-  ].filter((num, index, self) => self.indexOf(num) === index) // Get unique numbers
-
-  // Generate line interpretation text
-  const generateLineInterpretation = (analysis: LineAnalysis, lineType: 'mental' | 'emotional' | 'character'): string => {
-    const presentText = analysis.present.map(d => t(`destiny.interpretations.${d}`)).join(', ')
-    const missingText = analysis.missing.map(d => t(`destiny.interpretations.${d}`)).join(', ')
-    
-    let interpretation = ''
-    
-    if (analysis.present.length > 0) {
-      interpretation += `${t('destiny.strengths')}: ${presentText}. `
-    }
-    
-    if (analysis.missing.length > 0) {
-      interpretation += `${t('destiny.weaknesses')}: ${t('destiny.missingDigits')} ${missingText}. `
-    }
-    
-    if (Object.keys(analysis.repeated).length > 0) {
-      const repeatedText = Object.entries(analysis.repeated)
-        .map(([digit, count]) => `${t('destiny.digit')} ${digit} ${t('destiny.appears')} ${count} ${t('destiny.times')}`)
-        .join(', ')
-      interpretation += `${t('destiny.excessEnergy')}: ${repeatedText}. `
-    }
-    
-    return interpretation.trim()
-  }
-
-  // Render line analysis
-  const renderLineAnalysis = (analysis: LineAnalysis, lineName: string) => {
-    const strengthLabels: { [key: string]: string } = {
-      empty: t('destiny.lineStrength.empty'),
-      weak: t('destiny.lineStrength.weak'),
-      balanced: t('destiny.lineStrength.balanced'),
-      strong: t('destiny.lineStrength.strong'),
-    }
-
-    return (
-      <div className={styles.lineAnalysisItem}>
-        <div className={styles.lineAnalysisHeader}>
-          <strong>{lineName} ({analysis.digits.join('-')})</strong>
-          <span className={styles.lineStrength} data-strength={analysis.strength}>
-            {strengthLabels[analysis.strength] || analysis.strength}
-          </span>
-        </div>
-        <div className={styles.lineAnalysisDetails}>
-          <div className={styles.lineDigits}>
-            <span className={styles.lineLabel}>{t('destiny.presentDigits')}:</span>
-            <span className={styles.presentDigits}>
-              {analysis.present.length > 0 ? analysis.present.join(', ') : t('destiny.none')}
-            </span>
-            {analysis.missing.length > 0 && (
-              <>
-                <span className={styles.lineSeparator}> | </span>
-                <span className={styles.missingDigits}>
-                  {t('destiny.missing')}: {analysis.missing.join(', ')}
-                </span>
-              </>
-            )}
-          </div>
-          
-          <div className={styles.lineInterpretation}>
-            <p>{generateLineInterpretation(analysis, analysis.type)}</p>
-          </div>
-
-          {analysis.missing.length > 0 && (
-            <div className={styles.lineKarmic}>
-              <strong>{t('destiny.karmicLesson')}:</strong>
-              <p>{t('destiny.karmicLessonText').replace('{digits}', analysis.missing.join(', ')).replace('{line}', lineName)}</p>
-            </div>
-          )}
-
-          <div className={styles.lineRecommendation}>
-            <strong>{t('destiny.recommendation')}:</strong>
-            <p>{t(`destiny.recommendation.${analysis.type}`)}</p>
-          </div>
-        </div>
-      </div>
-    )
-  }
-
-  return (
-    <div className={styles.analysisContainer}>
-      <h3 className={styles.analysisTitle}>{t('destiny.interpretations')}</h3>
-      
-      {lifePath > 0 && (
-        <div className={styles.analysisSection}>
-          <h4 className={styles.analysisSubtitle}>
-            {t('destiny.lifePath')}: {lifePath}
-          </h4>
-          <p className={styles.analysisText}>
-            {lifePath >= 1 && lifePath <= 9
-              ? t(`destiny.lifePathMeanings.${lifePath}`)
-              : lifePath === 11
-              ? t('destiny.lifePathMeanings.11')
-              : lifePath === 22
-              ? t('destiny.lifePathMeanings.22')
-              : lifePath === 33
-              ? t('destiny.lifePathMeanings.33')
-              : ''}
-          </p>
-        </div>
-      )}
-
-      <div className={styles.analysisSection}>
-        <h4 className={styles.analysisSubtitle}>{t('destiny.matrixTitle')}</h4>
-        <div className={styles.interpretationsList}>
-          {keyNumbers.map((num) => {
-            const interpretation = getInterpretation(num)
-            if (!interpretation) return null
-            return (
-              <div key={num} className={styles.interpretationItem}>
-                <span className={styles.interpretationNumber}>{num}:</span>
-                <span className={styles.interpretationText}>{interpretation}</span>
-              </div>
-            )
-          })}
-        </div>
-      </div>
-
-      <div className={styles.analysisSection}>
-        <h4 className={styles.analysisSubtitle}>{t('destiny.lines')}</h4>
-        <div className={styles.linesList}>
-          {renderLineAnalysis(lineAnalyses.mental, t('destiny.mentalLine'))}
-          {renderLineAnalysis(lineAnalyses.emotional, t('destiny.emotionalLine'))}
-          {renderLineAnalysis(lineAnalyses.character, t('destiny.characterLine'))}
-        </div>
-      </div>
-    </div>
-  )
-}
-
 // Purposes Table Component
 function PurposesTable({ data, t }: { data: PersonData; t: (key: string) => string }) {
   return (
@@ -1342,4 +1051,3 @@ function PurposesTable({ data, t }: { data: PersonData; t: (key: string) => stri
     </div>
   )
 }
-

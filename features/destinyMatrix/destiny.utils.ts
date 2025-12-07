@@ -419,9 +419,9 @@ export function calculatePoints(aPoint: number, bPoint: number, cPoint: number):
 }
 
 /**
- * Creates a person data object from date string (YYYY-MM-DD format) and gender
+ * Creates a person data object from date string (YYYY-MM-DD format)
  */
-export function createPersonFromDate(dateIso: string, gender: 'male' | 'female'): PersonData {
+export function createPersonFromDate(dateIso: string): PersonData {
   const splitDate = dateIso.split('-');
   const day = parseInt(splitDate[2], 10);
   const month = parseInt(splitDate[1], 10);
@@ -432,10 +432,6 @@ export function createPersonFromDate(dateIso: string, gender: 'male' | 'female')
   const cpoint = calculateYear(year);
 
   const data = calculatePoints(apoint, bpoint, cpoint);
-  
-  // Store gender in the data object for later use
-  // Note: PersonData doesn't have a gender field, but we can add it if needed
-  // For now, we'll use it in the calculation logic if needed
   
   return data;
 }

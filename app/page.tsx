@@ -98,9 +98,6 @@ export default function Home() {
           <ClassicalMassage />
         </Suspense>
         <Suspense fallback={<LoadingSkeleton />}>
-          <DestinyMatrix />
-        </Suspense>
-        <Suspense fallback={<LoadingSkeleton />}>
           <Chakras />
         </Suspense>
         <Suspense fallback={<LoadingSkeleton />}>
@@ -117,6 +114,9 @@ export default function Home() {
         </Suspense>
         <Suspense fallback={<LoadingSkeleton />}>
           <Booking />
+        </Suspense>
+        <Suspense fallback={<LoadingSkeleton />}>
+          <DestinyMatrix />
         </Suspense>
         <Suspense fallback={<LoadingSkeleton />}>
           <Contact />

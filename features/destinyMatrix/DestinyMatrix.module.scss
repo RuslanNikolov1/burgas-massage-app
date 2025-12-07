@@ -98,30 +98,52 @@
 .inputsWrapper {
   width: clamp(50vw, 60%, 70vw);
   margin-top: clamp(2vh, 3.1875em, 4vh);
-  display: flex;
-  flex-direction: column;
-  gap: clamp(1.5vh, 2em, 2.5vh);
+  margin-bottom: clamp(2vh, 3em, 4vh);
 }
 
 .inputsRow {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  grid-gap: clamp(1vw, 1.875em, 2.5vw);
+  display: flex;
+  justify-content: space-between;
   align-items: center;
   width: 100%;
+  gap: clamp(1vw, 1.5em, 2vw);
 }
 
-.buttonRow {
-  display: flex;
-  justify-content: center;
-  width: 100%;
-}
 
 .inputWrap {
   position: relative;
   display: flex;
   align-items: center;
   gap: 8px;
+  flex: 1;
+  min-width: 0;
+}
+
+.dateInputWrapper {
+  position: relative;
+  flex: 1;
+  width: 100%;
+  display: flex;
+  align-items: center;
+}
+
+.dateFormatGuide {
+  position: absolute;
+  left: clamp(2.5vw, 4em, 5vw);
+  pointer-events: none;
+  color: rgba(209, 178, 114, 0.6);
+  font-family: var(--font-inter, 'Inter', sans-serif);
+  font-size: clamp(1.2vw, 1.5em, 1.8vw);
+  user-select: none;
+  white-space: nowrap;
+  z-index: 0;
+  line-height: clamp(2.5vh, 3em, 4vh);
+  top: 0;
+  
+  // When there's a value, show it in lighter color
+  &[data-has-value='true'] {
+    color: rgba(209, 178, 114, 0.4);
+  }
 }
 
 .hiddenDatePicker {
@@ -136,7 +158,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 8px;
+  padding: clamp(0.8vh, 1em, 1.2vh) clamp(0.8vw, 1em, 1.2vw);
   background-color: rgba(209, 178, 114, 0.1);
   border: 1px solid rgba(209, 178, 114, 0.35);
   border-radius: 0.5em;
@@ -144,8 +166,6 @@
   cursor: pointer;
   transition: all 0.3s ease;
   flex-shrink: 0;
-  min-width: 40px;
-  height: clamp(2.5vh, 3em, 4vh);
 
   &:hover {
     background-color: rgba(209, 178, 114, 0.2);
@@ -168,7 +188,29 @@
 }
 
 .root {
-  input[type='text'] {
+  input[type='text'].dateInput {
+    flex: 1;
+    width: 100%;
+    min-width: 0;
+    height: clamp(2.5vh, 3em, 4vh);
+    padding: clamp(1.5vh, 2em, 2.5vh) clamp(2.5vw, 4em, 5vw) clamp(1.5vh, 2em, 2.5vh) clamp(2.5vw, 4em, 5vw);
+    font-family: var(--font-inter, 'Inter', sans-serif);
+    font-size: clamp(1.2vw, 1.5em, 1.8vw);
+    background-color: rgba(0, 0, 0, 0.25);
+    color: var(--color-text-primary);
+    border: 1px solid rgba(209, 178, 114, 0.35);
+    border-radius: 0.5em;
+    transition: border-color 0.3s ease;
+    position: relative;
+    z-index: 1;
+
+    &:focus {
+      outline: none;
+      border-color: var(--color-accent);
+    }
+  }
+
+  input[type='text']:not(.dateInput) {
     flex: 1;
     width: 100%;
     min-width: 0;
@@ -204,55 +246,10 @@
   input[type='date']::-webkit-calendar-picker-indicator {
     filter: invert(1);
   }
-
-  select {
-    flex: 1;
-    width: 100%;
-    min-width: 0;
-    height: clamp(2.5vh, 3em, 4vh);
-    padding: clamp(1.5vh, 2em, 2.5vh) clamp(2.5vw, 4em, 5vw) clamp(1.5vh, 2em, 2.5vh) clamp(2.5vw, 4em, 5vw);
-    font-family: var(--font-inter, 'Inter', sans-serif);
-    font-size: clamp(1.2vw, 1.5em, 1.8vw);
-    background-color: rgba(0, 0, 0, 0.25);
-    color: var(--color-text-primary);
-    border: 1px solid rgba(209, 178, 114, 0.35);
-    border-radius: 0.5em;
-    transition: border-color 0.3s ease;
-    cursor: pointer;
-    appearance: none;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23d1b272' d='M6 9L1 4h10z'/%3E%3C/svg%3E");
-    background-repeat: no-repeat;
-    background-position: right clamp(2.5vw, 4em, 5vw) center;
-    background-size: clamp(1vw, 1.2em, 1.5vw);
-    padding-right: clamp(4vw, 6em, 8vw);
-
-    &:focus {
-      outline: none;
-      border-color: var(--color-accent);
-    }
-
-    &:hover {
-      border-color: rgba(209, 178, 114, 0.5);
-    }
-
-    option {
-      background-color: var(--color-bg-secondary);
-      color: var(--color-text-primary);
-    }
-
-    option[value=''] {
-      color: rgba(209, 178, 114, 0.6);
-    }
-
-    // Style when showing placeholder (empty value)
-    &.placeholder {
-      color: rgba(209, 178, 114, 0.6);
-    }
-  }
 }
 
 .createButton {
-  padding: clamp(1vh, 1.25em, 1.5vh) clamp(3vw, 4em, 5vw) clamp(1vh, 1.25em, 1.5vh) clamp(3vw, 4em, 5vw);
+  padding: clamp(1vh, 1.25em, 1.5vh) clamp(2vw, 3em, 4vw) clamp(1vh, 1.25em, 1.5vh) clamp(2vw, 3em, 4vw);
   background-color: var(--color-accent);
   font-family: var(--font-inter, 'Inter', sans-serif);
   font-size: clamp(1vw, 1.25em, 1.5vw);
@@ -264,7 +261,8 @@
   cursor: pointer;
   color: var(--color-bg-primary);
   transition: all 0.3s ease;
-  min-width: clamp(200px, 250px, 300px);
+  white-space: nowrap;
+  flex-shrink: 0;
 
   &:hover {
     color: var(--color-text-primary);
@@ -394,8 +392,8 @@
 .matrixSvg {
   float: none;
   width: 100%;
-  max-width: clamp(40vw, 550px, 65vw);
-  min-width: clamp(280px, 300px, 320px);
+  max-width: clamp(50vw, 700px, 75vw);
+  min-width: clamp(350px, 400px, 450px);
 }
 
 // SVG classes
@@ -579,228 +577,6 @@
   r: 20;
 }
 
-// Chakra Table
-.chakraTableContainer {
-  position: relative;
-  margin: clamp(2vh, 3vh, 4vh) 0;
-  width: 100%;
-  max-width: clamp(40vw, 50vw, 60vw);
-}
-
-.chakraTable {
-  border-spacing: 0;
-  border-radius: clamp(0.5vw, 10px, 1vw);
-  width: 100%;
-  max-width: clamp(40vw, 50vw, 60vw);
-  display: block;
-  font-family: var(--font-inter, 'Inter', sans-serif);
-
-  td:first-child,
-  th:first-child {
-    border-left: 1px solid white;
-  }
-
-  tr:first-child th,
-  tr:last-child td {
-    border-top: 1px solid white;
-  }
-
-  td,
-  th {
-    border-right: 1px solid white;
-    border-bottom: 1px solid white;
-  }
-}
-
-.chakraName {
-  width: clamp(12vw, 16.25vw, 20vw);
-  height: clamp(2.5vh, 3.0625vh, 4vh);
-  padding: clamp(0.2vh, 0.3125vh, 0.4vh);
-  text-align: left;
-}
-
-.chakraNameLeft {
-  justify-content: center;
-  flex-direction: column-reverse;
-  align-items: flex-start;
-  padding-left: clamp(2vw, 2.9375vw, 3.5vw);
-}
-
-.chakraNameFlex {
-  display: flex;
-  align-items: baseline;
-}
-
-// Chakra circle indicators (using CSS ::before)
-.chakraNameFlex[id='circle-sahastrara']::before {
-  content: '7';
-  width: 1.25em;
-  border-radius: 50%;
-  height: 1.25em;
-  display: inline-flex;
-  background: #b653f7;
-  justify-content: center;
-  align-items: center;
-  margin-right: 1.25em;
-  box-shadow: 0 0 0.625em 0.625em #b653f7;
-  font-family: var(--font-gfs-didot, 'GFS Didot', serif);
-  font-size: 1.375em;
-}
-
-.chakraNameFlex[id='circle-ajna']::before {
-  content: '6';
-  width: 1.25em;
-  border-radius: 50%;
-  height: 1.25em;
-  display: inline-flex;
-  background: #3d54f5;
-  justify-content: center;
-  align-items: center;
-  margin-right: 1.25em;
-  box-shadow: 0 0 0.625em 0.625em #3d54f5;
-  font-family: var(--font-gfs-didot, 'GFS Didot', serif);
-  font-size: 1.375em;
-}
-
-.chakraNameFlex[id='circle-vishuddha']::before {
-  content: '5';
-  width: 1.25em;
-  border-radius: 50%;
-  height: 1.25em;
-  display: inline-flex;
-  color: #000000;
-  background: #74e0f8;
-  justify-content: center;
-  align-items: center;
-  margin-right: 1.25em;
-  box-shadow: 0 0 0.625em 0.625em #74e0f8;
-  font-family: var(--font-gfs-didot, 'GFS Didot', serif);
-  font-size: 1.375em;
-}
-
-.chakraNameFlex[id='circle-anahata']::before {
-  content: '4';
-  width: 1.25em;
-  border-radius: 50%;
-  height: 1.25em;
-  display: inline-flex;
-  color: #000000;
-  background: #b6fd57;
-  justify-content: center;
-  align-items: center;
-  margin-right: 1.25em;
-  box-shadow: 0 0 0.625em 0.625em #b6fd57;
-  font-family: var(--font-gfs-didot, 'GFS Didot', serif);
-  font-size: 1.375em;
-}
-
-.chakraNameFlex[id='circle-manipura']::before {
-  content: '3';
-  width: 1.25em;
-  border-radius: 50%;
-  height: 1.25em;
-  display: inline-flex;
-  color: #000000;
-  background: #fbe49d;
-  justify-content: center;
-  align-items: center;
-  margin-right: 1.25em;
-  box-shadow: 0 0 0.625em 0.625em #fbe49d;
-  font-family: var(--font-gfs-didot, 'GFS Didot', serif);
-  font-size: 1.375em;
-}
-
-.chakraNameFlex[id='circle-svadhishtana']::before {
-  content: '2';
-  width: 1.25em;
-  border-radius: 50%;
-  height: 1.25em;
-  display: inline-flex;
-  color: #f5f5f5;
-  background: #ed7233;
-  justify-content: center;
-  align-items: center;
-  margin-right: 1.25em;
-  box-shadow: 0 0 0.625em 0.625em #ed7233;
-  font-family: var(--font-gfs-didot, 'GFS Didot', serif);
-  font-size: 1.375em;
-}
-
-.chakraNameFlex[id='circle-muladhara']::before {
-  content: '1';
-  width: 1.25em;
-  border-radius: 50%;
-  height: 1.25em;
-  display: inline-flex;
-  color: #f5f5f5;
-  background: #ea4631;
-  justify-content: center;
-  align-items: center;
-  margin-right: 1.25em;
-  box-shadow: 0 0 0.625em 0.625em #ea4631;
-  font-family: var(--font-gfs-didot, 'GFS Didot', serif);
-  font-size: 1.375em;
-}
-
-.chakraTd {
-  padding: clamp(0.2vh, 0.3125vh, 0.4vh);
-  text-align: center;
-  width: clamp(9vw, 12.5vw, 15vw);
-}
-
-.chakraTr {
-  font-family: var(--font-inter, 'Inter', sans-serif);
-  text-align-last: center;
-  padding: clamp(0.2vh, 0.3125vh, 0.4vh);
-  text-align: center;
-    background-color: var(--color-bg-secondary);
-}
-
-.chakraNameBottom {
-  box-shadow: none;
-}
-
-.chakraNameRadiusLeft {
-  background-color: rgba(209, 178, 114, 0.2);
-  border-top-left-radius: 10px;
-}
-
-.chakraNameRadiusRight {
-  background-color: rgba(209, 178, 114, 0.2);
-  border-top-right-radius: 10px;
-}
-
-.chakraNameRadiusLeftBottom {
-    background-color: var(--color-bg-secondary);
-  border-bottom-left-radius: 10px;
-  border-top-left-radius: 10px;
-}
-
-.chakraNameRadiusRightBottom {
-    background-color: var(--color-bg-secondary);
-  border-top-right-radius: 10px;
-  border-bottom-right-radius: 10px;
-}
-
-.chakraNameRadiusRightBottom2 {
-  border-bottom-right-radius: 10px;
-}
-
-.chakraTableHeader {
-  font-family: var(--font-inter, 'Inter', sans-serif);
-  text-transform: uppercase;
-
-  > :nth-child(2),
-  > :nth-child(3) {
-    background-color: #827d78;
-  }
-}
-
-.chakraNameTop {
-  border-top-left-radius: 10px;
-  border-top-right-radius: 10px;
-}
-
 // Purposes Table
 .infoTxt {
   margin: clamp(2vh, 3vh, 4vh) 0;
@@ -856,6 +632,9 @@
   font-size: clamp(1vw, 1.25em, 1.5vw);
 }
 
+.smokyWhite2 {
+  color: var(--color-accent);
+}
 
 // Responsive styles
 @media screen and (max-width: 810px) {
@@ -886,14 +665,7 @@
     gap: clamp(1.5vh, 2rem, 2.5vh);
   }
 
-  .inputsRow {
-    grid-template-columns: 1fr;
-    grid-gap: clamp(1vh, 1rem, 1.5vh);
-  }
 
-  .buttonRow {
-    width: 100%;
-  }
 
   .root {
     input[type='date'],
@@ -913,102 +685,24 @@
     }
   }
 
-.analysisContainer {
-  margin: clamp(3vh, 4em, 5vh) 0;
-  padding: clamp(2vh, 3em, 4vh) clamp(2vw, 3rem, 4vw);
-  background-color: rgba(0, 0, 0, 0.25);
-  border: 1px solid rgba(209, 178, 114, 0.35);
-  border-radius: 16px;
-  color: var(--color-text-primary);
-  font-family: var(--font-inter, 'Inter', sans-serif);
-}
-
-.analysisTitle {
-  font-size: clamp(1.5vw, 2em, 2.5vw);
-  color: var(--color-accent);
-  margin: 0 0 clamp(2vh, 2.5em, 3vh) 0;
-  text-align: center;
-  font-family: var(--font-gfs-didot, 'GFS Didot', serif);
-}
-
-.analysisSection {
-  margin-bottom: clamp(2vh, 2.5em, 3vh);
-
-  &:last-child {
-    margin-bottom: 0;
-  }
-}
-
-.analysisSubtitle {
-  font-size: clamp(1.2vw, 1.5em, 2vw);
-  color: var(--color-accent);
-  margin: 0 0 clamp(1vh, 1.2em, 1.5vh) 0;
-  font-weight: 600;
-}
-
-.analysisText {
-  font-size: clamp(1vw, 1.2em, 1.5vw);
-  line-height: 1.7;
-  margin: 0;
-  color: var(--color-text-primary);
-}
-
-.interpretationsList {
-  display: flex;
-  flex-direction: column;
-  gap: clamp(1vh, 1.2em, 1.5vh);
-}
-
-.interpretationItem {
-  display: flex;
-  gap: clamp(1vw, 1.5em, 2vw);
-  font-size: clamp(1vw, 1.2em, 1.5vw);
-  line-height: 1.6;
-}
-
-.interpretationNumber {
-  font-weight: 600;
-  color: var(--color-accent);
-  min-width: clamp(2vw, 3em, 4vw);
-}
-
-.interpretationText {
-  color: var(--color-text-primary);
-  flex: 1;
-}
-
-.linesList {
-  display: flex;
-  flex-direction: column;
-  gap: clamp(1.5vh, 2em, 2.5vh);
-}
-
-.lineItem {
-  font-size: clamp(1vw, 1.2em, 1.5vw);
-  line-height: 1.7;
-
-  strong {
-    color: var(--color-accent);
-    display: block;
-    margin-bottom: clamp(0.5vh, 0.8em, 1vh);
-  }
-
-  ul {
-    margin: 0;
-    padding-left: clamp(2vw, 2.5em, 3vw);
-    color: var(--color-text-primary);
-    list-style-type: disc;
-
-    li {
-      margin-bottom: clamp(0.5vh, 0.6em, 0.8vh);
-    }
-  }
-}
 
   .createButton {
-    width: 100%;
-    max-width: clamp(250px, 300px, 90vw);
     font-size: clamp(0.9vw, 16px, 1.3vw);
+    padding: clamp(1vh, 1.25em, 1.5vh) clamp(1.5vw, 2.5em, 3vw);
+  }
+  
+  .inputsRow {
+    flex-direction: column;
+    gap: clamp(2vh, 2.5em, 3vh);
+    
+    .inputWrap {
+      width: 100%;
+    }
+    
+    .createButton {
+      width: 100%;
+      max-width: none;
+    }
   }
 
   .personalCalculator {
@@ -1049,149 +743,5 @@
     font-size: clamp(0.9vw, 16px, 1.3vw);
   }
 
-  .chakraTable {
-    max-width: 100%;
-    font-size: clamp(0.7vw, 10px, 1.2vw);
-  }
-
-  .purposesTable {
-    font-size: clamp(0.7vw, 10px, 1.2vw);
-  }
 }
 
-// Line Analysis Styles
-.lineAnalysisItem {
-  margin-bottom: clamp(2vh, 2.5em, 3vh);
-  padding: clamp(1.5vh, 2em, 2.5vh);
-  background-color: rgba(0, 0, 0, 0.15);
-  border: 1px solid rgba(209, 178, 114, 0.2);
-  border-radius: 12px;
-}
-
-.lineAnalysisHeader {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: clamp(1vh, 1.2em, 1.5vh);
-  padding-bottom: clamp(0.5vh, 0.8em, 1vh);
-  border-bottom: 1px solid rgba(209, 178, 114, 0.3);
-
-  strong {
-    font-size: clamp(1.2vw, 1.5em, 2vw);
-    color: var(--color-accent);
-  }
-}
-
-.lineStrength {
-  padding: clamp(0.3vh, 0.4em, 0.5vh) clamp(0.8vw, 1em, 1.2vw);
-  border-radius: 6px;
-  font-size: clamp(0.9vw, 1em, 1.2vw);
-  font-weight: 600;
-  text-transform: uppercase;
-
-  &[data-strength='empty'] {
-    background-color: rgba(234, 70, 49, 0.2);
-    color: #ea4631;
-  }
-
-  &[data-strength='weak'] {
-    background-color: rgba(237, 114, 51, 0.2);
-    color: #ed7233;
-  }
-
-  &[data-strength='balanced'] {
-    background-color: rgba(209, 178, 114, 0.2);
-    color: var(--color-accent);
-  }
-
-  &[data-strength='strong'] {
-    background-color: rgba(182, 253, 87, 0.2);
-    color: #b6fd57;
-  }
-}
-
-.lineAnalysisDetails {
-  display: flex;
-  flex-direction: column;
-  gap: clamp(1vh, 1.2em, 1.5vh);
-}
-
-.lineDigits {
-  font-size: clamp(1vw, 1.2em, 1.5vw);
-  color: var(--color-text-primary);
-  margin-bottom: clamp(0.5vh, 0.6em, 0.8vh);
-
-  .lineLabel {
-    font-weight: 600;
-    color: var(--color-accent);
-    margin-right: clamp(0.5vw, 0.8em, 1vw);
-  }
-
-  .presentDigits {
-    color: var(--color-text-primary);
-  }
-
-  .lineSeparator {
-    margin: 0 clamp(0.5vw, 0.8em, 1vw);
-    color: rgba(209, 178, 114, 0.5);
-  }
-
-  .missingDigits {
-    color: rgba(234, 70, 49, 0.8);
-  }
-}
-
-.lineInterpretation {
-  font-size: clamp(1vw, 1.2em, 1.5vw);
-  line-height: 1.7;
-  color: var(--color-text-primary);
-  padding: clamp(1vh, 1.2em, 1.5vh);
-  background-color: rgba(0, 0, 0, 0.1);
-  border-radius: 8px;
-}
-
-.lineKarmic,
-.lineRecommendation {
-  font-size: clamp(1vw, 1.2em, 1.5vw);
-  line-height: 1.7;
-  color: var(--color-text-primary);
-
-  strong {
-    color: var(--color-accent);
-    display: block;
-    margin-bottom: clamp(0.5vh, 0.6em, 0.8vh);
-  }
-
-  p {
-    margin: 0;
-    padding-left: clamp(1vw, 1.5em, 2vw);
-  }
-}
-
-@media screen and (max-width: 810px) {
-  .lineAnalysisItem {
-    padding: clamp(1.2vh, 1.5em, 2vh);
-  }
-
-  .lineAnalysisHeader {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: clamp(0.5vh, 0.8em, 1vh);
-
-    strong {
-      font-size: clamp(1.1vw, 1.3em, 1.8vw);
-    }
-  }
-
-  .lineStrength {
-    align-self: flex-start;
-    font-size: clamp(0.8vw, 0.9em, 1.1vw);
-  }
-
-  .lineDigits,
-  .lineInterpretation,
-  .lineKarmic,
-  .lineRecommendation {
-    font-size: clamp(0.9vw, 16px, 1.3vw);
-  }
-}
