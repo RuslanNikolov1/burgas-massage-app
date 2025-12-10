@@ -92,9 +92,13 @@ const translations: Translations = {
     bg: 'Нежните мобилизации показват дисбаланси и помагат да нагласите стойката си между сесиите.',
     en: 'Gentle mobilizations highlight imbalances so you can adjust your posture between sessions.'
   },
+  'classic.workingHoursTitle': { 
+    bg: 'Работно време', 
+    en: 'Working Hours' 
+  },
   'classic.workingHours': { 
-    bg: 'Работно време: Пон-Пет: 9:00-13:00, 14:00-18:00 | Събота: 9:00-13:00', 
-    en: 'Working hours: Mon-Fri: 9:00-13:00, 14:00-18:00 | Saturday: 9:00-13:00' 
+    bg: 'Пон-Пет: 9:00-13:00, 14:00-18:00 | Събота: 9:00-13:00', 
+    en: 'Mon-Fri: 9:00-13:00, 14:00-18:00 | Saturday: 9:00-13:00' 
   },
   'classic.reserveButton': { 
     bg: 'Резервирайте сега', 

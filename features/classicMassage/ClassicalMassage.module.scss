@@ -52,64 +52,6 @@
   color: var(--color-text-secondary);
 }
 
-.workingHours {
-  margin: var(--spacing-md) 0;
-  padding: var(--spacing-sm) var(--spacing-md);
-  background-color: rgba(209, 178, 114, 0.1);
-  border: 1px solid rgba(209, 178, 114, 0.3);
-  border-radius: 8px;
-  display: flex;
-  flex-direction: column;
-  gap: var(--spacing-sm);
-  align-items: center;
-  
-  p {
-    margin: 0;
-    color: var(--color-accent);
-    font-size: 1rem;
-    font-weight: 500;
-    text-align: center;
-    
-    @media (max-width: 768px) {
-      font-size: 0.9rem;
-    }
-  }
-}
-
-.reserveButton {
-  background: var(--color-accent);
-  color: var(--color-bg-primary);
-  border: none;
-  padding: var(--spacing-sm) var(--spacing-lg);
-  border-radius: 6px;
-  font-size: 1rem;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-  box-shadow: 0 2px 8px rgba(209, 178, 114, 0.3);
-  
-  &:hover {
-    background: color-mix(in srgb, var(--color-accent) 85%, white);
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(209, 178, 114, 0.4);
-  }
-  
-  &:active {
-    transform: translateY(0);
-  }
-  
-  &:focus-visible {
-    outline: 2px solid var(--color-accent);
-    outline-offset: 4px;
-  }
-  
-  @media (max-width: 768px) {
-    font-size: 0.9rem;
-    padding: var(--spacing-xs) var(--spacing-md);
-  }
-}
 
 :global(#classical-massage-title.section-title) {
   text-align: left;
@@ -154,23 +96,7 @@
   padding: var(--spacing-xs);
 }
 
-.bedImage {
-  border-radius: 12px;
-  object-fit: cover;
-  width: 220px;
-  height: 160px;
-  border: 2px solid var(--color-accent);
 
-  @media (min-width: 769px) and (max-width: 1024px) {
-    width: 320px;
-    height: 230px;
-  }
-
-  @media (max-width: 768px) {
-    width: 70vw;
-    height: auto;
-  }
-}
 
 .benefits {
   flex: 1;

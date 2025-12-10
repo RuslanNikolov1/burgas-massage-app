@@ -3,6 +3,10 @@ import '@/styles/globals.scss'
 import { StructuredData } from './structured-data'
 import { LanguageProvider } from '@/features/i18n/LanguageProvider'
 
+// Enable static generation
+export const dynamic = 'force-static'
+export const revalidate = 86400 // 24 hours
+
 const rawSiteUrl =
   process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/$/, '') || 'https://energymassagetherapy.com'
 const siteUrl = rawSiteUrl.startsWith('http://') || rawSiteUrl.startsWith('https://')
@@ -141,6 +145,15 @@ export default function RootLayout({
         {/* Apple Universal Links */}
         <link rel="alternate" href="https://energymassagetherapy.com" />
         <link rel="canonical" href={siteUrl} />
+        
+        {/* Preload critical assets for performance */}
+        <link rel="preload" href="/bed.png" as="image" type="image/png" />
+        <link rel="preload" href="/bed-1.png" as="image" type="image/png" />
+        <link rel="preload" href="/bed-2.png" as="image" type="image/png" />
+        
+        {/* DNS prefetch for faster external resource loading */}
+        <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
+        <link rel="dns-prefetch" href="https://fonts.gstatic.com" />
         
         {/* Standard Icons */}
         <link rel="icon" href="/logo.png" sizes="32x32" />

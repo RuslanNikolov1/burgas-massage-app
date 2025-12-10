@@ -2,6 +2,10 @@
 
 import { Suspense } from 'react'
 import dynamic from 'next/dynamic'
+
+// Enable static optimization
+export const dynamic = 'force-static'
+export const revalidate = 86400 // 24 hours
 import { Header } from '@/features/layout/Header'
 import { Hero } from '@/features/hero/Hero'
 import { LoadingSkeleton } from '@/features/ui/LoadingSkeleton'
@@ -60,6 +64,14 @@ const Pricing = dynamic(
   }
 )
 
+const WorkingHours = dynamic(
+  () => import('@/features/workingHours/WorkingHours').then(mod => ({ default: mod.WorkingHours })),
+  { 
+    loading: () => <LoadingSkeleton />,
+    ssr: true 
+  }
+)
+
 const Feedbacks = dynamic(
   () => import('@/features/feedbacks/Feedbacks').then(mod => ({ default: mod.Feedbacks })),
   { 
@@ -104,6 +116,9 @@ export default function Home() {
         </Suspense>
         <Suspense fallback={<LoadingSkeleton />}>
           <Pricing />
+        </Suspense>
+        <Suspense fallback={<LoadingSkeleton />}>
+          <WorkingHours />
         </Suspense>
         <Suspense fallback={<LoadingSkeleton />}>
           <DestinyMatrix />

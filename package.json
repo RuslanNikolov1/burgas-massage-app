@@ -1,30 +1,33 @@
 {
   "name": "massage-app",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "private": true,
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "analyze": "ANALYZE=true next build",
+    "cache:clear": "rm -rf .next && npm run build"
   },
   "dependencies": {
-    "@phosphor-icons/react": "^2.1.10",
-    "framer-motion": "^12.23.25",
-    "html2canvas": "^1.4.1",
-    "jspdf": "^3.0.4",
-    "next": "^16.0.7",
-    "react": "^19.2.0",
-    "react-dom": "^19.2.0",
-    "react-hook-form": "^7.66.1"
+    "@next/bundle-analyzer": "^16.0.7",
+    "framer-motion": "^11.15.0",
+    "next": "16.0.7",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "sass": "^1.83.0"
   },
   "devDependencies": {
-    "@types/node": "^24.10.1",
-    "@types/react": "^19.2.6",
-    "@types/react-dom": "^19.2.3",
-    "eslint": "^9.39.1",
-    "eslint-config-next": "^16.0.7",
-    "sass": "^1.94.2",
-    "typescript": "^5.9.3"
+    "@types/node": "^20",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "eslint": "^8",
+    "eslint-config-next": "16.0.7",
+    "typescript": "^5"
+  },
+  "engines": {
+    "node": ">=18.0.0",
+    "npm": ">=8.0.0"
   }
 }

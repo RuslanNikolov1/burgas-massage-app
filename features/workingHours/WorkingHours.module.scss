@@ -1,0 +1,123 @@
+.workingHours {
+  background-color: var(--color-bg-secondary);
+  padding: var(--spacing-xxl) var(--spacing-sm);
+  border-top: 2px solid rgba(209, 178, 114, 0.3);
+  
+  @media (max-width: 768px) {
+    padding: var(--spacing-xl) var(--spacing-sm);
+  }
+}
+
+.content {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: var(--spacing-lg) var(--spacing-xl);
+  background-color: rgba(209, 178, 114, 0.1);
+  border: 1px solid rgba(209, 178, 114, 0.3);
+  border-radius: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-lg);
+  align-items: center;
+  text-align: center;
+  
+  @media (max-width: 768px) {
+    padding: var(--spacing-md) var(--spacing-lg);
+    gap: var(--spacing-md);
+  }
+}
+
+.title {
+  margin: 0;
+  color: var(--color-text-primary);
+  font-size: 2rem;
+  font-weight: 700;
+  text-align: center;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  
+  @media (max-width: 768px) {
+    font-size: 1.6rem;
+  }
+}
+
+.scheduleText {
+  margin: 0;
+  color: var(--color-accent);
+  font-size: 1.2rem;
+  font-weight: 600;
+  text-align: center;
+  line-height: 1.4;
+  
+  @media (max-width: 768px) {
+    font-size: 1.1rem;
+  }
+}
+
+.reserveButton {
+  background: var(--color-accent);
+  color: var(--color-bg-primary);
+  border: none;
+  padding: var(--spacing-md) var(--spacing-xl);
+  border-radius: 10px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  box-shadow: 0 3px 15px rgba(209, 178, 114, 0.4);
+  
+  &:hover {
+    background: color-mix(in srgb, var(--color-accent) 85%, white);
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px rgba(209, 178, 114, 0.5);
+  }
+  
+  &:active {
+    transform: translateY(0);
+  }
+  
+  &:focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 4px;
+  }
+  
+  @media (max-width: 768px) {
+    font-size: 1rem;
+    padding: var(--spacing-sm) var(--spacing-lg);
+  }
+}
+
+.bedImageWrapper {
+  display: flex;
+  justify-content: center;
+  
+  @media (max-width: 768px) {
+    width: 100%;
+  }
+}
+
+.bedImage {
+  border-radius: 12px;
+  border: 2px solid var(--color-accent);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+  transition: all 0.3s ease;
+  object-fit: cover;
+  width: 25vw;
+  height: auto;
+  
+  &:hover {
+    transform: scale(1.02);
+    border-color: color-mix(in srgb, var(--color-accent) 85%, white);
+    box-shadow: 0 6px 25px rgba(209, 178, 114, 0.3);
+  }
+  
+  @media (max-width: 768px) {
+    width: 45vw;
+  }
+  
+  @media (max-width: 480px) {
+    width: 60vw;
+  }
+}

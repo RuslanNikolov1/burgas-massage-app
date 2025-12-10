@@ -1,5 +1,9 @@
 import { NextRequest, NextResponse } from 'next/server'
 
+// Disable caching for admin auth
+export const dynamic = 'force-dynamic'
+export const revalidate = 0
+
 const ADMIN_USER = process.env.ADMIN_USER
 const ADMIN_PASS = process.env.ADMIN_PASS
 

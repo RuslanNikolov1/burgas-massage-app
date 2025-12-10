@@ -43,28 +43,6 @@ export function ClassicalMassage() {
               </h2>
               <p>{t('classic.description')}</p>
             </div>
-            <div className={styles.workingHours}>
-              <p>{t('classic.workingHours')}</p>
-              <button 
-                className={styles.reserveButton}
-                onClick={() => {
-                  const contactSection = document.getElementById('contact');
-                  if (contactSection) {
-                    const headerOffset = 60;
-                    const elementPosition = contactSection.getBoundingClientRect().top;
-                    const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
-                    
-                    window.scrollTo({
-                      top: offsetPosition,
-                      behavior: 'smooth'
-                    });
-                  }
-                }}
-                aria-label={t('classic.reserveButton')}
-              >
-                {t('classic.reserveButton')}
-              </button>
-            </div>
             <div className={styles.bedGallery}>
               <div className={styles.bedImageWrapper}>
                 <Image

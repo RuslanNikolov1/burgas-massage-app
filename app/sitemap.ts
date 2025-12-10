@@ -1,5 +1,9 @@
 import { MetadataRoute } from 'next'
 
+// Enable static generation for sitemap
+export const dynamic = 'force-static'
+export const revalidate = 86400 // 24 hours
+
 type SectionEntry = {
   id: string
   changeFrequency: MetadataRoute.Sitemap[number]['changeFrequency']
@@ -16,6 +20,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { id: 'feedbacks', changeFrequency: 'monthly', priority: 0.78 },
     { id: 'products', changeFrequency: 'weekly', priority: 0.76 },
     { id: 'pricing', changeFrequency: 'monthly', priority: 0.84 },
+    { id: 'working-hours', changeFrequency: 'monthly', priority: 0.80 },
     { id: 'contact', changeFrequency: 'monthly', priority: 0.74 },
   ]
 
