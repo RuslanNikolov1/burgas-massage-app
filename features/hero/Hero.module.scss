@@ -67,7 +67,7 @@
 
 .title {
   font-family: var(--font-ouroboros);
-  font-size: 2.7rem;
+  font-size: 3.2rem;
   color: var(--color-accent);
   line-height: 1.3;
   text-align: center;
@@ -75,17 +75,17 @@
   letter-spacing: 1px;
   
   @media (max-width: 768px) {
-    font-size: 2.3rem;
+    font-size: 2.8rem;
   }
   
   @media (max-width: 480px) {
-    font-size: 2rem;
+    font-size: 2.4rem;
   }
 }
 
 .subtitle {
   font-family: var(--font-philosopher);
-  font-size: 1.5rem;
+  font-size: 1.8rem;
   line-height: 1.5;
   color: var(--color-accent);
   text-align: center;
@@ -94,11 +94,11 @@
   letter-spacing: 0.5px;
   
   @media (max-width: 768px) {
-    font-size: 1.35rem;
+    font-size: 1.6rem;
   }
   
   @media (max-width: 480px) {
-    font-size: 1.2rem;
+    font-size: 1.4rem;
   }
 }
 

@@ -12,7 +12,7 @@
   width: 100%;
   border-top: 2px solid var(--color-accent);
   border-bottom: 2px solid var(--color-accent);
-  
+
   @media (max-width: 768px) {
     padding: var(--spacing-xl) var(--spacing-sm);
     padding-bottom: clamp(6vh, 8em, 10vh);
@@ -32,12 +32,12 @@
 
   .title {
     margin: 0;
-    font-size: clamp(2.5vw, 3.75em, 5vw);
+    font-size: clamp(3vw, 4.5em, 6vw);
     font-family: var(--font-ouroboros);
     color: var(--color-text-primary);
-    
+
     @media (max-width: 768px) {
-      font-size: clamp(2vw, 2.5em, 3.5vw);
+      font-size: clamp(2.5vw, 3.2em, 4.2vw);
     }
   }
 }
@@ -74,18 +74,16 @@
 
 
 .birthdayContainer {
-    position: relative;
-    display: flex;
+  position: relative;
+  display: flex;
   flex-direction: column;
   justify-content: center;
-    align-items: center;
+  align-items: center;
   font-family: var(--font-inter, 'Inter', sans-serif);
   margin-bottom: clamp(3vh, 5em, 6vh);
   padding: 0 clamp(1vw, 2rem, 3vw);
 
   p {
-    margin: 0;
-    font-size: clamp(1.2vw, 1.5em, 1.8vw);
     color: var(--color-text-primary);
   }
 }
@@ -134,7 +132,7 @@
   z-index: 0;
   line-height: clamp(2.5vh, 3em, 4vh);
   top: 0;
-  
+
   // When there's a value, show it in lighter color
   &[data-has-value='true'] {
     color: rgba(209, 178, 114, 0.4);
@@ -179,7 +177,7 @@
   padding-top: 5em;
   font-size: 1.5em;
   color: #ea4631;
-    text-align: center;
+  text-align: center;
 }
 
 .root {
@@ -244,10 +242,10 @@
 }
 
 .createButton {
-  padding: clamp(1vh, 1.25em, 1.5vh) clamp(2vw, 3em, 4vw) clamp(1vh, 1.25em, 1.5vh) clamp(2vw, 3em, 4vw);
+  padding: clamp(1.2vh, 1.5em, 1.8vh) clamp(2.5vw, 3.5em, 4.5vw) clamp(1.2vh, 1.5em, 1.8vh) clamp(2.5vw, 3.5em, 4.5vw);
   background-color: var(--color-accent);
   font-family: var(--font-inter, 'Inter', sans-serif);
-  font-size: clamp(1vw, 1.25em, 1.5vw);
+  font-size: clamp(1.2vw, 1.5em, 1.8vw);
   line-height: 125%;
   text-transform: uppercase;
   border-radius: 0.5em;
@@ -650,11 +648,6 @@
   .birthdayContainer {
     padding: 0 clamp(2vw, 2rem, 4vw);
     margin-bottom: clamp(4vh, 4rem, 6vh);
-
-    p {
-      font-size: clamp(20px, 4vw, 28px);
-      margin-bottom: clamp(2vh, 2rem, 3vh);
-    }
   }
 
   .inputsWrapper {
@@ -667,17 +660,18 @@
     flex-direction: column;
     gap: clamp(3vh, 3rem, 4vh);
     align-items: stretch;
-    
+
     .inputWrap {
       width: 100%;
     }
-    
+
     .dateInputWrapper {
       width: 100%;
     }
   }
 
   .root {
+
     input[type='date'],
     input[type='text'] {
       width: 100%;
@@ -686,7 +680,7 @@
       font-size: clamp(18px, 4vw, 24px);
       border-radius: 12px;
     }
-    
+
     input[type='text'].dateInput {
       height: clamp(50px, 12vw, 70px);
       padding: clamp(12px, 3vw, 18px) clamp(20px, 5vw, 30px);
@@ -703,7 +697,7 @@
   .calendarButton {
     padding: clamp(12px, 3vw, 18px);
     border-radius: 12px;
-    
+
     svg {
       width: clamp(28px, 6vw, 36px);
       height: clamp(28px, 6vw, 36px);
@@ -711,12 +705,12 @@
   }
 
   .createButton {
-    font-size: clamp(18px, 4vw, 24px);
-    padding: clamp(15px, 4vw, 22px) clamp(25px, 6vw, 35px);
+    font-size: clamp(20px, 5vw, 28px);
+    padding: clamp(18px, 5vw, 26px) clamp(30px, 7vw, 40px);
     border-radius: 12px;
     width: 100%;
     height: auto;
-    min-height: clamp(50px, 12vw, 70px);
+    min-height: clamp(55px, 14vw, 75px);
   }
 
   .personalCalculator {
@@ -866,9 +860,6 @@
     padding: 0 clamp(2vw, 1rem, 3vw);
     margin-bottom: clamp(2vh, 2rem, 3vh);
 
-    p {
-      font-size: clamp(1vw, 1.2em, 1.5vw);
-    }
   }
 
   .inputsWrapper {
@@ -880,6 +871,7 @@
 
 
   .root {
+
     input[type='date'],
     input[type='text'],
     select {
@@ -899,18 +891,17 @@
 
 
   .createButton {
-    font-size: clamp(0.9vw, 16px, 1.3vw);
-    padding: clamp(1vh, 1.25em, 1.5vh) clamp(1.5vw, 2.5em, 3vw);
+    padding: clamp(1.2vh, 1.5em, 1.8vh) clamp(1.8vw, 3em, 3.5vw);
   }
-  
+
   .inputsRow {
     flex-direction: column;
     gap: clamp(2vh, 2.5em, 3vh);
-    
+
     .inputWrap {
       width: 100%;
     }
-    
+
     .createButton {
       width: 100%;
       max-width: none;
@@ -937,13 +928,21 @@
   }
 }
 
-@media screen and (max-width: 479px) {
+@media screen and (max-width: 769px) {
   .root {
     font-size: clamp(0.6vw, 4.79px, 1vw);
   }
 
   .header .title {
-    font-size: clamp(2vw, 28px, 3.5vw);
+    font-size: 5.5vw;
+  }
+
+  .enterDateText {
+    font-size: 4vw;
+  }
+
+  .createButton {
+    font-size: 5vw;
   }
 
   .personalCalculator {
@@ -954,6 +953,4 @@
   .output2 {
     font-size: clamp(0.9vw, 16px, 1.3vw);
   }
-
 }
-

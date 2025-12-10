@@ -198,7 +198,7 @@ function PersonalCalculator({
   return (
     <>
       <div className={styles.birthdayContainer}>
-        <p>{t('destiny.enterDate')}</p>
+        <p className={styles.enterDateText}>{t('destiny.enterDate')}</p>
         <div className={styles.inputsWrapper}>
           <div className={styles.inputsRow}>
             <div className={styles.inputWrap}>
