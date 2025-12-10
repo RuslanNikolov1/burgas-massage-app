@@ -2,9 +2,6 @@
 
 import { useEffect, useState } from 'react'
 
-// Disable caching for admin routes
-export const dynamic = 'force-dynamic'
-export const revalidate = 0
 import { useRouter } from 'next/navigation'
 
 export default function AdminLayout({
