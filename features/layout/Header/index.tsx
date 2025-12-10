@@ -13,7 +13,6 @@ const sections = [
   { id: 'feedbacks', key: 'nav.feedbacks' },
   { id: 'products', key: 'nav.products' },
   { id: 'pricing', key: 'nav.pricing' },
-  { id: 'booking', key: 'nav.booking' },
   { id: 'destiny-matrix', key: 'nav.destiny-matrix' },
   { id: 'contact', key: 'nav.contact' },
 ]
@@ -58,7 +57,7 @@ export function Header() {
     
     const element = document.getElementById(sectionId)
     if (element) {
-      const headerOffset = 80
+      const headerOffset = 60
       const elementPosition = element.getBoundingClientRect().top
       const offsetPosition = elementPosition + window.pageYOffset - headerOffset
 

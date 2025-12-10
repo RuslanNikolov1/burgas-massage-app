@@ -1,0 +1,46 @@
+{
+  "name": "Energy Massage Therapy Burgas",
+  "short_name": "Energy Massage",
+  "description": "Професионален масаж в Бургас с домашно посещение. Релаксиращ, дълбокотъканен и терапевтичен масаж, мини спа ритуали и водена медитация.",
+  "start_url": "https://energymassagetherapy.com/",
+  "scope": "https://energymassagetherapy.com/",
+  "id": "https://energymassagetherapy.com/",
+  "display": "standalone",
+  "background_color": "#04282f",
+  "theme_color": "#04282f",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "/logo.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "maskable any"
+    },
+    {
+      "src": "/logo.png",
+      "sizes": "512x512", 
+      "type": "image/png",
+      "purpose": "maskable any"
+    },
+    {
+      "src": "/logo.png",
+      "sizes": "180x180",
+      "type": "image/png",
+      "purpose": "apple-touch-icon"
+    }
+  ],
+  "categories": ["health", "wellness", "lifestyle"],
+  "lang": "bg",
+  "dir": "ltr",
+  "prefer_related_applications": false,
+  "shortcuts": [
+    {
+      "name": "Контакти",
+      "short_name": "Contact",
+      "description": "Свържете се с нас",
+      "url": "https://energymassagetherapy.com/#contact",
+      "icons": [{ "src": "/logo.png", "sizes": "96x96" }]
+    }
+  ]
+}
+

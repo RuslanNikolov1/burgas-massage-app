@@ -47,9 +47,16 @@ export const metadata: Metadata = {
     icon: [
       { url: '/logo.png', sizes: '32x32', type: 'image/png' },
       { url: '/logo.png', sizes: '16x16', type: 'image/png' },
+      { url: '/logo.png', sizes: '192x192', type: 'image/png' },
+      { url: '/logo.png', sizes: '512x512', type: 'image/png' },
     ],
     shortcut: '/logo.png',
-    apple: '/logo.png',
+    apple: [
+      { url: '/logo.png', sizes: '180x180', type: 'image/png' },
+      { url: '/logo.png', sizes: '152x152', type: 'image/png' },
+      { url: '/logo.png', sizes: '120x120', type: 'image/png' },
+      { url: '/logo.png', sizes: '76x76', type: 'image/png' },
+    ],
   },
   manifest: '/site.webmanifest',
   openGraph: {
@@ -110,15 +117,48 @@ export default function RootLayout({
   return (
     <html lang="bg">
       <head>
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
         <meta name="theme-color" content="#04282f" />
+        
+        {/* Apple Device Configuration */}
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+        <meta name="apple-mobile-web-app-title" content="Energy Massage" />
+        <meta name="format-detection" content="telephone=no" />
+        
+        {/* Apple Touch Icons */}
+        <link rel="apple-touch-icon" href="/logo.png" />
+        <link rel="apple-touch-icon" sizes="57x57" href="/logo.png" />
+        <link rel="apple-touch-icon" sizes="60x60" href="/logo.png" />
+        <link rel="apple-touch-icon" sizes="72x72" href="/logo.png" />
+        <link rel="apple-touch-icon" sizes="76x76" href="/logo.png" />
+        <link rel="apple-touch-icon" sizes="114x114" href="/logo.png" />
+        <link rel="apple-touch-icon" sizes="120x120" href="/logo.png" />
+        <link rel="apple-touch-icon" sizes="144x144" href="/logo.png" />
+        <link rel="apple-touch-icon" sizes="152x152" href="/logo.png" />
+        <link rel="apple-touch-icon" sizes="180x180" href="/logo.png" />
+        
+        {/* Apple Universal Links */}
+        <link rel="alternate" href="https://energymassagetherapy.com" />
+        <link rel="canonical" href={siteUrl} />
+        
+        {/* Standard Icons */}
         <link rel="icon" href="/logo.png" sizes="32x32" />
         <link rel="shortcut icon" href="/logo.png" />
-        <link rel="apple-touch-icon" href="/logo.png" />
+        
+        {/* Open Graph & Twitter */}
         <meta property="og:image" content={`${siteUrl}/logo.png`} />
         <meta property="og:image:width" content="1200" />
         <meta property="og:image:height" content="630" />
+        <meta property="og:url" content={siteUrl} />
         <meta name="twitter:card" content="summary_large_image" />
+        
+        {/* Safari Pinned Tab */}
+        <link rel="mask-icon" href="/logo.png" color="#04282f" />
+        
+        {/* Apple Smart App Banner (if you want to promote an app) */}
+        {/* <meta name="apple-itunes-app" content="app-id=myAppStoreID, app-argument=https://energymassagetherapy.com"> */}
+        
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link

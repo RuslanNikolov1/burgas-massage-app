@@ -4,11 +4,11 @@ import { motion } from 'framer-motion'
 import Image from 'next/image'
 import type { ComponentType } from 'react'
 import {
-  FacebookLogo,
   InstagramLogo,
   PhoneCall,
   MessengerLogo,
   ChatsCircle,
+  Envelope,
   LinkSimple,
   type IconProps,
 } from '@phosphor-icons/react'
@@ -19,23 +19,21 @@ const iconColor = '#d1b272'
 const iconSize = 34
 
 const ICON_MAP: Record<string, ComponentType<IconProps>> = {
-  facebook: FacebookLogo,
   instagram: InstagramLogo,
   phone: PhoneCall,
   messenger: MessengerLogo,
   viber: ChatsCircle,
+  email: Envelope,
 }
-
-const FACEBOOK_URL = 'https://www.facebook.com/batvu'
 
 const INSTAGRAM_URL = 'https://www.instagram.com/batvu?utm_source=qr&igsh=MWZzbTdla3l4cThxZQ=='
 
 const contactLinks = [
-  { type: 'facebook', url: FACEBOOK_URL, label: 'Facebook' },
-  { type: 'instagram', url: INSTAGRAM_URL, label: 'Instagram' },
   { type: 'phone', url: 'tel:+359886830825', label: '+359 886 830 825' },
-  { type: 'messenger', url: FACEBOOK_URL, label: 'Messenger' },
   { type: 'viber', url: 'viber://chat?number=%2B359886830825', label: 'Viber' },
+  { type: 'messenger', url: 'https://m.me/batvu', label: 'Messenger' },
+  { type: 'email', url: 'mailto:ivanvelichkov13@gmail.com', label: 'ivanvelichkov13@gmail.com' },
+  { type: 'instagram', url: INSTAGRAM_URL, label: 'Instagram' },
 ]
 
 export function Contact() {

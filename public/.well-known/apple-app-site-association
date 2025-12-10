@@ -1,0 +1,18 @@
+{
+  "webcredentials": {
+    "apps": [ "energymassagetherapy.com" ]
+  },
+  "applinks": {
+    "apps": [],
+    "details": [
+      {
+        "appID": "energymassagetherapy.com",
+        "paths": ["*"]
+      }
+    ]
+  },
+  "activitycontinuation": {
+    "apps": [ "energymassagetherapy.com" ]
+  }
+}
+

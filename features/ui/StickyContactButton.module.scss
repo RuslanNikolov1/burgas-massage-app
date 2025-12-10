@@ -1,0 +1,50 @@
+.stickyButton {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  z-index: 1000;
+  background: var(--color-accent);
+  color: var(--color-bg-primary);
+  border: none;
+  padding: 1rem 1.5rem;
+  border-radius: 50px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 4px 20px rgba(209, 178, 114, 0.4);
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  min-width: 140px;
+
+  &:hover {
+    background: color-mix(in srgb, var(--color-accent) 85%, white);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 25px rgba(209, 178, 114, 0.5);
+  }
+
+  &:active {
+    transform: translateY(0);
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 4px;
+  }
+
+  @media (max-width: 768px) {
+    bottom: 1.5rem;
+    right: 1rem;
+    padding: 0.8rem 1.2rem;
+    font-size: 0.9rem;
+    min-width: 120px;
+  }
+
+  @media (max-width: 480px) {
+    bottom: 1rem;
+    right: 1rem;
+    padding: 0.7rem 1rem;
+    font-size: 0.85rem;
+    min-width: 100px;
+  }
+}

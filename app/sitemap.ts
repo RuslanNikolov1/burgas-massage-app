@@ -16,7 +16,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { id: 'feedbacks', changeFrequency: 'monthly', priority: 0.78 },
     { id: 'products', changeFrequency: 'weekly', priority: 0.76 },
     { id: 'pricing', changeFrequency: 'monthly', priority: 0.84 },
-    { id: 'booking', changeFrequency: 'weekly', priority: 0.9 },
     { id: 'contact', changeFrequency: 'monthly', priority: 0.74 },
   ]
 

@@ -5,7 +5,7 @@ import dynamic from 'next/dynamic'
 import { Header } from '@/features/layout/Header'
 import { Hero } from '@/features/hero/Hero'
 import { LoadingSkeleton } from '@/features/ui/LoadingSkeleton'
-import { StickyBookingButton } from '@/features/ui/StickyBookingButton'
+import { StickyContactButton } from '@/features/ui/StickyContactButton'
 import { MusicMessage } from '@/features/ui/MusicMessage'
 import { useTranslations } from '@/features/i18n/useTranslations'
 import { UserCircleDashed } from '@phosphor-icons/react'
@@ -68,13 +68,6 @@ const Feedbacks = dynamic(
   }
 )
 
-const Booking = dynamic(
-  () => import('@/features/booking/Booking').then(mod => ({ default: mod.Booking })),
-  { 
-    loading: () => <LoadingSkeleton />,
-    ssr: true 
-  }
-)
 
 const Contact = dynamic(
   () => import('@/features/contact/Contact').then(mod => ({ default: mod.Contact })),
@@ -89,7 +82,7 @@ export default function Home() {
 
   return (
     <>
-      <StickyBookingButton />
+      <StickyContactButton />
       <Header />
       <MusicMessage />
       <main role="main">
@@ -111,9 +104,6 @@ export default function Home() {
         </Suspense>
         <Suspense fallback={<LoadingSkeleton />}>
           <Pricing />
-        </Suspense>
-        <Suspense fallback={<LoadingSkeleton />}>
-          <Booking />
         </Suspense>
         <Suspense fallback={<LoadingSkeleton />}>
           <DestinyMatrix />

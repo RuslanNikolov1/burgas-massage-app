@@ -1,11 +1,10 @@
 # Massage App - Бургас
 
-A Next.js application for a professional masseur based in Burgas, Bulgaria. The app provides information about massage services, booking functionality, and promotes wellbeing and relaxation.
+A Next.js application for a professional masseur based in Burgas, Bulgaria. The app provides information about massage services and promotes wellbeing and relaxation.
 
 ## Features
 
 - 🌐 **Bilingual Support**: Bulgarian (default) and English
-- 📅 **Booking System**: Interactive calendar with time slot selection
 - 💰 **Pricing Table**: Transparent pricing with promotional packages
 - ⭐ **Client Reviews**: Showcase of customer feedback
 - 🛍️ **Products Section**: Massage-related products for sale
@@ -55,7 +54,6 @@ npm start
 │   └── page.tsx           # Home page
 ├── features/              # Feature-based modules
 │   ├── about/            # About section
-│   ├── booking/          # Booking calendar
 │   ├── contact/          # Contact section
 │   ├── feedbacks/        # Reviews section
 │   ├── hero/             # Hero banner
@@ -85,10 +83,9 @@ npm start
 1. **Hero**: Logo, services description, motivational message, location map
 2. **About**: Masseur description with image
 3. **Pricing**: Pricing table with promotional packages and stones image
-4. **Booking**: Interactive calendar with form (9:00-18:00 working hours)
-5. **Feedbacks**: 6 mock client reviews
-6. **Products**: Mock massage products for sale
-7. **Contact**: Contact links with meditation image
+4. **Feedbacks**: 6 mock client reviews
+5. **Products**: Mock massage products for sale
+6. **Contact**: Contact links with meditation image
 
 ## Accessibility
 
@@ -108,6 +105,11 @@ npm start
 ## License
 
 Private project for masseur services in Burgas.
+
+
+
+
+
 
 
 
