@@ -4,7 +4,7 @@
 .root {
   background-color: var(--color-bg-secondary);
   color: var(--color-text-primary);
-  font-family: var(--font-gfs-didot, 'GFS Didot', serif);
+  font-family: inherit;
   font-size: clamp(0.8vw, 1vw, 1.2vw);
   padding: var(--spacing-xxl) var(--spacing-sm);
   padding-bottom: clamp(8vh, 10em, 12vh);
@@ -16,11 +16,6 @@
   @media (max-width: 768px) {
     padding: var(--spacing-xl) var(--spacing-sm);
     padding-bottom: clamp(6vh, 8em, 10vh);
-  }
-  
-  // Ensure GFS Didot is loaded
-  @supports (font-family: 'GFS Didot') {
-    font-family: var(--font-gfs-didot);
   }
 }
 
@@ -38,7 +33,7 @@
   .title {
     margin: 0;
     font-size: clamp(2.5vw, 3.75em, 5vw);
-    font-family: var(--font-gfs-didot, 'GFS Didot', serif);
+    font-family: var(--font-ouroboros);
     color: var(--color-text-primary);
     
     @media (max-width: 768px) {
@@ -648,6 +643,7 @@
 
     .title {
       font-size: clamp(32px, 8vw, 48px);
+      font-family: var(--font-ouroboros);
     }
   }
 
