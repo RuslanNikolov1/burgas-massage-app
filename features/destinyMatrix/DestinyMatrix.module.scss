@@ -636,7 +636,223 @@
   color: var(--color-accent);
 }
 
-// Responsive styles
+// Responsive styles for 769px and below - make everything bigger
+@media screen and (max-width: 769px) {
+  .root {
+    font-size: clamp(18px, 3vw, 22px);
+    padding: var(--spacing-xl) var(--spacing-xs);
+  }
+
+  .header {
+    padding: clamp(4vh, 6rem, 8vh) 0;
+
+    .title {
+      font-size: clamp(32px, 8vw, 48px);
+    }
+  }
+
+  .birthdayContainer {
+    padding: 0 clamp(2vw, 2rem, 4vw);
+    margin-bottom: clamp(4vh, 4rem, 6vh);
+
+    p {
+      font-size: clamp(20px, 4vw, 28px);
+      margin-bottom: clamp(2vh, 2rem, 3vh);
+    }
+  }
+
+  .inputsWrapper {
+    width: 95%;
+    margin-top: clamp(3vh, 3rem, 4vh);
+    margin-bottom: clamp(3vh, 3rem, 4vh);
+  }
+
+  .inputsRow {
+    flex-direction: column;
+    gap: clamp(3vh, 3rem, 4vh);
+    align-items: stretch;
+    
+    .inputWrap {
+      width: 100%;
+    }
+    
+    .dateInputWrapper {
+      width: 100%;
+    }
+  }
+
+  .root {
+    input[type='date'],
+    input[type='text'] {
+      width: 100%;
+      height: clamp(50px, 12vw, 70px);
+      padding: clamp(12px, 3vw, 18px) clamp(20px, 5vw, 30px);
+      font-size: clamp(18px, 4vw, 24px);
+      border-radius: 12px;
+    }
+    
+    input[type='text'].dateInput {
+      height: clamp(50px, 12vw, 70px);
+      padding: clamp(12px, 3vw, 18px) clamp(20px, 5vw, 30px);
+      font-size: clamp(18px, 4vw, 24px);
+    }
+  }
+
+  .dateFormatGuide {
+    font-size: clamp(18px, 4vw, 24px);
+    line-height: clamp(50px, 12vw, 70px);
+    left: clamp(20px, 5vw, 30px);
+  }
+
+  .calendarButton {
+    padding: clamp(12px, 3vw, 18px);
+    border-radius: 12px;
+    
+    svg {
+      width: clamp(28px, 6vw, 36px);
+      height: clamp(28px, 6vw, 36px);
+    }
+  }
+
+  .createButton {
+    font-size: clamp(18px, 4vw, 24px);
+    padding: clamp(15px, 4vw, 22px) clamp(25px, 6vw, 35px);
+    border-radius: 12px;
+    width: 100%;
+    height: auto;
+    min-height: clamp(50px, 12vw, 70px);
+  }
+
+  .personalCalculator {
+    font-size: clamp(24px, 6vw, 36px);
+    margin-bottom: clamp(2vh, 2rem, 3vh);
+  }
+
+  .outputPersonalDate {
+    font-size: clamp(16px, 3.5vw, 22px);
+    margin-bottom: clamp(3vh, 3rem, 4vh);
+  }
+
+  .matrixSvg {
+    max-width: 95vw;
+    min-width: 90vw;
+    width: 95vw;
+  }
+
+  .errorOutput,
+  .wrongDate {
+    font-size: clamp(18px, 4vw, 24px);
+    padding-top: clamp(2rem, 4vw, 3rem);
+  }
+
+  // Make SVG text elements bigger
+  .cls28,
+  .cls29 {
+    font-size: clamp(16px, 3.5vw, 22px);
+  }
+
+  .cls33 {
+    font-size: clamp(14px, 3vw, 18px);
+  }
+
+  .cls54,
+  .cls55,
+  .cls56 {
+    font-size: clamp(36px, 8vw, 48px);
+  }
+
+  .cls57,
+  .cls58 {
+    font-size: clamp(22px, 5vw, 30px);
+  }
+
+  .cls59,
+  .cls60 {
+    font-size: clamp(26px, 6vw, 34px);
+  }
+
+  .cls61 {
+    font-size: clamp(10px, 2.5vw, 14px);
+  }
+
+  // Make table elements bigger
+  .purposesTable {
+    font-size: clamp(16px, 3.5vw, 22px);
+    margin-bottom: clamp(2vh, 2rem, 3vh);
+  }
+
+  .fontSize16 {
+    font-size: clamp(16px, 3.5vw, 20px);
+  }
+
+  .fontSize18 {
+    font-size: clamp(18px, 4vw, 24px);
+  }
+
+  .baseCircle {
+    width: clamp(40px, 8vw, 55px);
+    height: clamp(40px, 8vw, 55px);
+    line-height: clamp(40px, 8vw, 55px);
+    font-size: clamp(16px, 3.5vw, 22px);
+    border-width: 2px;
+  }
+
+  // Bigger star decorations for mobile
+  .starMedium {
+    width: clamp(45px, 10vw, 65px);
+    height: clamp(45px, 10vw, 65px);
+  }
+
+  .starSmall {
+    width: clamp(35px, 8vw, 50px);
+    height: clamp(35px, 8vw, 50px);
+  }
+
+  .starLarge {
+    width: clamp(55px, 12vw, 80px);
+    height: clamp(55px, 12vw, 80px);
+  }
+
+  // Hide decorative stars on very small screens for better UX
+  .starWrap1,
+  .starWrap2,
+  .starWrap3,
+  .starWrap4,
+  .starWrap5,
+  .starWrap6,
+  .starWrap7,
+  .starWrap8 {
+    display: none;
+  }
+
+  // Make SVG circles bigger
+  .bigCircle {
+    r: 40;
+  }
+
+  .mediumCircle {
+    r: 30;
+  }
+
+  .smallCircle {
+    r: 25;
+  }
+
+  // Increase padding and margins
+  .infoTxt {
+    margin: clamp(4vh, 4rem, 6vh) 0;
+    max-width: 95vw;
+  }
+
+  .pento {
+    margin: clamp(6vh, 6rem, 10vh) 0;
+  }
+
+  .matrixContainer {
+    padding: clamp(3vh, 3rem, 5vh) 0;
+  }
+}
+
 @media screen and (max-width: 810px) {
   .root {
     font-size: clamp(0.8vw, 16px, 1.2vw);
