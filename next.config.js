@@ -5,7 +5,6 @@ const nextConfig = {
     includePaths: ['./styles'],
   },
   // Enable optimizations
-  swcMinify: true,
   compress: true,
   poweredByHeader: false,
   
