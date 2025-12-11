@@ -42,11 +42,6 @@ const nextConfig = {
         // Apply headers to all routes
         source: '/(.*)',
         headers: [
-          // Apple Universal Links headers
-          {
-            key: 'apple-app-site-association',
-            value: 'application/json',
-          },
           // Prevent iOS from auto-detecting phone numbers
           {
             key: 'format-detection',
