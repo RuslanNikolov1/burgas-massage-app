@@ -85,15 +85,19 @@ const nextConfig = {
     ];
   },
   async redirects() {
+    // Only enable redirects in production, never in development
+    if (process.env.NODE_ENV === 'development') {
+      return [];
+    }
+    
     return [
-      // Redirect other domains to energymassagetherapy.com in production
-      // Exclude: localhost, 127.0.0.1, www.energymassagetherapy.com, energymassagetherapy.com, vercel.app, netlify.app
+      // Redirect other domains to energymassagetherapy.com in production only
       {
         source: '/:path*',
         has: [
           {
             type: 'host',
-            value: '(?!^(localhost(:\\d+)?|127\\.0\\.0\\.1(:\\d+)?|energymassagetherapy\\.com|www\\.energymassagetherapy\\.com)$)(?!.*\\.(vercel\\.app|netlify\\.app)$).*',
+            value: '(?!^(energymassagetherapy\\.com|www\\.energymassagetherapy\\.com)$)(?!.*\\.(vercel\\.app|netlify\\.app)$).*',
           },
         ],
         destination: 'https://energymassagetherapy.com/:path*',
