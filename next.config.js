@@ -93,7 +93,7 @@ const nextConfig = {
         has: [
           {
             type: 'host',
-            value: '(?!^(localhost|127\\.0\\.0\\.1|energymassagetherapy\\.com|www\\.energymassagetherapy\\.com)$)(?!.*\\.(vercel\\.app|netlify\\.app)$).*',
+            value: '(?!^(localhost(:\\d+)?|127\\.0\\.0\\.1(:\\d+)?|energymassagetherapy\\.com|www\\.energymassagetherapy\\.com)$)(?!.*\\.(vercel\\.app|netlify\\.app)$).*',
           },
         ],
         destination: 'https://energymassagetherapy.com/:path*',
