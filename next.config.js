@@ -84,23 +84,23 @@ const nextConfig = {
       },
     ];
   },
-  // Temporarily disabled redirects for testing
-  // async redirects() {
-  //   return [
-  //     // Only redirect in production - exclude localhost and development domains
-  //     {
-  //       source: '/:path*',
-  //       has: [
-  //         {
-  //           type: 'host',
-  //           value: '(?!energymassagetherapy\\.com|localhost|127\\.0\\.0\\.1|.*\\.vercel\\.app|.*\\.netlify\\.app).*',
-  //         },
-  //       ],
-  //       destination: 'https://energymassagetherapy.com/:path*',
-  //       permanent: true,
-  //     },
-  //   ];
-  // },
+  async redirects() {
+    return [
+      // Redirect other domains to energymassagetherapy.com in production
+      // Exclude: localhost, 127.0.0.1, www.energymassagetherapy.com, energymassagetherapy.com, vercel.app, netlify.app
+      {
+        source: '/:path*',
+        has: [
+          {
+            type: 'host',
+            value: '(?!^(localhost|127\\.0\\.0\\.1|energymassagetherapy\\.com|www\\.energymassagetherapy\\.com)$)(?!.*\\.(vercel\\.app|netlify\\.app)$).*',
+          },
+        ],
+        destination: 'https://energymassagetherapy.com/:path*',
+        permanent: false, // Use temporary redirect to avoid caching issues
+      },
+    ];
+  },
 }
 
 module.exports = nextConfig
