@@ -84,22 +84,23 @@ const nextConfig = {
       },
     ];
   },
-  async redirects() {
-    return [
-      // Only redirect in production - exclude localhost and development domains
-      {
-        source: '/:path*',
-        has: [
-          {
-            type: 'host',
-            value: '(?!energymassagetherapy\\.com|localhost|127\\.0\\.0\\.1|.*\\.vercel\\.app|.*\\.netlify\\.app).*',
-          },
-        ],
-        destination: 'https://energymassagetherapy.com/:path*',
-        permanent: true,
-      },
-    ];
-  },
+  // Temporarily disabled redirects for testing
+  // async redirects() {
+  //   return [
+  //     // Only redirect in production - exclude localhost and development domains
+  //     {
+  //       source: '/:path*',
+  //       has: [
+  //         {
+  //           type: 'host',
+  //           value: '(?!energymassagetherapy\\.com|localhost|127\\.0\\.0\\.1|.*\\.vercel\\.app|.*\\.netlify\\.app).*',
+  //         },
+  //       ],
+  //       destination: 'https://energymassagetherapy.com/:path*',
+  //       permanent: true,
+  //     },
+  //   ];
+  // },
 }
 
 module.exports = nextConfig
