@@ -37,7 +37,6 @@ export function ClassicalMassage() {
         <div className={styles.content}>
           <div className={styles.leftColumn}>
             <div className={styles.intro}>
-              <p className={styles.sectionLabel}>{t('classic.label')}</p>
               <h2 id="classical-massage-title" className="section-title">
                 {t('classic.heading')}
               </h2>

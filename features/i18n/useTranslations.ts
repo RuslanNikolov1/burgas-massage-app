@@ -65,7 +65,7 @@ const translations: Translations = {
     en: 'I believe the body and its energy are deeply connected. When they move in harmony we feel healthier, calmer, and stronger. Through massage and energy therapy I support clients in reaching that state of holistic balance.'
   },
   'classic.label': { bg: 'Класически масаж', en: 'Classical Massage' },
-  'classic.heading': { bg: 'Основата на обновяващото докосване', en: 'The Foundation of Restorative Touch' },
+  'classic.heading': { bg: 'Класически масаж', en: 'Classical Massage' },
   'classic.description': {
     bg: 'Класическият (шведски) масаж комбинира плавни ефльоражни движения, месене и нежни мобилизации в ставите. Първо успокоява нервната система, за да омекне тялото и последващата работа да бъде безболезнена. Всяка сесия се адаптира спрямо състоянието ви в момента — за заземяване, зареждане или насочено освобождаване на упорито напрежение.',
     en: 'Classical (Swedish) massage blends flowing effleurage strokes, kneading, and gentle joint mobilizations. It calms the nervous system first so the body softens and deeper work stays comfortable. Every session is adjusted to how you arrive—grounding, energizing, or focusing on stubborn tension.'

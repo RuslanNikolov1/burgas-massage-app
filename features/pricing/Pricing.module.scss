@@ -81,6 +81,19 @@
     }
   }
   
+  .priceHeader {
+    text-align: right;
+  }
+  
+  .durationCell {
+    text-align: left;
+    padding-left: 18px;
+    
+    @media (max-width: 768px) {
+      padding-left: 15px;
+    }
+  }
+  
   tbody tr {
     border-bottom: 1px solid rgba(209, 178, 114, 0.2);
     transition: background-color 0.3s ease;
@@ -124,10 +137,14 @@
   flex-direction: column;
   align-items: flex-end;
   gap: 4px;
-  padding-right: 40px;
+  padding-right: 18px;
   
   @media (max-width: 1024px) {
-    padding-right: 30px;
+    padding-right: 18px;
+  }
+  
+  @media (max-width: 768px) {
+    padding-right: 15px;
   }
   
   @media (max-width: 640px) {

@@ -35,6 +35,10 @@
       margin-bottom: 0;
     }
   }
+  
+  @media (max-width: 1023px) {
+    order: 2;
+  }
 }
 
 .imageWrapper {
@@ -44,6 +48,10 @@
   
   @media (max-width: 1024px) {
     justify-content: center;
+  }
+  
+  @media (max-width: 1023px) {
+    order: 1;
   }
 }
 

@@ -82,13 +82,13 @@ export function Pricing() {
               <thead>
                 <tr>
                   <th>{t('pricing.duration')}</th>
-                  <th>{t('pricing.price')}</th>
+                  <th className={styles.priceHeader}>{t('pricing.price')}</th>
                 </tr>
               </thead>
               <tbody>
                 {pricingData.map((item, index) => (
                   <tr key={index} className={item.packageKey ? styles.packageRow : ''}>
-                    <td>
+                    <td className={styles.durationCell}>
                       <div className={styles.duration}>
                         {t(item.durationKey)}
                         {item.packageKey && (
