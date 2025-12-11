@@ -21,7 +21,7 @@
 }
 
 .leftColumn {
-  flex: 0.8;
+  flex: 0.6;
   display: flex;
   flex-direction: column;
   gap: var(--spacing-md);
@@ -51,7 +51,6 @@
   text-transform: uppercase;
   color: var(--color-text-secondary);
 }
-
 
 :global(#classical-massage-title.section-title) {
   text-align: left;
@@ -96,10 +95,26 @@
   padding: var(--spacing-xs);
 }
 
+.bedImage {
+  border-radius: 12px;
+  object-fit: cover;
+  width: 220px;
+  height: 160px;
+  border: 2px solid var(--color-accent);
 
+  @media (min-width: 769px) and (max-width: 1024px) {
+    width: 320px;
+    height: 230px;
+  }
+
+  @media (max-width: 768px) {
+    width: 70vw;
+    height: auto;
+  }
+}
 
 .benefits {
-  flex: 1.2;
+  flex: 1.4;
   display: grid;
   grid-template-columns: repeat(2, minmax(220px, 1fr));
   gap: var(--spacing-md);
@@ -168,5 +183,4 @@
   align-items: center;
   justify-content: center;
 }
-
 
