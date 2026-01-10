@@ -9,6 +9,22 @@
   }
 }
 
+.note {
+  text-align: center;
+  font-size: 1.1rem;
+  color: var(--color-accent);
+  margin: 0 auto 40px;
+  max-width: 800px;
+  padding: 0 20px;
+  font-style: italic;
+  
+  @media (max-width: 768px) {
+    font-size: 1rem;
+    margin-bottom: 30px;
+    padding: 0 10px;
+  }
+}
+
 .content {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -49,9 +65,59 @@
 .tableWrapper {
   overflow-x: auto;
   padding: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
   
   @media (max-width: 768px) {
     padding: 18px;
+    gap: 25px;
+  }
+}
+
+.section {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  
+  @media (max-width: 768px) {
+    gap: 10px;
+  }
+}
+
+.sectionTitle {
+  font-family: var(--font-ouroboros);
+  font-size: 1.5rem;
+  color: var(--color-accent);
+  margin: 0;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  
+  @media (max-width: 768px) {
+    font-size: 1.3rem;
+    letter-spacing: 1px;
+  }
+}
+
+.sectionSubtitle {
+  font-size: 1.1rem;
+  color: var(--color-text-primary);
+  margin: 0;
+  font-weight: 500;
+  
+  @media (max-width: 768px) {
+    font-size: 1rem;
+  }
+}
+
+.sectionAreas {
+  font-size: 0.95rem;
+  color: var(--color-text-secondary);
+  margin: 0 0 8px 0;
+  font-style: italic;
+  
+  @media (max-width: 768px) {
+    font-size: 0.9rem;
   }
 }
 
@@ -62,6 +128,7 @@
   border-radius: 8px;
   overflow: hidden;
   table-layout: fixed;
+  margin-top: 8px;
   
   thead {
     background-color: var(--color-accent);
@@ -125,12 +192,6 @@
   gap: 4px;
 }
 
-.packageInfo {
-  font-size: 0.9rem;
-  color: var(--color-accent);
-  font-weight: normal;
-}
-
 .priceCell {
   text-align: right;
   display: flex;
@@ -152,13 +213,6 @@
     align-items: center;
     text-align: center;
   }
-}
-
-.originalPrice {
-  font-size: 0.9rem;
-  text-decoration: line-through;
-  color: var(--color-text-secondary);
-  opacity: 0.6;
 }
 
 .price {

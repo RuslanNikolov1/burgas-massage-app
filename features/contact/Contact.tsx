@@ -105,18 +105,6 @@ export function Contact() {
             </div>
           </motion.div>
         </div>
-        <a className={styles.cashBadge} href="tel:+359886830825" aria-label="Позвънете на +359 886 830 825">
-          <span className={styles.cashLabel}>{t('contact.cashLabel')}</span>
-          <Image
-            src="/city-cash.png"
-            alt=""
-            width={140}
-            height={140}
-            className={styles.cashImage}
-            priority={false}
-          />
-          <span className={styles.cashPhone}>+359 886 830 825</span>
-        </a>
       </div>
     </section>
   )

@@ -48,7 +48,7 @@ export function About() {
             transition={{ duration: 0.6 }}
           >
             <Image
-              src="/profile-pic.jpg"
+              src="/New Profile Pic.jpg"
               alt="Сертифициран масажист в Бургас, специализиран в класически и терапевтични масажи"
               width={400}
               height={500}

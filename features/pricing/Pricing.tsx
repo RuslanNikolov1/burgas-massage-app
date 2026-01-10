@@ -5,39 +5,6 @@ import Image from 'next/image'
 import { useTranslations } from '@/features/i18n/useTranslations'
 import styles from './Pricing.module.scss'
 
-type PricingItem = {
-  durationKey: string
-  priceKey: string
-  packageKey?: string
-  originalKey?: string
-}
-
-const pricingData: PricingItem[] = [
-  { durationKey: 'pricing.rows.single30.duration', priceKey: 'pricing.rows.single30.price' },
-  { durationKey: 'pricing.rows.single60.duration', priceKey: 'pricing.rows.single60.price' },
-  { durationKey: 'pricing.rows.single90.duration', priceKey: 'pricing.rows.single90.price' },
-  {
-    durationKey: 'pricing.rows.relax.duration',
-    priceKey: 'pricing.rows.relax.price',
-    packageKey: 'pricing.rows.relax.package',
-  },
-  {
-    durationKey: 'pricing.rows.recovery.duration',
-    priceKey: 'pricing.rows.recovery.price',
-    packageKey: 'pricing.rows.recovery.package',
-  },
-  {
-    durationKey: 'pricing.rows.premium.duration',
-    priceKey: 'pricing.rows.premium.price',
-    packageKey: 'pricing.rows.premium.package',
-  },
-  {
-    durationKey: 'pricing.rows.meditation.duration',
-    priceKey: 'pricing.rows.meditation.price',
-    packageKey: 'pricing.rows.meditation.package',
-  },
-]
-
 export function Pricing() {
   const t = useTranslations()
 
@@ -53,6 +20,16 @@ export function Pricing() {
         >
           {t('pricing.title')}
         </motion.h2>
+        
+        <motion.p
+          className={styles.note}
+          initial={{ opacity: 0, y: -10 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6, delay: 0.2 }}
+        >
+          {t('pricing.note')}
+        </motion.p>
         
         <div className={styles.content}>
           <motion.div
@@ -78,34 +55,125 @@ export function Pricing() {
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
           >
-            <table className={styles.table}>
-              <thead>
-                <tr>
-                  <th>{t('pricing.duration')}</th>
-                  <th className={styles.priceHeader}>{t('pricing.price')}</th>
-                </tr>
-              </thead>
-              <tbody>
-                {pricingData.map((item, index) => (
-                  <tr key={index} className={item.packageKey ? styles.packageRow : ''}>
+            {/* Partial Therapies */}
+            <div className={styles.section}>
+              <h3 className={styles.sectionTitle}>{t('pricing.sections.partial.title')}</h3>
+              <p className={styles.sectionSubtitle}>{t('pricing.sections.partial.subtitle')}</p>
+              <p className={styles.sectionAreas}>{t('pricing.sections.partial.areas')}</p>
+              <table className={styles.table}>
+                <thead>
+                  <tr>
+                    <th>{t('pricing.duration')}</th>
+                    <th className={styles.priceHeader}>{t('pricing.price')}</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
                     <td className={styles.durationCell}>
-                      <div className={styles.duration}>
-                        {t(item.durationKey)}
-                        {item.packageKey && (
-                          <span className={styles.packageInfo}>({t(item.packageKey)})</span>
-                        )}
-                      </div>
+                      <div className={styles.duration}>{t('pricing.sections.partial.40.duration')}</div>
                     </td>
                     <td className={styles.priceCell}>
-                      {item.originalKey && (
-                        <span className={styles.originalPrice}>{t(item.originalKey)}</span>
-                      )}
-                      <span className={styles.price}>{t(item.priceKey)}</span>
+                      <span className={styles.price}>{t('pricing.sections.partial.40.price')}</span>
                     </td>
                   </tr>
-                ))}
-              </tbody>
-            </table>
+                  <tr>
+                    <td className={styles.durationCell}>
+                      <div className={styles.duration}>{t('pricing.sections.partial.60.duration')}</div>
+                    </td>
+                    <td className={styles.priceCell}>
+                      <span className={styles.price}>{t('pricing.sections.partial.60.price')}</span>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            {/* Complete Therapies */}
+            <div className={styles.section}>
+              <h3 className={styles.sectionTitle}>{t('pricing.sections.complete.title')}</h3>
+              <p className={styles.sectionSubtitle}>{t('pricing.sections.complete.subtitle')}</p>
+              <table className={styles.table}>
+                <thead>
+                  <tr>
+                    <th>{t('pricing.duration')}</th>
+                    <th className={styles.priceHeader}>{t('pricing.price')}</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td className={styles.durationCell}>
+                      <div className={styles.duration}>{t('pricing.sections.complete.70.duration')}</div>
+                    </td>
+                    <td className={styles.priceCell}>
+                      <span className={styles.price}>{t('pricing.sections.complete.70.price')}</span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td className={styles.durationCell}>
+                      <div className={styles.duration}>{t('pricing.sections.complete.90.duration')}</div>
+                    </td>
+                    <td className={styles.priceCell}>
+                      <span className={styles.price}>{t('pricing.sections.complete.90.price')}</span>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            {/* Premium Therapy */}
+            <div className={styles.section}>
+              <h3 className={styles.sectionTitle}>{t('pricing.sections.premium.title')}</h3>
+              <p className={styles.sectionSubtitle}>{t('pricing.sections.premium.subtitle')}</p>
+              <table className={styles.table}>
+                <thead>
+                  <tr>
+                    <th>{t('pricing.duration')}</th>
+                    <th className={styles.priceHeader}>{t('pricing.price')}</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td className={styles.durationCell}>
+                      <div className={styles.duration}>{t('pricing.sections.premium.120.duration')}</div>
+                    </td>
+                    <td className={styles.priceCell}>
+                      <span className={styles.price}>{t('pricing.sections.premium.120.price')}</span>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            {/* Package Therapies */}
+            <div className={styles.section}>
+              <h3 className={styles.sectionTitle}>{t('pricing.sections.packages.title')}</h3>
+              <table className={styles.table}>
+                <thead>
+                  <tr>
+                    <th>{t('pricing.duration')}</th>
+                    <th className={styles.priceHeader}>{t('pricing.price')}</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr className={styles.packageRow}>
+                    <td className={styles.durationCell}>
+                      <div className={styles.duration}>{t('pricing.sections.packages.5.therapy')}</div>
+                    </td>
+                    <td className={styles.priceCell}>
+                      <span className={styles.price}>{t('pricing.sections.packages.5.discount')}</span>
+                    </td>
+                  </tr>
+                  <tr className={styles.packageRow}>
+                    <td className={styles.durationCell}>
+                      <div className={styles.duration}>{t('pricing.sections.packages.10.therapy')}</div>
+                    </td>
+                    <td className={styles.priceCell}>
+                      <span className={styles.price}>{t('pricing.sections.packages.10.discount')}</span>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
           </motion.div>
         </div>
       </div>
