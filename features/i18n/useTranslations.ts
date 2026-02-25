@@ -20,12 +20,12 @@ const translations: Translations = {
   'nav.destiny-matrix': { bg: 'Матрица', en: 'Matrix' },
   'nav.contact': { bg: 'Контакти', en: 'Contact' },
   'hero.services': {
-    bg: 'Масаж в Бургас и региона – Домашен масаж, мини спа и медитация',
-    en: 'Massage in Burgas and region – Home massage, mini spa and meditation',
+    bg: 'Масаж в Бургас, Свети Влас, Слънчев бряг, Несебър и региона – Домашен масаж, мини спа и медитация',
+    en: 'Massage in Burgas, St. Vlas, Sunny Beach, Nessebar and region – Home massage, mini spa and meditation',
   },
   'hero.cities': {
-    bg: 'Давам масажи и в Слънчев бряг, СветиВлас, Несебър, Кошарица, Равда, Поморие, Сарафово',
-    en: 'I offer massages also in Sunny Beach, St. Vlas, Nessebar, Kosharitsa, Ravda, Pomorie, Sarafovo',
+    bg: 'Давам масажи и в Кошарица, Равда, Поморие, Сарафово',
+    en: 'I offer massages also in Kosharitsa, Ravda, Pomorie, Sarafovo',
   },
   'hero.subtitle': { bg: 'Помагат с тревожност, стрес и паник атаки', en: 'Help with anxiety, stress and panic attacks' },
   'hero.motivational': { bg: 'Ръцете носят лечебна сила и топлина, която успокоява душата и лекува тялото. Всяко докосване е изкуство, всяко движение е грижа.', en: 'Your hands carry healing power and warmth that soothes the soul and heals the body. Every touch is art, every movement is care.' },
