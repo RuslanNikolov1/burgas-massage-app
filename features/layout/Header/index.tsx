@@ -6,19 +6,21 @@ import Image from 'next/image'
 import { useTranslations } from '@/features/i18n/useTranslations'
 import { LanguageSwitcher } from '@/features/i18n/LanguageSwitcher'
 import { MusicPlayer } from '@/features/ui/MusicPlayer'
+import { scrollToSectionId } from '@/lib/scroll-to-section'
 import styles from './Header.module.scss'
 
 const sections = [
-  { id: 'about', key: 'nav.about' },
-  { id: 'feedbacks', key: 'nav.feedbacks' },
-  { id: 'products', key: 'nav.products' },
-  { id: 'pricing', key: 'nav.pricing' },
-  { id: 'destiny-matrix', key: 'nav.destiny-matrix' },
-  { id: 'contact', key: 'nav.contact' },
+  { id: 'energy', key: 'nav.energy', ariaKey: 'nav.energy' },
+  { id: 'about', key: 'nav.about', ariaKey: 'nav.about' },
+  { id: 'feedbacks', key: 'nav.feedbacks', ariaKey: 'nav.feedbacks' },
+  { id: 'products', key: 'nav.products', ariaKey: 'nav.products' },
+  { id: 'pricing', key: 'nav.pricing', ariaKey: 'nav.pricing' },
+  { id: 'destiny-matrix', key: 'nav.destiny-matrix', ariaKey: 'nav.destiny-matrix' },
+  { id: 'contact', key: 'nav.contact', ariaKey: 'nav.contact' },
 ]
 
 export function Header() {
-  const [activeSection, setActiveSection] = useState('about')
+  const [activeSection, setActiveSection] = useState('energy')
   const [isScrolled, setIsScrolled] = useState(false)
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const t = useTranslations()
@@ -57,14 +59,7 @@ export function Header() {
     
     const element = document.getElementById(sectionId)
     if (element) {
-      const headerOffset = 60
-      const elementPosition = element.getBoundingClientRect().top
-      const offsetPosition = elementPosition + window.pageYOffset - headerOffset
-
-      window.scrollTo({
-        top: offsetPosition,
-        behavior: 'smooth'
-      })
+      scrollToSectionId(sectionId, { extraOffsetPx: sectionId === 'contact' ? 32 : 12 })
       setIsMenuOpen(false)
     }
   }
@@ -103,6 +98,7 @@ export function Header() {
                   onClick={(e) => handleNavClick(e, section.id)}
                   className={`${styles.navLink} ${activeSection === section.id ? styles.active : ''}`}
                   aria-current={activeSection === section.id ? 'page' : undefined}
+                  aria-label={t(section.ariaKey)}
                 >
                   {t(section.key)}
                 </a>

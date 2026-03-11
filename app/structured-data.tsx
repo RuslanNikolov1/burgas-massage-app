@@ -13,7 +13,7 @@ export function StructuredData() {
     alternateName: 'Burgas Massage',
     description: 'Професионален масаж в Бургас. Home massage, mini spa и медитация за справяне с тревожност, стрес и паник атаки.',
     url: siteUrl,
-    telephone: '+359-XXX-XXX-XXX', // Update with actual phone number
+    telephone: '+359-886-830-825',
     priceRange: '$$',
     address: {
       '@type': 'PostalAddress',
@@ -33,7 +33,9 @@ export function StructuredData() {
     image: `${siteUrl}/logo.png`,
     logo: `${siteUrl}/logo.png`,
     sameAs: [
-      // Add social media links here when available
+      'https://www.facebook.com/share/18Dxd94v7V/',
+      'https://www.instagram.com/batvu?utm_source=qr&igsh=MWZzbTdla3l4cThxZQ==',
+      'https://m.me/batvu',
     ],
     openingHoursSpecification: [
       {
@@ -96,8 +98,8 @@ export function StructuredData() {
       addressCountry: 'BG',
     },
     url: siteUrl,
-    telephone: '+359-XXX-XXX-XXX', // Update with actual phone number
-    description: 'Професионален масаж в Бургас с домашно посещение, мини спа и медитация.',
+    telephone: '+359-886-830-825',
+    description: 'Професионален масаж в Бургас с домашно посещение, мини спа и медитация за тревожност, стрес и паник атаки.',
   }
 
   return (

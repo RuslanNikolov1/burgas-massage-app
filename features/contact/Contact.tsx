@@ -35,7 +35,7 @@ const contactLinks = [
   { type: 'viber', url: 'viber://chat?number=%2B359886830825', label: 'Viber' },
   { type: 'messenger', url: 'https://m.me/batvu', label: 'Messenger' },
   { type: 'email', url: 'mailto:ivanvelichkov13@gmail.com', label: 'ivanvelichkov13@gmail.com' },
-  { type: 'facebook', url: 'https://www.facebook.com/search/pages?id=61584564035812', label: 'Facebook' },
+  { type: 'facebook', url: 'https://www.facebook.com/share/18Dxd94v7V/', label: 'Facebook Page' },
   { type: 'instagram', url: INSTAGRAM_URL, label: 'Instagram' },
 ]
 

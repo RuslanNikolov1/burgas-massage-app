@@ -94,13 +94,19 @@ export default function DestinyMatrix({ className = '' }: Props) {
   }
 
   return (
-    <section id="destiny-matrix" className={`${styles.root} ${className}`}>
+    <section
+      id="destiny-matrix"
+      className={`${styles.root} ${className}`}
+      aria-labelledby="destiny-matrix-title"
+    >
       <div className={styles.header}>
         <div className={styles.glowWrap}>
           <div className={styles.glow}></div>
-      </div>
-        <h1 className={styles.title}>{t('destiny.title')}</h1>
         </div>
+        <h2 id="destiny-matrix-title" className={styles.title}>
+          {t('destiny.title')}
+        </h2>
+      </div>
 
       <PersonalCalculator
         date={personalDate}

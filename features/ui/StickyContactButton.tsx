@@ -2,6 +2,7 @@
 
 import { useCallback } from 'react'
 import { useTranslations } from '@/features/i18n/useTranslations'
+import { scrollToSectionId } from '@/lib/scroll-to-section'
 import styles from './StickyContactButton.module.scss'
 
 export function StickyContactButton() {
@@ -14,14 +15,7 @@ export function StickyContactButton() {
 
     const target = document.getElementById('contact')
     if (target) {
-      const headerOffset = 60
-      const elementPosition = target.getBoundingClientRect().top
-      const offsetPosition = elementPosition + window.pageYOffset - headerOffset
-
-      window.scrollTo({
-        top: offsetPosition,
-        behavior: 'smooth'
-      })
+      scrollToSectionId('contact', { extraOffsetPx: 32 })
     } else {
       // Fallback for hash navigation
       window.location.href = '#contact'

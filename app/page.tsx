@@ -1,6 +1,6 @@
 'use client'
 
-import { Suspense } from 'react'
+import { Suspense, useEffect } from 'react'
 import dynamic from 'next/dynamic'
 
 import { Header } from '@/features/layout/Header'
@@ -26,6 +26,14 @@ const ClassicalMassage = dynamic(
   { 
     loading: () => <LoadingSkeleton />,
     ssr: true 
+  }
+)
+
+const Energy = dynamic(
+  () => import('@/features/energy/Energy').then(mod => ({ default: mod.Energy })),
+  {
+    loading: () => <LoadingSkeleton />,
+    ssr: true,
   }
 )
 
@@ -89,6 +97,31 @@ const Contact = dynamic(
 export default function Home() {
   const t = useTranslations()
 
+  useEffect(() => {
+    if (typeof window === 'undefined') return
+
+    const applyHashScrollFix = () => {
+      const hash = window.location.hash
+      if (!hash) return
+      const id = hash.replace('#', '')
+      if (!id) return
+
+      import('@/lib/scroll-to-section').then(mod =>
+        mod.scrollToSectionId(id, { extraOffsetPx: id === 'contact' ? 32 : 12 })
+      )
+    }
+
+    // When arriving from another page (e.g. /products/pindi -> /#contact)
+    // the browser may jump without accounting for the sticky header. Fix it.
+    const timer = window.setTimeout(applyHashScrollFix, 0)
+    window.addEventListener('hashchange', applyHashScrollFix)
+
+    return () => {
+      window.clearTimeout(timer)
+      window.removeEventListener('hashchange', applyHashScrollFix)
+    }
+  }, [])
+
   return (
     <>
       <StickyContactButton />
@@ -96,6 +129,9 @@ export default function Home() {
       <MusicMessage />
       <main role="main">
         <Hero />
+        <Suspense fallback={<LoadingSkeleton />}>
+          <Energy />
+        </Suspense>
         <Suspense fallback={<LoadingSkeleton />}>
           <ClassicalMassage />
         </Suspense>

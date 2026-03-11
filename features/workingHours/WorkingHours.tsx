@@ -3,23 +3,14 @@
 import { motion } from 'framer-motion'
 import Image from 'next/image'
 import { useTranslations } from '@/features/i18n/useTranslations'
+import { scrollToSectionId } from '@/lib/scroll-to-section'
 import styles from './WorkingHours.module.scss'
 
 export function WorkingHours() {
   const t = useTranslations()
 
   const handleScrollToContact = () => {
-    const contactSection = document.getElementById('contact');
-    if (contactSection) {
-      const headerOffset = 60;
-      const elementPosition = contactSection.getBoundingClientRect().top;
-      const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
-      
-      window.scrollTo({
-        top: offsetPosition,
-        behavior: 'smooth'
-      });
-    }
+    scrollToSectionId('contact', { extraOffsetPx: 32 })
   }
 
   return (
