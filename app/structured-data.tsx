@@ -18,8 +18,8 @@ export function StructuredData() {
     priceRange: '$$',
     address: {
       '@type': 'PostalAddress',
-      addressLocality: '',
-      addressRegion: '',
+      streetAddress: '',
+      addressLocality: 'Sveti Vlas / Nessebar / Sunny Beach',
       addressCountry: 'BG',
     },
     geo: {
@@ -27,7 +27,11 @@ export function StructuredData() {
       latitude: '42.5048',
       longitude: '27.4626',
     },
-    areaServed: undefined,
+    areaServed: [
+      { '@type': 'City', name: 'Sveti Vlas' },
+      { '@type': 'City', name: 'Nessebar' },
+      { '@type': 'City', name: 'Sunny Beach' },
+    ],
     image: `${siteUrl}/logo.png`,
     logo: `${siteUrl}/logo.png`,
     sameAs: [
