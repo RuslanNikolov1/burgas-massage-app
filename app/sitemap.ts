@@ -26,17 +26,43 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   return [
     {
-      url: siteUrl,
+      url: `${siteUrl}/bg`,
       lastModified,
       changeFrequency: 'weekly',
       priority: 1,
     },
-    ...sections.map(section => ({
-      url: `${siteUrl}/#${section.id}`,
+    {
+      url: `${siteUrl}/en`,
       lastModified,
-      changeFrequency: section.changeFrequency,
-      priority: section.priority,
-    })),
+      changeFrequency: 'weekly',
+      priority: 0.96,
+    },
+    {
+      url: `${siteUrl}/ru`,
+      lastModified,
+      changeFrequency: 'weekly',
+      priority: 0.92,
+    },
+    ...sections.flatMap(section => [
+      {
+        url: `${siteUrl}/bg#${section.id}`,
+        lastModified,
+        changeFrequency: section.changeFrequency,
+        priority: section.priority,
+      },
+      {
+        url: `${siteUrl}/en#${section.id}`,
+        lastModified,
+        changeFrequency: section.changeFrequency,
+        priority: section.priority,
+      },
+      {
+        url: `${siteUrl}/ru#${section.id}`,
+        lastModified,
+        changeFrequency: section.changeFrequency,
+        priority: section.priority,
+      },
+    ]),
   ]
 }
 

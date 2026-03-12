@@ -9,16 +9,17 @@ export function StructuredData() {
     '@context': 'https://schema.org',
     '@type': 'LocalBusiness',
     '@id': `${siteUrl}#business`,
-    name: 'Бургас Масаж',
-    alternateName: 'Burgas Massage',
-    description: 'Професионален масаж в Бургас. Home massage, mini spa и медитация за справяне с тревожност, стрес и паник атаки.',
+    name: 'Energy Massage Therapy',
+    alternateName: 'Energy Massage',
+    description:
+      'Професионален масаж, домашни масажи, mini spa и медитация за справяне с тревожност, стрес и паник атаки.',
     url: siteUrl,
     telephone: '+359-886-830-825',
     priceRange: '$$',
     address: {
       '@type': 'PostalAddress',
-      addressLocality: 'Бургас',
-      addressRegion: 'Бургас',
+      addressLocality: '',
+      addressRegion: '',
       addressCountry: 'BG',
     },
     geo: {
@@ -26,10 +27,7 @@ export function StructuredData() {
       latitude: '42.5048',
       longitude: '27.4626',
     },
-    areaServed: {
-      '@type': 'City',
-      name: 'Бургас',
-    },
+    areaServed: undefined,
     image: `${siteUrl}/logo.png`,
     logo: `${siteUrl}/logo.png`,
     sameAs: [
@@ -55,11 +53,9 @@ export function StructuredData() {
       '@type': 'LocalBusiness',
       '@id': `${siteUrl}#business`,
     },
-    areaServed: {
-      '@type': 'City',
-      name: 'Бургас',
-    },
-    description: 'Професионален масаж в Бургас. Home massage, mini spa и медитация за справяне с тревожност, стрес и паник атаки.',
+    areaServed: undefined,
+    description:
+      'Професионален масаж, домашни масажи, mini spa и медитация за справяне с тревожност, стрес и паник атаки.',
     offers: {
       '@type': 'Offer',
       priceCurrency: 'BGN',
@@ -70,9 +66,10 @@ export function StructuredData() {
   const personSchema = {
     '@context': 'https://schema.org',
     '@type': 'Person',
-    name: 'Burgas Massage Therapist',
+    name: 'Massage Therapist',
     jobTitle: 'Certified Massage Therapist',
-    description: 'Сертифициран класически масажист в Бургас, специализиран в релаксационни и терапевтични масажи.',
+    description:
+      'Сертифициран класически масажист, специализиран в релаксационни и терапевтични масажи.',
     knowsAbout: [
       'Classical Massage',
       'Swedish Massage',
@@ -90,16 +87,13 @@ export function StructuredData() {
   const healthAndBeautyBusinessSchema = {
     '@context': 'https://schema.org',
     '@type': 'HealthAndBeautyBusiness',
-    name: 'Масаж в Бургас',
+    name: 'Професионален масаж и мини спа',
     image: `${siteUrl}/logo.png`,
-    address: {
-      '@type': 'PostalAddress',
-      addressLocality: 'Бургас',
-      addressCountry: 'BG',
-    },
+    address: undefined,
     url: siteUrl,
     telephone: '+359-886-830-825',
-    description: 'Професионален масаж в Бургас с домашно посещение, мини спа и медитация за тревожност, стрес и паник атаки.',
+    description:
+      'Професионален масаж с домашно посещение, мини спа и медитация за тревожност, стрес и паник атаки.',
   }
 
   return (

@@ -31,9 +31,9 @@ export function Hero() {
             <h1 className={styles.title}>
               {t('hero.services')}
             </h1>
-            <p className={styles.subtitle}>
+            {/* <p className={styles.subtitle}>
               {t('hero.subtitle')}
-            </p>
+            </p> */}
             <p className={styles.motivational}>
               {t('hero.motivational')}
             </p>

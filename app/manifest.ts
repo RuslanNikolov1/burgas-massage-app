@@ -6,9 +6,10 @@ export const revalidate = 86400 // 24 hours
 
 export default function manifest(): MetadataRoute.Manifest {
   return {
-    name: 'Енергиен Масаж Терапия - Професионален масаж в Бургас',
+    name: 'Енергиен Масаж Терапия - Професионален масаж',
     short_name: 'Energy Massage',
-    description: 'Професионална масажна терапия у дома в Бургас. Класически масаж, чакри балансиране и Destiny Matrix консултации.',
+    description:
+      'Професионална масажна терапия у дома. Класически масаж, чакри балансиране и Destiny Matrix консултации.',
     start_url: '/',
     scope: '/',
     display: 'standalone',

@@ -2,108 +2,137 @@
 
 import { useState, useEffect, useMemo } from 'react'
 
+type SupportedLanguage = 'bg' | 'en' | 'ru'
+
 type Translations = {
   [key: string]: {
     bg: string
     en: string
+    ru?: string
   }
 }
 
 const translations: Translations = {
-  'nav.home': { bg: 'Начало', en: 'Home' },
-  'nav.classical-massage': { bg: 'Класически масаж', en: 'Classical Massage' },
-  'nav.chakras': { bg: 'Чакри', en: 'Chakras' },
-  'nav.about': { bg: 'За мен', en: 'About' },
-  'nav.energy': { bg: 'Енергия', en: 'Energy' },
-  'nav.feedbacks': { bg: 'Отзиви', en: 'Reviews' },
-  'nav.products': { bg: 'Продукти', en: 'Products' },
-  'nav.pricing': { bg: 'Цени', en: 'Pricing' },
-  'nav.destiny-matrix': { bg: 'Матрица', en: 'Matrix' },
-  'nav.contact': { bg: 'Контакти', en: 'Contact' },
+  'nav.home': { bg: 'Начало', en: 'Home', ru: 'Главная' },
+  'nav.classical-massage': {
+    bg: 'Класически масаж',
+    en: 'Classical Massage',
+    ru: 'Классический массаж',
+  },
+  'nav.chakras': { bg: 'Чакри', en: 'Chakras', ru: 'Чакры' },
+  'nav.about': { bg: 'За мен', en: 'About', ru: 'Обо мне' },
+  'nav.energy': { bg: 'Енергия', en: 'Energy', ru: 'Энергия' },
+  'nav.feedbacks': { bg: 'Отзиви', en: 'Reviews', ru: 'Отзывы' },
+  'nav.products': { bg: 'Продукти', en: 'Products', ru: 'Продукты' },
+  'nav.pricing': { bg: 'Цени', en: 'Pricing', ru: 'Цены' },
+  'nav.destiny-matrix': { bg: 'Матрица', en: 'Matrix', ru: 'Матрица судьбы' },
+  'nav.contact': { bg: 'Контакти', en: 'Contact', ru: 'Контакты' },
   'hero.services': {
-    bg: 'Масаж в Бургас, Свети Влас, Слънчев бряг, Несебър и региона – домашен масаж, мини спа и медитация при тревожност, стрес и паник атаки',
-    en: 'Massage in Burgas, St. Vlas, Sunny Beach, Nessebar and region – home massage, mini spa and meditation for anxiety, stress and panic attacks',
+    bg: 'Масаж в Свети Влас, Несебър и Слънчев бряг – домашен масаж, мини спа и медитация при тревожност, стрес и паник атаки',
+    en: 'Massage in Sveti Vlas, Nessebar and Sunny Beach – home massage, mini spa and meditation for anxiety, stress and panic attacks',
+    ru: 'Массаж в Святом Власе, Несебре и Солнечном Береге — выездной массаж на дом, мини-спа и медитация при тревожности, стрессе и панических атаках',
   },
   'hero.cities': {
     bg: 'Давам масажи и в Кошарица, Равда, Поморие, Сарафово',
     en: 'I offer massages also in Kosharitsa, Ravda, Pomorie, Sarafovo',
+    ru: 'Также провожу массаж в Кошарице, Равде, Поморие и Сарафово',
   },
   'hero.subtitle': {
-    bg: 'Професионални масажи в Бургас за облекчаване на тревожност, стрес, паник атаки и болки в гърба',
-    en: 'Professional massages in Burgas to ease anxiety, stress, panic attacks and back pain',
+    bg: 'Професионални масажи за облекчаване на тревожност, стрес, паник атаки и болки в гърба',
+    en: 'Professional massages to ease anxiety, stress, panic attacks and back pain',
+    ru: 'Профессиональные массажи для снижения тревожности, стресса, панических атак и болей в спине',
   },
-  'hero.motivational': { bg: 'Ръцете носят лечебна сила и топлина, която успокоява душата и лекува тялото. Всяко докосване е изкуство, всяко движение е грижа.', en: 'Your hands carry healing power and warmth that soothes the soul and heals the body. Every touch is art, every movement is care.' },
+  'hero.motivational': {
+    bg: 'Ръцете носят лечебна сила и топлина, която успокоява душата и лекува тялото. Всяко докосване е изкуство, всяко движение е грижа.',
+    en: 'Your hands carry healing power and warmth that soothes the soul and heals the body. Every touch is art, every movement is care.',
+    ru: 'Руки несут исцеляющую силу и тепло, которые успокаивают душу и исцеляют тело. Каждое прикосновение — искусство, каждое движение — забота.',
+  },
   'energy.title': {
-    bg: 'Енергийна терапия в Бургас – невидимата сила, която носи позитивни промени',
-    en: 'Energy therapy in Burgas — the invisible force that brings positive change',
+    bg: 'Енергийна терапия – невидимата сила, която носи позитивни промени',
+    en: 'Energy therapy — the invisible force that brings positive change',
+    ru: 'Энергетическая терапия — невидимая сила, которая приносит позитивные изменения',
   },
-  'energy.introTitle': { bg: 'Въведение', en: 'Introduction' },
+  'energy.introTitle': { bg: 'Въведение', en: 'Introduction', ru: 'Введение' },
   'energy.intro': {
     bg: 'Енергията не е просто материален предмет, тя е невидима, но мощна сила, която се предава чрез специални енергийни канали. Тези канали свързват хората и позволяват на позитивните чувства да се разпространяват и усилват.',
     en: 'Energy isn’t a physical object—it’s an invisible yet powerful force that moves through special energetic channels. These channels connect people and allow positive feelings to spread and grow stronger.',
+    ru: 'Энергия — это не материальный объект, а невидимая, но мощная сила, которая передаётся по особым энергетическим каналам. Эти каналы соединяют людей и помогают положительным чувствам распространяться и усиливаться.',
   },
-  'energy.mainMessageTitle': { bg: 'Основно послание', en: 'Main message' },
+  'energy.mainMessageTitle': { bg: 'Основно послание', en: 'Main message', ru: 'Главное послание' },
   'energy.mainMessage': {
     bg: 'Някои хора са надарени с уникални способности да усещат и трансформират енергията около себе си. Аз съм един от тях – приемам негативната енергия от околните, изпивам я и я преобразувам в защитена, положителна среда. Така създавам баланс и хармония, които влияят благотворно на духа и тялото.',
     en: 'Some people are gifted with the ability to sense and transform the energy around them. I’m one of them—I absorb negative energy from others and transform it into a protected, positive environment. This creates balance and harmony that supports both spirit and body.',
+    ru: 'Некоторые люди обладают уникальной способностью чувствовать и трансформировать энергию вокруг себя. Я один из них — принимаю негативную энергию от окружающих и превращаю её в защищённое, позитивное пространство. Так создаются баланс и гармония, поддерживающие и душу, и тело.',
   },
-  'energy.howWorksTitle': { bg: 'Как работи', en: 'How it works' },
+  'energy.howWorksTitle': { bg: 'Как работи', en: 'How it works', ru: 'Как это работает' },
   'energy.howWorks.1': {
     bg: 'Енергийните канали са като невидими пътища, по които тече енергията между хората.',
     en: 'Energetic channels are like invisible pathways through which energy flows between people.',
+    ru: 'Энергетические каналы — это как невидимые пути, по которым энергия течёт между людьми.',
   },
   'energy.howWorks.2': {
     bg: 'Когато усетя негативна енергия, аз я приемам и трансформирам чрез специални техники и вътрешна сила.',
     en: 'When I sense negative energy, I absorb and transform it through specific techniques and inner strength.',
+    ru: 'Когда я ощущаю негативную энергию, я принимаю и трансформирую её с помощью специальных техник и внутренней силы.',
   },
   'energy.howWorks.3': {
     bg: 'Резултатът е защита и позитивна енергия, която се връща обратно към хората и средата около тях.',
     en: 'The result is protection and positive energy that returns back to people and the space around them.',
+    ru: 'Результат — защита и позитивная энергия, которая возвращается к людям и заполняет пространство вокруг них.',
   },
   'energy.cta': {
     bg: 'Ако искаш да изпиташ силата на позитивната енергия и да се освободиш от негативните влияния, свържи се с мен. Предлагам безплатни промоции и сесии, за да усетиш промяната още сега.',
     en: 'If you want to experience the power of positive energy and free yourself from negative influences, get in touch. I offer free promotions and sessions so you can feel the change right away.',
+    ru: 'Если вы хотите почувствовать силу позитивной энергии и освободиться от негативного влияния, свяжитесь со мной. Я предлагаю промо-сессии и специальные предложения, чтобы вы могли ощутить изменения уже сейчас.',
   },
-  'about.title': { bg: 'За мен', en: 'About Me' },
+  'about.title': { bg: 'За мен', en: 'About Me', ru: 'Обо мне' },
   'about.mission': {
     bg: 'Като масажист и енергиен терапевт, помагам на хората да възстановят вътрешния си баланс и да се освободят от стреса. Работя с професионален холистичен подход, съчетавайки масаж и енергийна терапия за физическо и емоционално благополучие.',
-    en: 'As a massage therapist and energy practitioner, I help people restore their inner balance and release stress. I work with a professional holistic approach, combining massage and energy therapy for physical and emotional well-being.'
+    en: 'As a massage therapist and energy practitioner, I help people restore their inner balance and release stress. I work with a professional holistic approach, combining massage and energy therapy for physical and emotional well-being.',
+    ru: 'Как массажист и специалист по энерготерапии, я помогаю людям восстановить внутренний баланс и освободиться от стресса. Я работаю в профессиональном холистическом подходе, сочетая массаж и энергетическую терапию для физического и эмоционального благополучия.',
   },
   'about.mission2': {
     bg: 'Всяка сесия е персонализирана според нуждите на клиента. Създавам безопасно пространство за облекчение от болка, намаляване на стреса и подобряване на здраве и жизненост.',
-    en: 'Each session is personalized according to the client\'s needs. I create a safe space for pain relief, stress reduction, and improved health and vitality.'
+    en: 'Each session is personalized according to the client\'s needs. I create a safe space for pain relief, stress reduction, and improved health and vitality.',
+    ru: 'Каждый сеанс настраивается под ваши индивидуальные потребности. Я создаю безопасное пространство для снятия боли, снижения стресса и улучшения здоровья и жизненных сил.',
   },
   'about.mission3': {
     bg: 'Сертифициран съм в класически и терапевтични масажи и постоянно усъвършенствам знанията си. Моята цел е да помогна на всеки клиент да намери своя път към по-добро самочувствие и цялостно здраве.',
-    en: 'I am certified in classical and therapeutic massage and continuously improve my knowledge. My goal is to help each client find their path to better well-being and overall health.'
+    en: 'I am certified in classical and therapeutic massage and continuously improve my knowledge. My goal is to help each client find their path to better well-being and overall health.',
+    ru: 'Я сертифицирован в классическом и терапевтическом массаже и постоянно развиваю свои навыки. Моя цель — помочь каждому клиенту найти свой путь к лучшему самочувствию и всестороннему здоровью.',
   },
-  'about.whatTitle': { bg: 'Какво правя', en: 'What I do' },
+  'about.whatTitle': { bg: 'Какво правя', en: 'What I do', ru: 'Чем я занимаюсь' },
   'about.what.items.1': {
     bg: 'Извършвам индивидуални масажни терапии за отпускане на мускулите, подобряване на кръвообращението и намаляване на болката.',
-    en: 'I provide individual massage sessions that relax muscles, improve circulation, and ease pain.'
+    en: 'I provide individual massage sessions that relax muscles, improve circulation, and ease pain.',
+    ru: 'Провожу индивидуальные массажные сеансы, которые расслабляют мышцы, улучшают кровообращение и снимают боль.',
   },
   'about.what.items.2': {
     bg: 'Работя с енергийни практики за хармонизиране на енергийните потоци и освобождаване на блокажи.',
-    en: 'I work with energy practices that harmonize the body’s flow and release energetic blockages.'
+    en: 'I work with energy practices that harmonize the body’s flow and release energetic blockages.',
+    ru: 'Использую энергетические практики, чтобы гармонизировать потоки в теле и мягко освобождать энергетические блоки.',
   },
   'about.what.items.3': {
     bg: 'Създавам лично пространство за спокойствие, регенерация и вътрешна яснота.',
-    en: 'I create a personal space for calm, regeneration, and inner clarity.'
+    en: 'I create a personal space for calm, regeneration, and inner clarity.',
+    ru: 'Создаю личное пространство для спокойствия, восстановления и внутренней ясности.',
   },
   'about.what.items.4': {
     bg: 'Подхождам с внимание, грижа и интуитивно усещане към нуждите на всеки клиент.',
-    en: 'I approach every client with attentive care and an intuitive feel for their needs.'
+    en: 'I approach every client with attentive care and an intuitive feel for their needs.',
+    ru: 'К каждому клиенту подхожу с вниманием, заботой и интуитивным пониманием его потребностей.',
   },
-  'about.philosophyTitle': { bg: 'Моята философия', en: 'My philosophy' },
+  'about.philosophyTitle': { bg: 'Моята философия', en: 'My philosophy', ru: 'Моя философия' },
   'about.philosophyDescription': {
     bg: 'Вярвам, че тялото и енергията са тясно свързани. Когато двете работят в хармония, човек се чувства по-здрав, по-спокоен и по-силен. Чрез масаж и енергийна терапия помагам на клиентите си да постигнат това състояние на цялостен баланс.',
-    en: 'I believe the body and its energy are deeply connected. When they move in harmony we feel healthier, calmer, and stronger. Through massage and energy therapy I support clients in reaching that state of holistic balance.'
+    en: 'I believe the body and its energy are deeply connected. When they move in harmony we feel healthier, calmer, and stronger. Through massage and energy therapy I support clients in reaching that state of holistic balance.',
+    ru: 'Я верю, что тело и энергия глубоко связаны. Когда они находятся в гармонии, мы чувствуем себя здоровее, спокойнее и сильнее. Через массаж и энерготерапию я помогаю клиентам прийти к этому состоянию целостного баланса.',
   },
   'classic.label': { bg: 'Класически масаж', en: 'Classical Massage' },
   'classic.heading': { bg: 'Класически масаж', en: 'Classical Massage' },
   'classic.description': {
-    bg: 'Класическият (шведски) масаж в Бургас комбинира плавни ефльоражни движения, месене и нежни мобилизации в ставите. Първо успокоява нервната система, за да омекне тялото и последващата работа да бъде безболезнена. Подходящ е при хроничен стрес, тревожност, паник атаки и болки в гърба. Всяка сесия се адаптира спрямо състоянието ви в момента — за заземяване, зареждане или насочено освобождаване на упорито напрежение.',
-    en: 'Classical (Swedish) massage in Burgas blends flowing effleurage strokes, kneading, and gentle joint mobilizations. It calms the nervous system first so the body softens and deeper work stays comfortable. It is suitable for chronic stress, anxiety, panic attacks and back pain. Every session is adjusted to how you arrive—grounding, energizing, or focusing on stubborn tension.',
+    bg: 'Класическият (шведски) масаж комбинира плавни ефльоражни движения, месене и нежни мобилизации в ставите. Първо успокоява нервната система, за да омекне тялото и последващата работа да бъде безболезнена. Подходящ е при хроничен стрес, тревожност, паник атаки и болки в гърба. Всяка сесия се адаптира спрямо състоянието ви в момента — за заземяване, зареждане или насочено освобождаване на упорито напрежение.',
+    en: 'Classical (Swedish) massage blends flowing effleurage strokes, kneading, and gentle joint mobilizations. It calms the nervous system first so the body softens and deeper work stays comfortable. It is suitable for chronic stress, anxiety, panic attacks and back pain. Every session is adjusted to how you arrive—grounding, energizing, or focusing on stubborn tension.',
   },
   'classic.bedAlt1': { bg: 'Масажно легло с подредени кърпи', en: 'Massage table with neatly folded towels' },
   'classic.bedAlt2': { bg: 'Подготвено пространство за класически масаж', en: 'Prepared space for a classical massage' },
@@ -212,7 +241,7 @@ const translations: Translations = {
   'feedbacks.items.1.text': { bg: 'Невероятен опит! Масажът беше много професионален и релаксиращ. Напълно препоръчвам!', en: 'Amazing experience! The massage was professional and deeply relaxing. Highly recommend!' },
   'feedbacks.items.1.date': { bg: '15 Декември 2024', en: '15 December 2024' },
   'feedbacks.items.2.name': { bg: 'Иван Георгиев', en: 'Ivan Georgiev' },
-  'feedbacks.items.2.text': { bg: 'Отличен масажист в Бургас! Помогна ми много с хроничните болки в гърба и напрежението в кръста. Определено ще се върна отново.', en: 'Excellent therapist in Burgas! Helped a lot with my chronic back pain and lower back tension. I will definitely return.' },
+  'feedbacks.items.2.text': { bg: 'Отличен масажист! Помогна ми много с хроничните болки в гърба и напрежението в кръста. Определено ще се върна отново.', en: 'Excellent therapist! Helped a lot with my chronic back pain and lower back tension. I will definitely return.' },
   'feedbacks.items.2.date': { bg: '12 Декември 2024', en: '12 December 2024' },
   'feedbacks.items.3.name': { bg: 'Елена Димитрова', en: 'Elena Dimitrova' },
   'feedbacks.items.3.text': { bg: 'Много спокоен и професионален подход. Медитацията срещу тревожност и паник атаки беше невероятна. Благодаря!', en: 'Very calm and professional approach. The meditation for anxiety and panic attacks was incredible. Thank you!' },
@@ -221,10 +250,10 @@ const translations: Translations = {
   'feedbacks.items.4.text': { bg: 'Първият ми масаж и беше страхотен! Много релаксиращ и професионален. Препоръчвам!', en: 'My first massage and it was great! Very relaxing and professional. Recommend!' },
   'feedbacks.items.4.date': { bg: '8 Декември 2024', en: '8 December 2024' },
   'feedbacks.items.5.name': { bg: 'Анна Иванова', en: 'Anna Ivanova' },
-  'feedbacks.items.5.text': { bg: 'Отлично обслужване и много добър масаж в Бургас. Помогна ми с тревожността и безсънието. Благодаря много!', en: 'Excellent service and a great massage in Burgas. Helped with my anxiety and insomnia. Many thanks!' },
+  'feedbacks.items.5.text': { bg: 'Отлично обслужване и много добър масаж. Помогна ми с тревожността и безсънието. Благодаря много!', en: 'Excellent service and a great massage. Helped with my anxiety and insomnia. Many thanks!' },
   'feedbacks.items.5.date': { bg: '5 Декември 2024', en: '5 December 2024' },
   'feedbacks.items.6.name': { bg: 'Димитър Николов', en: 'Dimitar Nikolov' },
-  'feedbacks.items.6.text': { bg: 'Професионален масаж и много приятна атмосфера. Определено най-добрият в Бургас!', en: 'Professional massage and a lovely atmosphere. Definitely the best in Burgas!' },
+  'feedbacks.items.6.text': { bg: 'Професионален масаж и много приятна атмосфера. Определено един от най-добрите!', en: 'Professional massage and a lovely atmosphere. Definitely one of the best!' },
   'feedbacks.items.6.date': { bg: '3 Декември 2024', en: '3 December 2024' },
   'products.title': { bg: 'Масажни продукти', en: 'Massage Products' },
   'products.storeMessage': { bg: 'Онлайн магазинът е в разработка', en: 'Online store under development' },
@@ -310,16 +339,16 @@ const translations: Translations = {
   'nav.mainNavigation': { bg: 'Основна навигация', en: 'Main navigation' },
   'nav.menuOpen': { bg: 'Отвори меню', en: 'Open menu' },
   'nav.menuClose': { bg: 'Затвори меню', en: 'Close menu' },
-  'nav.logoAria': { bg: 'Бургас Масаж - Начална страница', en: 'Burgas Massage - Home page' },
+  'nav.logoAria': { bg: 'Massage Therapy - Начална страница', en: 'Massage Therapy - Home page' },
   'destiny.dateOfBirth': { bg: 'Дата на раждане', en: 'Date of birth' },
   'destiny.name': { bg: 'Име', en: 'Name' },
   'destiny.partner1DateOfBirth': { bg: 'Дата на раждане на партньор 1', en: 'Partner 1 date of birth' },
   'destiny.partner2DateOfBirth': { bg: 'Дата на раждане на партньор 2', en: 'Partner 2 date of birth' },
   'destiny.namePlaceholder': { bg: 'Име', en: 'Name' },
-  'hero.logoAlt': { bg: 'Бургас Масаж - Професионален масаж и релаксация в Бургас', en: 'Burgas Massage - Professional massage and relaxation in Burgas' },
-  'hero.massageAlt': { bg: 'Професионален масажист в Бургас предлагащ домашни масажи, мини спа и медитация услуги', en: 'Professional massage therapist in Burgas offering home massages, mini spa and meditation services' },
-  'nav.logoAlt': { bg: 'Бургас Масаж - Професионален масаж и релаксация', en: 'Burgas Massage - Professional massage and relaxation' },
-  'contact.meditationAlt': { bg: 'Медитация и релаксация услуги в Бургас за справяне с тревожност и стрес', en: 'Meditation and relaxation services in Burgas for managing anxiety and stress' },
+  'hero.logoAlt': { bg: 'Massage Therapy - Професионален масаж и релаксация', en: 'Massage Therapy - Professional massage and relaxation' },
+  'hero.massageAlt': { bg: 'Професионален масажист предлагащ домашни масажи, мини спа и медитация услуги', en: 'Professional massage therapist offering home massages, mini spa and meditation services' },
+  'nav.logoAlt': { bg: 'Massage Therapy - Професионален масаж и релаксация', en: 'Massage Therapy - Professional massage and relaxation' },
+  'contact.meditationAlt': { bg: 'Медитация и релаксация услуги за справяне с тревожност и стрес', en: 'Meditation and relaxation services for managing anxiety and stress' },
   'destiny.partner1': { bg: 'Партньор 1', en: 'Partner 1' },
   'destiny.partner2': { bg: 'Партньор 2', en: 'Partner 2' },
   'destiny.enterDate': { bg: 'Въведете датата си на раждане:', en: 'Enter your date of birth:' },
@@ -421,10 +450,43 @@ const translations: Translations = {
   },
 }
 
-const getLanguage = (): 'bg' | 'en' => {
+const detectLanguageFromPath = (): SupportedLanguage | null => {
+  if (typeof window === 'undefined') {
+    return null
+  }
+
+  const path = window.location.pathname.toLowerCase()
+
+  if (path === '/en' || path.startsWith('/en/')) {
+    return 'en'
+  }
+
+  if (path === '/bg' || path.startsWith('/bg/')) {
+    return 'bg'
+  }
+
+  if (path === '/ru' || path.startsWith('/ru/')) {
+    return 'ru'
+  }
+
+  return null
+}
+
+const getLanguage = (): SupportedLanguage => {
   if (typeof window !== 'undefined') {
+    const pathLang = detectLanguageFromPath()
+
+    if (pathLang) {
+      try {
+        localStorage.setItem('language', pathLang)
+      } catch {
+        // ignore write errors
+      }
+      return pathLang
+    }
+
     try {
-      const saved = localStorage.getItem('language') as 'bg' | 'en' | null
+      const saved = localStorage.getItem('language') as SupportedLanguage | null
       return saved || 'bg'
     } catch {
       return 'bg'
@@ -434,7 +496,7 @@ const getLanguage = (): 'bg' | 'en' => {
 }
 
 function useLanguageState() {
-  const [languageState, setLanguageState] = useState<'bg' | 'en'>(() => getLanguage())
+  const [languageState, setLanguageState] = useState<SupportedLanguage>(() => getLanguage())
   const [mounted, setMounted] = useState(false)
 
   useEffect(() => {
@@ -472,4 +534,3 @@ export function useTranslations() {
 
   return t
 }
-

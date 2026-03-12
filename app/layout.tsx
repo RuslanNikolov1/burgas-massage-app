@@ -7,32 +7,26 @@ import { LanguageProvider } from '@/features/i18n/LanguageProvider'
 export const dynamic = 'force-static'
 export const revalidate = 86400 // 24 hours
 
-const rawSiteUrl =
+export const rawSiteUrl =
   process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/$/, '') || 'https://energymassagetherapy.com'
-const siteUrl = rawSiteUrl.startsWith('http://') || rawSiteUrl.startsWith('https://')
+export const siteUrl = rawSiteUrl.startsWith('http://') || rawSiteUrl.startsWith('https://')
   ? rawSiteUrl
   : `https://${rawSiteUrl}`
 
-const defaultTitle = 'Масаж в Бургас – Домашен масаж, мини спа и медитация'
-const defaultDescription =
-  'Професионален масаж в Бургас с домашно посещение. Релаксиращ, дълбокотъканен и терапевтичен масаж, мини спа ритуали и водена медитация за тревожност, стрес и паник атаки. Запазете час още днес.'
-const keywordList = [
-  'масаж Бургас',
-  'масажист Бургас',
-  'релаксиращ масаж Бургас',
-  'дълбокотъканен масаж Бургас',
-  'домашен масаж Бургас',
-  'антистрес масаж Бургас',
-  'масаж при тревожност Бургас',
-  'масаж при паник атаки Бургас',
+export const defaultTitle =
+  'Масаж в Свети Влас, Несебър и Слънчев бряг – Домашен масаж, мини спа и медитация'
+export const defaultDescription =
+  'Професионален масаж в Свети Влас, Несебър и Слънчев бряг с домашно посещение. Релаксиращ, дълбокотъканен и терапевтичен масаж, мини спа ритуали и водена медитация за тревожност, стрес и паник атаки. Запазете час още днес.'
+export const keywordList = [
   'масаж Свети Влас',
-  'масаж Слънчев бряг',
   'масаж Несебър',
-  'масаж Поморие',
-  'енергийна терапия Бургас',
-  'mini spa Burgas',
-  'home massage Burgas',
-  'massage therapist Burgas',
+  'масаж Слънчев бряг',
+  'massage Sveti Vlas',
+  'massage Nessebar',
+  'massage Sunny Beach',
+  'массаж Святой Влас',
+  'массаж Несебр',
+  'массаж Солнечный берег',
 ]
 
 export const metadata: Metadata = {
@@ -69,20 +63,20 @@ export const metadata: Metadata = {
   manifest: '/site.webmanifest',
   openGraph: {
     type: 'website',
-    locale: 'bg_BG',
-    alternateLocale: ['en_US'],
+    locale: 'bg',
+    alternateLocale: ['en_US', 'ru_RU'],
     url: siteUrl,
-    siteName: 'Energy Massage Therapy Burgas',
+      siteName: 'Energy Massage Therapy',
     title: defaultTitle,
     description: defaultDescription,
-    images: [
-      {
-        url: `${siteUrl}/logo.png`,
-        width: 1200,
-        height: 630,
-        alt: 'Energy Massage Therapy – професионален масаж и медитация в Бургас',
-      },
-    ],
+      images: [
+        {
+          url: `${siteUrl}/logo.png`,
+          width: 1200,
+          height: 630,
+          alt: 'Energy Massage Therapy – професионален масаж и медитация',
+        },
+      ],
   },
   twitter: {
     card: 'summary_large_image',
@@ -104,14 +98,16 @@ export const metadata: Metadata = {
   alternates: {
     canonical: siteUrl,
     languages: {
-      'bg-BG': siteUrl,
-      'en-US': `${siteUrl}/en`,
+      'bg-BG': `${siteUrl}/bg`,
+      en: `${siteUrl}/en`,
+      ru: `${siteUrl}/ru`,
+      'x-default': siteUrl,
     },
   },
   category: 'Health & Wellness',
   other: {
     'geo.region': 'BG-02',
-    'geo.placename': 'Burgas',
+    'geo.placename': '',
     'geo.position': '42.5048;27.4626',
     ICBM: '42.5048, 27.4626',
   },

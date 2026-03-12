@@ -43,7 +43,7 @@ export function WorkingHours() {
           >
             <Image
               src="/bed.png"
-              alt="Професионално масажно легло за домашни масажи и релаксация в Бургас"
+              alt="Професионално масажно легло за домашни масажи и релаксация"
               width={400}
               height={300}
               className={styles.bedImage}

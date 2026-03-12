@@ -71,7 +71,7 @@ export function Products() {
                 <div className={styles.imagePlaceholder}>
                   <Image
                     src={product.image}
-                    alt={`${t(product.nameKey)} - ${t(product.shortDescriptionKey)} - Massage products in Burgas`}
+                    alt={`${t(product.nameKey)} - ${t(product.shortDescriptionKey)} - Massage products`}
                     width={400}
                     height={300}
                     className={styles.productImage}

@@ -49,7 +49,7 @@ export function About() {
           >
             <Image
               src="/New Profile Pic.jpg"
-              alt="Сертифициран масажист в Бургас, специализиран в класически и терапевтични масажи"
+              alt="Сертифициран масажист, специализиран в класически и терапевтични масажи"
               width={400}
               height={500}
               className={styles.image}
@@ -89,7 +89,7 @@ export function About() {
           <div className={styles.galleryImageWrapper}>
             <Image
               src="/massage-1.jpg"
-              alt="Професионален масаж в Бургас"
+              alt="Професионален масаж и релаксация"
               width={600}
               height={400}
               className={styles.galleryImage}
