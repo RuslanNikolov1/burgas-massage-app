@@ -98,7 +98,7 @@ export function generateMetadata({ params }: PageProps): Metadata {
     alternates: {
       canonical,
       languages: {
-        'bg-BG': `${siteUrl}/bg`,
+        bg: `${siteUrl}/bg`,
         en: `${siteUrl}/en`,
         ru: `${siteUrl}/ru`,
         'x-default': siteUrl,

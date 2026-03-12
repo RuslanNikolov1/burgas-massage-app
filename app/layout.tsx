@@ -98,7 +98,7 @@ export const metadata: Metadata = {
   alternates: {
     canonical: siteUrl,
     languages: {
-      'bg-BG': `${siteUrl}/bg`,
+      bg: `${siteUrl}/bg`,
       en: `${siteUrl}/en`,
       ru: `${siteUrl}/ru`,
       'x-default': siteUrl,
